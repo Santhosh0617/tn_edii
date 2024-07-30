@@ -7,7 +7,6 @@ Future<void> commonBottomSheet(BuildContext context, child) {
       isScrollControlled: true,
       useRootNavigator: true,
       clipBehavior: Clip.antiAliasWithSaveLayer,
-      backgroundColor: Palette.bg,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
               top: Radius.circular(SizeUnit.borderRadius * 2))),
