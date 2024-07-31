@@ -114,7 +114,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void onRegister() {
-    AuthRepository().navigateHome(context);
+    // AuthRepository().navigateHome(context);
+    context.push(Routes.otp);
+
     return;
     if (_formKey.hasError) return;
     Map<String, dynamic> params = {
