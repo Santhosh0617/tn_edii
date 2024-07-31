@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter/services.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:provider/provider.dart';
 import 'package:tn_edii/common/widgets/buttons.dart';
 import 'package:tn_edii/common/widgets/text.dart';
-import 'package:tn_edii/constants/assets/local_images.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/providers/info_provider.dart';
