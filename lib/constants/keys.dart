@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 //declare encrypted prefs
 AndroidOptions _getAndroidOptions() =>
     const AndroidOptions(encryptedSharedPreferences: true);
-final storage = FlutterSecureStorage(aOptions: _getAndroidOptions());
+final securedStorage = FlutterSecureStorage(aOptions: _getAndroidOptions());
 final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
 
 //declare logger

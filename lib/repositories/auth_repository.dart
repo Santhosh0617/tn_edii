@@ -22,13 +22,44 @@ class AuthRepository {
     return true;
   }
 
+  Future<bool> register(
+      BuildContext context, Map<String, dynamic> params) async {
+    authProvider.isLoading = true;
+    ResponseData responseData =
+        await APIService().post(context, 'user/register', body: params);
+    authProvider.isLoading = false;
+    if (responseData.hasError) return false;
+    saveCredentials(responseData.data);
+    navigateHome(context);
+    return true;
+  }
+
+  Future<bool> logout(BuildContext context) async {
+    authProvider.isLoading = true;
+    await Future.delayed(const Duration(milliseconds: 500));
+    navigateLogin(context);
+    clearCredentials();
+    authProvider.isLoading = false;
+    return true;
+  }
+
   void saveCredentials(Map data) {
     authProvider.accessToken = data['token'] ?? "";
     authProvider.user = User.fromJson(data['data'] ?? {});
   }
 
+  void clearCredentials() {
+    authProvider.accessToken = "";
+    authProvider.user = null;
+  }
+
   void navigateHome(BuildContext context) {
     isLoggedIn = true;
     context.go(Routes.home);
+  }
+
+  void navigateLogin(BuildContext context) {
+    isLoggedIn = false;
+    context.go(Routes.login);
   }
 }
