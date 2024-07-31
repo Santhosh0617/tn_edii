@@ -46,6 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const HeightFull(multiplier: 2),
                     TextFormFieldCustom(
                         label: 'Email ID',
+                        keyboardType: TextInputType.emailAddress,
                         controller: contEmail,
                         hint: 'Enter your email'),
                     const HeightFull(),

@@ -26,7 +26,10 @@ class APIHelper {
   }
 
   Future<void> handleUnauthorized() async {
-    return storage.delete(key: StorageConstants.accessToken).then((value) {
+    return securedStorage
+        .delete(key: StorageConstants.accessToken)
+        .then((value) {
+      isLoggedIn = false;
       router.go(Routes.login);
     });
   }
