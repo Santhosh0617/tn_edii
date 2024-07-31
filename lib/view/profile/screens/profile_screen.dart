@@ -20,6 +20,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const AppBarCommon(automaticLeadingImplies: false, title: "Profile"),
       body: Container(
         padding: EdgeInsets.all(SizeUnit.lg),
+        margin: EdgeInsets.all(SizeUnit.lg),
         decoration: ThemeGuide.cardDecoration(),
       ),
     );
