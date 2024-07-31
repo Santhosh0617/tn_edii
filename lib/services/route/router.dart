@@ -8,6 +8,7 @@ import 'package:tn_edii/view/auth/register_screen.dart';
 import 'package:tn_edii/view/auth/splash_screen.dart';
 import 'package:tn_edii/view/home/screens/home_screen.dart';
 import 'package:tn_edii/view/main_screen.dart';
+import 'package:tn_edii/view/resources/screens/resources_screen.dart';
 import 'routes.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -27,6 +28,8 @@ final GoRouter router = GoRouter(
       },
       routes: [
         customShellRoute(path: Routes.home, child: const HomeScreen()),
+        customShellRoute(
+            path: Routes.resources, child: const ResourcesScreen()),
       ],
     ),
 

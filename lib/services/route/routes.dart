@@ -7,4 +7,5 @@ class Routes {
 
   ///Main Screens
   static const String home = '/';
+  static const String resources = '/resources';
 }

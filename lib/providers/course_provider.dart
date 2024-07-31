@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tn_edii/models/course.dart';
 import 'package:tn_edii/models/course_type.dart';
 
 class CourseProvider extends ChangeNotifier {
@@ -13,6 +14,13 @@ class CourseProvider extends ChangeNotifier {
   CourseType get selectedCourseType => _selectedCourseType;
   set selectedCourseType(CourseType type) {
     _selectedCourseType = type;
+    notifyListeners();
+  }
+
+  List<Course> _courses = [];
+  List<Course> get courses => _courses;
+  set courses(List<Course> courses) {
+    _courses = courses;
     notifyListeners();
   }
 }

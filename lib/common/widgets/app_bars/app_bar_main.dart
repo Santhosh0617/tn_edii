@@ -23,7 +23,7 @@ class AppBarMain extends StatelessWidget {
               TextCustom('Hi, ESTHER',
                   size: 18, fontWeight: FontWeight.w700, maxLines: 1),
               TextCustom('What would you like to learn today?',
-                  color: Palette.secondary, fontWeight: FontWeight.bold),
+                  color: Palette.grey, fontWeight: FontWeight.bold),
             ]),
           ),
           const WidthFull(),

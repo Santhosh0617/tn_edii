@@ -43,7 +43,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const TextCustom(
                       'You can sign up into EDII-TN by entering the following details',
                       fontWeight: FontWeight.bold,
-                      color: Palette.secondary,
+                      color: Palette.grey,
                     ),
                     const HeightFull(multiplier: 2),
                     TextFormFieldCustom(
@@ -98,7 +98,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       children: [
                         const TextCustom("Already have an account?",
                             fontWeight: FontWeight.bold,
-                            color: Palette.secondary,
+                            color: Palette.grey,
                             align: TextAlign.center),
                         TextButton(
                             onPressed: onLogin,

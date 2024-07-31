@@ -47,6 +47,7 @@ flutter:
 
   # Images
     - assets/images/
+    - assets/images/resources_images/
     - assets/images/onboarding_images/
    
 

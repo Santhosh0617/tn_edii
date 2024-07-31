@@ -7,10 +7,10 @@ abstract class AppStrings {
   static const String appName = "Map Man";
 
   /// Target API url
-  static String targetUrl = BackEndUrls.demoServerUrl;
+  static String targetUrl = BackEndUrls.serverUrl;
 
   /// Backend API url
-  static String apiUrl = "${targetUrl}api/";
+  static String apiUrl = "${targetUrl}api/v1/";
 
   /// Backend storage url
   static String imgUrl = targetUrl;

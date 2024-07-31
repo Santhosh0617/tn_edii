@@ -44,7 +44,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     const TextCustom(
                       'You can change your password by entering the email and new password',
                       fontWeight: FontWeight.bold,
-                      color: Palette.secondary,
+                      color: Palette.grey,
                     ),
                     const HeightFull(multiplier: 2),
                     TextFormFieldCustom(
