@@ -152,3 +152,45 @@ class LowerCaseTextFormatter extends TextInputFormatter {
     );
   }
 }
+
+class FeedbackTextfield extends StatelessWidget {
+  final TextEditingController controller;
+  final String? hint;
+  final double? height;
+  final TextInputType? textInputType;
+  const FeedbackTextfield(
+      {super.key,
+      required this.controller,
+      this.hint,
+      this.textInputType,
+      this.height});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: height ?? 150,
+        decoration: BoxDecoration(color: Palette.pureWhite),
+        child: TextFormField(
+          controller: controller,
+          keyboardType: TextInputType.multiline,
+          maxLines: 10,
+          obscureText: false,
+          cursorColor: Palette.primary,
+          style: const TextStyle(),
+          decoration: InputDecoration(
+              fillColor: Palette.pureWhite,
+              filled: false,
+              counterText: "",
+              hintText: hint,
+              contentPadding: const EdgeInsets.all(12),
+              hintStyle:
+                  TextStyle(fontSize: 12, color: Palette.grey.withOpacity(0.8)),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: const BorderSide(color: Palette.primary)),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: BorderSide(color: Colors.grey.withOpacity(.3)))),
+        ));
+  }
+}

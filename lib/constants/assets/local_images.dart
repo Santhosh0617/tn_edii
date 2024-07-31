@@ -12,4 +12,5 @@ class LocalImages {
   static const String eBooks = "assets/images/resources_images/e-books.png";
   static const String tools = "assets/images/resources_images/tools.png";
   static const String videos = "assets/images/resources_images/videos.png";
+  static const String placeholder = "assets/images/placeholder.png";
 }

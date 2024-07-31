@@ -40,9 +40,10 @@ class AppBarCommon extends StatelessWidget {
                       onPressed: () => context.pop(),
                       icon: const Icon(Icons.arrow_back_ios_new))
                 else
-                  IconButton.filled(
-                      onPressed: () => context.pop(),
-                      icon: const Icon(Icons.arrow_back_ios_new)),
+                  InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: const Icon(Icons.arrow_back_ios_new,
+                          color: Palette.dark)),
                 const WidthFull()
               ],
               if (isText) ...[

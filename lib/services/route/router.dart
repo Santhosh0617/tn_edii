@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/services/route/route_transition.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tn_edii/view/auth/forgot_password_screen.dart';
@@ -9,6 +8,10 @@ import 'package:tn_edii/view/auth/register_screen.dart';
 import 'package:tn_edii/view/auth/splash_screen.dart';
 import 'package:tn_edii/view/home/screens/home_screen.dart';
 import 'package:tn_edii/view/main_screen.dart';
+import 'package:tn_edii/view/profile/screens/app_info.dart';
+import 'package:tn_edii/view/profile/screens/edit_profile.dart';
+import 'package:tn_edii/view/profile/screens/feedback.dart';
+import 'package:tn_edii/view/profile/screens/privacy_policy.dart';
 import 'package:tn_edii/view/profile/screens/profile_screen.dart';
 import 'package:tn_edii/view/resources/screens/resources_screen.dart';
 import 'routes.dart';
@@ -47,6 +50,10 @@ final GoRouter router = GoRouter(
     customRoute(path: Routes.otp, child: const OTPScreen()),
     customRoute(
         path: Routes.forgotPassword, child: const ForgotPasswordScreen()),
+    customRoute(path: Routes.editProfile, child: const EditProfileScreen()),
+    customRoute(path: Routes.privacy, child: const PrivacyPolicyScreen()),
+    customRoute(path: Routes.appInfo, child: const AppInfoScreen()),
+    customRoute(path: Routes.feedback, child: const FeedBackScreen()),
   ],
   redirect: (context, state) {
     String path = state.uri.path;
