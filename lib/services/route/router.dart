@@ -7,6 +7,7 @@ import 'package:tn_edii/view/auth/login_screen.dart';
 import 'package:tn_edii/view/auth/otp_screen.dart';
 import 'package:tn_edii/view/auth/register_screen.dart';
 import 'package:tn_edii/view/auth/splash_screen.dart';
+import 'package:tn_edii/view/course_screen/screens/course_detail_screen.dart';
 import 'package:tn_edii/view/home/screens/home_screen.dart';
 import 'package:tn_edii/view/main_screen.dart';
 import 'package:tn_edii/view/profile/screens/profile_screen.dart';
@@ -40,6 +41,9 @@ final GoRouter router = GoRouter(
 
     ///Splash
     customRoute(path: Routes.splash, child: const SplashScreen()),
+
+    ///Course Detail Screen
+    customRoute(path: Routes.courseDetail, child: const CourseDetailScreen()),
 
     ///Authentication
     customRoute(path: Routes.login, child: const LoginScreen()),

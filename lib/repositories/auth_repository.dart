@@ -26,7 +26,7 @@ class AuthRepository {
       BuildContext context, Map<String, dynamic> params) async {
     authProvider.isLoading = true;
     ResponseData responseData =
-        await APIService().post(context, 'user/register', body: params);
+        await APIService().post(context, 'users/register', body: params);
     authProvider.isLoading = false;
     if (responseData.hasError) return false;
     saveCredentials(responseData.data);

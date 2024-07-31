@@ -1,6 +1,6 @@
 import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/providers/auth_provider.dart';
-import 'package:tn_edii/providers/course_provider.dart';
+import 'package:tn_edii/providers/training_provider.dart';
 import 'package:tn_edii/providers/info_provider.dart';
 import 'package:tn_edii/providers/resource_provider.dart';
 import 'package:tn_edii/theme/theme_manager.dart';
@@ -12,7 +12,8 @@ List<SingleChildWidget> providers = [
   ChangeNotifierProvider<ThemeManager>(create: (context) => ThemeManager()),
   ChangeNotifierProvider<AuthProvider>(create: (context) => AuthProvider()),
   ChangeNotifierProvider<InfoProvider>(create: (context) => InfoProvider()),
-  ChangeNotifierProvider<CourseProvider>(create: (context) => CourseProvider()),
+  ChangeNotifierProvider<TrainingProvider>(
+      create: (context) => TrainingProvider()),
   ChangeNotifierProvider<ResourceProvider>(
       create: (context) => ResourceProvider()),
 ];
@@ -23,7 +24,7 @@ var authProvider =
     Provider.of<AuthProvider>(mainKey.currentContext!, listen: false);
 var infoProvider =
     Provider.of<InfoProvider>(mainKey.currentContext!, listen: false);
-var courseProvider =
-    Provider.of<CourseProvider>(mainKey.currentContext!, listen: false);
+var trainingsProvider =
+    Provider.of<TrainingProvider>(mainKey.currentContext!, listen: false);
 var resourceProvider =
     Provider.of<ResourceProvider>(mainKey.currentContext!, listen: false);

@@ -10,4 +10,7 @@ class Routes {
   static const String home = '/';
   static const String resources = '/resources';
   static const String profile = '/profile';
+
+  ///Course Detail
+  static const String courseDetail = '/course-detail';
 }

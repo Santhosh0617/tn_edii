@@ -20,8 +20,11 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final TextEditingController contName = TextEditingController();
   final TextEditingController contEmail = TextEditingController();
+  final TextEditingController contMobile = TextEditingController();
   final TextEditingController contPassword = TextEditingController();
+  final TextEditingController contConfirmPassword = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isAgreed = false;
 
@@ -48,17 +51,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const HeightFull(multiplier: 2),
                     TextFormFieldCustom(
                         label: 'Name',
-                        controller: contEmail,
+                        controller: contName,
                         hint: 'Enter your name'),
                     const HeightFull(),
                     TextFormFieldCustom(
                         label: 'Email ID',
                         controller: contEmail,
+                        keyboardType: TextInputType.emailAddress,
                         hint: 'Enter your email'),
                     const HeightFull(),
                     TextFormFieldCustom(
                         label: 'Phone Number',
-                        controller: contEmail,
+                        controller: contMobile,
+                        maxLength: 10,
+                        keyboardType: TextInputType.number,
                         hint: 'Enter your phone number'),
                     const HeightFull(),
                     TextFormFieldCustom(
@@ -69,8 +75,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const HeightFull(),
                     TextFormFieldCustom(
                         label: 'Confirm Password',
-                        controller: contPassword,
+                        controller: contConfirmPassword,
                         obscured: true,
+                        validator: confirmPasswordValidator,
                         hint: 'Re-enter the password'),
                     const HeightFull(),
                     Align(
@@ -113,9 +120,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+  String? confirmPasswordValidator(String? val) {
+    if (val != contPassword.text) return 'Passwords does not match';
+    return null;
+  }
+
   void onRegister() {
     if (_formKey.hasError) return;
     Map<String, dynamic> params = {
+      'name': contName.text,
+      'phone_number': contMobile.text,
       'email': contEmail.text,
       'password': contPassword.text
     };
