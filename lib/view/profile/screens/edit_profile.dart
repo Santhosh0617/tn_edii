@@ -8,7 +8,7 @@ import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/models/user.dart';
 import 'package:tn_edii/providers/providers.dart';
-import 'package:tn_edii/repositories/profile_repository.dart';
+import 'package:tn_edii/repositories/user_repository.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -69,7 +69,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   hitAPI() {
     User? user = authProvider.user;
     user = user?.copywith(name: 'Sandy');
-    ProfileRepository().updateUser(context, user?.toJson() ?? {});
+    UserRepository().updateUser(context, user?.toJson() ?? {});
     // context.pop();
   }
 }

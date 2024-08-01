@@ -29,14 +29,14 @@ class AppBarMain extends StatelessWidget {
                         color: Palette.grey, fontWeight: FontWeight.bold),
                   ]),
             ),
-            const WidthFull(),
-            IconButton.outlined(
-                style: Theme.of(context).iconButtonTheme.style?.copyWith(
-                    shape: const WidgetStatePropertyAll(CircleBorder()),
-                    side: const WidgetStatePropertyAll(
-                        BorderSide(width: 2, color: Palette.primary))),
-                onPressed: () {},
-                icon: Image.asset(LocalIcons.notification, height: 25)),
+            // const WidthFull(),
+            // IconButton.outlined(
+            //     style: Theme.of(context).iconButtonTheme.style?.copyWith(
+            //         shape: const WidgetStatePropertyAll(CircleBorder()),
+            //         side: const WidgetStatePropertyAll(
+            //             BorderSide(width: 2, color: Palette.primary))),
+            //     onPressed: () {},
+            //     icon: Image.asset(LocalIcons.notification, height: 25)),
           ],
         ),
       ))),
