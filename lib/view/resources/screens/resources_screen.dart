@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
-import 'package:tn_edii/common/widgets/buttons.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
 import 'package:tn_edii/common/widgets/text.dart';
-
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/models/expense_type.dart';
@@ -36,44 +34,77 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
             padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
             shrinkWrap: true,
             children: [
-              GridView.builder(
-                  itemCount: resourceProvider.resourceTypes.length,
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.all(0),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisSpacing: 12,
-                      crossAxisSpacing: 12,
-                      childAspectRatio: 1.3,
-                      crossAxisCount: 2),
-                  itemBuilder: (context, i) {
+              // GridView.builder(
+              //     itemCount: resourceProvider.resourceTypes.length,
+              //     shrinkWrap: true,
+              //     padding: const EdgeInsets.all(0),
+              //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              //         mainAxisSpacing: 12,
+              //         crossAxisSpacing: 12,
+              //         childAspectRatio: 1.3,
+              //         crossAxisCount: 2),
+              //     itemBuilder: (context, i) {
+              //       ResourceType resourceType =
+              //           resourceProvider.resourceTypes[i];
+
+              //       return InkWell(
+              //         onTap: () {
+              //           context.push(Routes.resourcesDetail,
+              //               extra: resourceType);
+              //         },
+              //         child: Container(
+              //           clipBehavior: Clip.antiAlias,
+              //           decoration: ThemeGuide.cardDecoration(),
+              //           child: Column(
+              //             children: [
+              //               Image.asset(
+              //                 resourceType.image,
+              //                 height: 100,
+              //                 width: context.widthFull(),
+              //                 fit: BoxFit.cover,
+              //               ),
+              //               const HeightHalf(),
+              //               Center(
+              //                   child: TextCustom(resourceType.resource,
+              //                       fontWeight: FontWeight.bold))
+              //             ],
+              //           ),
+              //         ),
+              //       );
+              //     }),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children:
+                      List.generate(resourceProvider.resourceTypes.length, (i) {
                     ResourceType resourceType =
                         resourceProvider.resourceTypes[i];
-
                     return InkWell(
                       onTap: () {
                         context.push(Routes.resourcesDetail,
                             extra: resourceType);
                       },
                       child: Container(
-                        clipBehavior: Clip.antiAlias,
-                        decoration: ThemeGuide.cardDecoration(),
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              resourceType.image,
-                              height: 100,
-                              width: context.widthFull(),
-                              fit: BoxFit.cover,
-                            ),
-                            const HeightHalf(),
-                            Center(
-                                child: TextCustom(resourceType.resource,
-                                    fontWeight: FontWeight.bold))
-                          ],
-                        ),
-                      ),
+                          width: 100,
+                          decoration: ThemeGuide.cardDecoration(),
+                          padding: const EdgeInsets.all(12),
+                          margin:
+                              EdgeInsets.only(left: i == 0 ? 0 : SizeUnit.lg),
+                          child: Column(children: [
+                            Image.asset(resourceType.image,
+                                color: const Color(0xff5F7085),
+                                height: 44,
+                                width: 70),
+                            const HeightFull(),
+                            TextCustom(
+                              resourceType.resource,
+                              fontWeight: FontWeight.w700,
+                            )
+                          ])),
                     );
                   }),
+                ),
+              ),
               const HeightFull(),
               const TextCustom("Connect With Expense",
                   maxLines: 1, size: 16, fontWeight: FontWeight.bold),
@@ -85,7 +116,7 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       mainAxisSpacing: 12,
                       crossAxisSpacing: 12,
-                      childAspectRatio: 1.3,
+                      childAspectRatio: 1.28,
                       crossAxisCount: 2),
                   itemBuilder: (context, i) {
                     ExpenseType expenseType = resourceProvider.expenseTypes[i];
@@ -95,14 +126,20 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
                       },
                       child: Container(
                         clipBehavior: Clip.antiAlias,
+                        padding:
+                            const EdgeInsets.only(top: 12, right: 12, left: 12),
                         decoration: ThemeGuide.cardDecoration(),
                         child: Column(
                           children: [
-                            Image.asset(
-                              expenseType.image,
-                              height: 100,
-                              width: context.widthFull(),
-                              fit: BoxFit.cover,
+                            Container(
+                              clipBehavior: Clip.antiAlias,
+                              decoration: ThemeGuide.cardDecoration(),
+                              child: Image.asset(
+                                expenseType.image,
+                                height: 90,
+                                width: context.widthFull(),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                             const HeightHalf(),
                             Center(

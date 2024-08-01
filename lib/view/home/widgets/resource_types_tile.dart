@@ -27,12 +27,13 @@ class ResourceTypesTile extends StatelessWidget {
               },
               child: Container(
                   width: 100,
+                  decoration: ThemeGuide.cardDecoration(),
+                  padding: const EdgeInsets.all(12),
                   margin: EdgeInsets.only(left: i == 0 ? 0 : SizeUnit.lg),
                   child: Column(children: [
-                    ClipRRect(
-                        borderRadius: ThemeGuide.borderRadius(),
-                        child: Image.asset(resourceType.image)),
-                    const HeightHalf(),
+                    Image.asset(resourceType.image,
+                        color: const Color(0xff5F7085), height: 44, width: 70),
+                    const HeightFull(),
                     TextCustom(
                       resourceType.resource,
                       fontWeight: FontWeight.w700,

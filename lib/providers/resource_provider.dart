@@ -20,9 +20,9 @@ class ResourceProvider extends ChangeNotifier {
   ];
 
   List<ExpenseType> expenseTypes = [
-    ExpenseType(id: 1, expense: 'Experts', image: LocalImages.articles),
-    ExpenseType(id: 2, expense: 'Mentors', image: LocalImages.videos),
-    ExpenseType(id: 3, expense: 'Investors', image: LocalImages.eBooks),
-    ExpenseType(id: 4, expense: 'Peers', image: LocalImages.tools),
+    ExpenseType(id: 1, expense: 'Experts', image: LocalImages.experts),
+    ExpenseType(id: 2, expense: 'Mentors', image: LocalImages.mentors),
+    ExpenseType(id: 3, expense: 'Investors', image: LocalImages.investors),
+    ExpenseType(id: 4, expense: 'Peers', image: LocalImages.peers),
   ];
 }
