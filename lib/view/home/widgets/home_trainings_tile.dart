@@ -16,6 +16,8 @@ class HomeTrainingsTile extends StatelessWidget {
   final Training course;
   @override
   Widget build(BuildContext context) {
+    String price = course.feeAmount.toString();
+    price = price == '0' ? 'Free' : price.money();
     return InkWell(
       onTap: () => context.push(Routes.courseDetail, extra: course),
       child: Container(
@@ -39,7 +41,7 @@ class HomeTrainingsTile extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                 ),
                 TextCustom(
-                  course.feeAmount.toString().money(),
+                  price,
                   fontWeight: FontWeight.bold,
                 ),
               ],
