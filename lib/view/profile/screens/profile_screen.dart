@@ -29,7 +29,7 @@ List profileList(BuildContext context) => [
       },
       // {
       //   "id": 2,
-      //   "name": "My Enrolements",
+      //   "name": "View Profile",
       //   "image": "assets/icons/my_enroll.png",
       //   "ontap": () {},
       // },
