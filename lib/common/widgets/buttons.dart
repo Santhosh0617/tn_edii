@@ -4,6 +4,7 @@ import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/theme/theme_guide.dart';
+import 'package:tn_edii/utilities/extensions/context_extention.dart';
 
 import 'loaders.dart';
 
@@ -164,4 +165,39 @@ class SecondaryIconButton extends IconButton {
               backgroundColor:
                   WidgetStatePropertyAll(Palette.dark.withOpacity(.2))),
         );
+}
+
+class LengthButton extends StatelessWidget {
+  const LengthButton({
+    super.key, required this.label, required this.onTap, 
+  });
+  final String label;
+  final VoidCallback onTap;
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: 60,
+        padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
+        width: context.widthFull(),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(100),
+          color: Palette.primary,
+        ),
+        child:  Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const SizedBox.shrink(),
+            TextCustom(label,
+                size: 18, fontWeight: FontWeight.w800, color: Palette.pureWhite),
+            const CircleAvatar(
+              backgroundColor: Palette.pureWhite,
+              child: Icon(Icons.arrow_forward, color: Palette.primary),
+            )
+          ],
+        ),
+      ),
+    );
+  }
 }

@@ -8,6 +8,8 @@ import 'package:tn_edii/view/auth/register_screen.dart';
 import 'package:tn_edii/view/auth/splash_screen.dart';
 import 'package:tn_edii/view/home/screens/home_screen.dart';
 import 'package:tn_edii/view/main_screen.dart';
+import 'package:tn_edii/view/single_course_screen/view/single_course_detail_screen.dart';
+import 'package:tn_edii/view/training/view/training_dashboard.dart';
 import 'routes.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -38,6 +40,13 @@ final GoRouter router = GoRouter(
     customRoute(path: Routes.register, child: const RegisterScreen()),
     customRoute(
         path: Routes.forgotPassword, child: const ForgotPasswordScreen()),
+
+        /// course details
+    customRoute(
+        path: Routes.singleCourseDetails, child: const SingleCourseDetail()),
+        ///training
+    customRoute(
+        path: Routes.trainingDashboard, child: const TrainingDashboard()),
   ],
   redirect: (context, state) {
     String path = state.uri.path;

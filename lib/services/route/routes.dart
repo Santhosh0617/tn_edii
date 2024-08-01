@@ -7,4 +7,12 @@ class Routes {
 
   ///Main Screens
   static const String home = '/';
+
+  ///course details
+  static const String singleCourseDetails = '/single-course-details';
+
+  ///training
+  static const String trainingDashboard = '/training-dashboard';
+  
+  
 }
