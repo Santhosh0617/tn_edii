@@ -26,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Palette.pureWhite,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -48,11 +49,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         label: 'Email ID',
                         keyboardType: TextInputType.emailAddress,
                         controller: contEmail,
+                        isBorderLess: false,
                         hint: 'Enter your email'),
                     const HeightFull(),
                     TextFormFieldCustom(
                         label: 'Password',
                         controller: contPassword,
+                        isBorderLess: false,
                         obscured: true,
                         hint: 'Enter your password'),
                     // const HeightFull(),

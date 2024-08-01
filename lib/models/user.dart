@@ -242,4 +242,8 @@ class User {
       updatedAt: updatedAt ?? this.updatedAt,
     );
   }
+
+  List<User> fromJsonList(List json) {
+    return json.map((e) => User.fromJson(e)).toList();
+  }
 }

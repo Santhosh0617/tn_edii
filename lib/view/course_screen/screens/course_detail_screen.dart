@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tn_edii/common/widgets/buttons.dart';
 import 'package:tn_edii/common/widgets/network_image_cus.dart';
 import 'package:tn_edii/common/widgets/text.dart';
+import 'package:tn_edii/constants/app_strings.dart';
 import 'package:tn_edii/constants/assets/local_images.dart';
 import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/constants/size_unit.dart';
@@ -35,14 +36,12 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
           children: [
             Stack(children: [
               Container(
-                height: 350,
-                width: context.widthFull(),
-                color: Colors.red,
-                child: Image.asset(
-                  LocalImages.sampleImg,
-                  fit: BoxFit.cover,
-                ),
-              ),
+                  height: 350,
+                  width: context.widthFull(),
+                  color: Colors.red,
+                  child: NetworkImageCustom(
+                      logo:
+                          '${AppStrings.apiUrl}users/uploads/training_images/${training.id}.jpeg')),
               SafeArea(
                   child: IconButton(
                       onPressed: () => context.pop(),

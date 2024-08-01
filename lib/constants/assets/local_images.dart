@@ -18,4 +18,5 @@ class LocalImages {
   static const String peers = "assets/images/resources_images/videos.png";
   static const String placeholder = "assets/images/placeholder.png";
   static const String sampleImg = "assets/images/sample.jpg";
+  static const String js = "assets/images/js.png";
 }

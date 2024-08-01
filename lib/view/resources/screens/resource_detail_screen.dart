@@ -42,7 +42,7 @@ class _ResourceDetailScreenState extends State<ResourceDetailScreen> {
           padding: const EdgeInsets.all(SizeUnit.lg),
           itemBuilder: (context, index) => const ResourceCardTile(),
           separatorBuilder: (context, index) => const HeightFull(),
-          itemCount: 6),
+          itemCount: 1),
     );
   }
 }

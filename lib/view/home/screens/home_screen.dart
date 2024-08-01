@@ -4,8 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_main.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
 import 'package:tn_edii/common/widgets/heading.dart';
+import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
+import 'package:tn_edii/providers/providers.dart';
 import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/view/home/widgets/course_types_tile.dart';
 import 'package:tn_edii/view/home/widgets/home_trainings_list.dart';
@@ -21,6 +23,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    logger.e(authProvider.accessToken);
     return CustomScaffold(
       appBar: const AppBarMain(),
       body: ListView(
@@ -38,6 +41,5 @@ class _HomeScreenState extends State<HomeScreen> {
             const ResourceTypesTile()
           ]),
     );
-  }     
-  
+  }
 }

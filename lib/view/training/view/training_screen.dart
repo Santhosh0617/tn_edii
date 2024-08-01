@@ -22,31 +22,25 @@ class _TrainingScreenState extends State<TrainingScreen> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      appBar: const AppBarCommon(
-        automaticLeadingImplies: false,
-        title: "Training",
-      ),
+      appBar:
+          const AppBarCommon(automaticLeadingImplies: false, title: "Training"),
       body: Consumer<TrainingProvider>(
-        builder: (context, train, child) => ListView(
-            padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
-            shrinkWrap: true,
-            children: [
-              const TrainingsTypesTile(),
-              const HeightFull(),
-              ListView.separated(
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    Training trainingDetails = train.selectedTrainings[index];
-                    return TrainingCard(trainingDetails: trainingDetails);
-                  },
-                  separatorBuilder: (context, index) {
-                    return const HeightFull();
-                  },
-                  itemCount: train.selectedTrainings.length),
-              const HeightFull(),
-            ]),
+        builder: (context, train, child) =>
+            ListView(padding: EdgeInsets.zero, shrinkWrap: true, children: [
+          const TrainingsTypesTile(),
+          const HeightFull(),
+          ListView.separated(
+              padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                Training trainingDetails = train.selectedTrainings[index];
+                return TrainingCard(trainingDetails: trainingDetails);
+              },
+              separatorBuilder: (context, index) => const HeightFull(),
+              itemCount: train.selectedTrainings.length),
+          const HeightFull(),
+        ]),
       ),
     );
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tn_edii/common/widgets/network_image_cus.dart';
 import 'package:tn_edii/common/widgets/text.dart';
+import 'package:tn_edii/constants/app_strings.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/models/training.dart';
 import 'package:tn_edii/services/route/routes.dart';
@@ -26,9 +28,9 @@ class HomeTrainingsTile extends StatelessWidget {
         decoration: ThemeGuide.cardDecoration(),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Expanded(
-            child: Container(color: Palette.dark),
-          ),
-          // NetworkImageCustom(logo: course.),
+              child: NetworkImageCustom(
+                  logo:
+                      '${AppStrings.apiUrl}users/uploads/training_images/${course.id}.jpeg')),
           Padding(
             padding: const EdgeInsets.symmetric(
                 horizontal: SizeUnit.lg, vertical: SizeUnit.sm),

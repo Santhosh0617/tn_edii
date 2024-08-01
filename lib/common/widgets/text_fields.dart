@@ -38,7 +38,7 @@ class TextFormFieldCustom extends StatefulWidget {
     this.borderRadius,
     this.onChanged,
     this.onTap,
-    this.isBorderLess = false,
+    this.isBorderLess = true,
     this.maxLength,
   });
 
@@ -99,7 +99,8 @@ class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
               horizontal: SizeUnit.lg, vertical: SizeUnit.lg),
           border: ThemeGuide.focussedBorder,
           errorBorder: ThemeGuide.errorBorder,
-          enabledBorder: ThemeGuide.defaultBorder(),
+          enabledBorder: ThemeGuide.defaultBorder(
+              color: widget.isBorderLess ? null : Palette.grey),
           focusedBorder: ThemeGuide.focussedBorder),
     );
   }

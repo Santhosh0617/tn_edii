@@ -31,6 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Palette.pureWhite,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -51,23 +52,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const HeightFull(multiplier: 2),
                     TextFormFieldCustom(
                         label: 'Name',
+                        isBorderLess: false,
                         controller: contName,
                         hint: 'Enter your name'),
                     const HeightFull(),
                     TextFormFieldCustom(
                         label: 'Email ID',
+                        isBorderLess: false,
                         controller: contEmail,
                         keyboardType: TextInputType.emailAddress,
                         hint: 'Enter your email'),
                     const HeightFull(),
                     TextFormFieldCustom(
                         label: 'Phone Number',
+                        isBorderLess: false,
                         controller: contMobile,
                         maxLength: 10,
                         keyboardType: TextInputType.number,
                         hint: 'Enter your phone number'),
                     const HeightFull(),
                     TextFormFieldCustom(
+                        isBorderLess: false,
                         label: 'Password',
                         controller: contPassword,
                         obscured: true,
@@ -75,6 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const HeightFull(),
                     TextFormFieldCustom(
                         label: 'Confirm Password',
+                        isBorderLess: false,
                         controller: contConfirmPassword,
                         obscured: true,
                         validator: confirmPasswordValidator,

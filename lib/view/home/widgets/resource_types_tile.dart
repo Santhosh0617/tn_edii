@@ -21,7 +21,7 @@ class ResourceTypesTile extends StatelessWidget {
         child: Row(
           children: List.generate(resourceProvider.resourceTypes.length, (i) {
             ResourceType resourceType = resourceProvider.resourceTypes[i];
-            return InkWell(
+            return GestureDetector(
               onTap: () {
                 context.push(Routes.resourcesDetail, extra: resourceType);
               },
