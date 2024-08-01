@@ -27,12 +27,12 @@ List profileList(BuildContext context) => [
         "image": "assets/icons/my_enroll.png",
         "ontap": () => context.push(Routes.editProfile),
       },
-      {
-        "id": 2,
-        "name": "My Enrolements",
-        "image": "assets/icons/my_enroll.png",
-        "ontap": () {},
-      },
+      // {
+      //   "id": 2,
+      //   "name": "My Enrolements",
+      //   "image": "assets/icons/my_enroll.png",
+      //   "ontap": () {},
+      // },
       {
         "id": 4,
         "name": "Privacy Policy",

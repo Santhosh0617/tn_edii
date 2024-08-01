@@ -51,7 +51,7 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
                     return InkWell(
                       onTap: () {
                         context.push(Routes.resourcesDetail,
-                            extra: resourceType.resource);
+                            extra: resourceType);
                       },
                       child: Container(
                         clipBehavior: Clip.antiAlias,
@@ -89,14 +89,9 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
                   itemBuilder: (context, i) {
                     ExpenseType expenseType = resourceProvider.expenseTypes[i];
                     return InkWell(
-                      onTap: expenseType.id == 2
-                          ? () {
-                              context.push(Routes.mentorDetail);
-                            }
-                          : () {
-                              context.push(Routes.expertDetail,
-                                  extra: expenseType.expense);
-                            },
+                      onTap: () {
+                        context.push(Routes.mentorDetail, extra: expenseType);
+                      },
                       child: Container(
                         clipBehavior: Clip.antiAlias,
                         decoration: ThemeGuide.cardDecoration(),

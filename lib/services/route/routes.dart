@@ -10,7 +10,6 @@ class Routes {
   static const String home = '/';
   static const String resources = '/resources';
   static const String resourcesDetail = '/resources-detail';
-  static const String expertDetail = '/expert-detail';
   static const String mentorDetail = '/mentor-detail';
   static const String training = '/training';
   static const String profile = '/profile';
