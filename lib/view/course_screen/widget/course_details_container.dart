@@ -8,7 +8,6 @@ import 'package:tn_edii/models/training.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/extensions/context_extention.dart';
 import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
-import 'package:tn_edii/view/course_screen/widget/curriculum_tile.dart';
 
 class CourseDetailsContainer extends StatefulWidget {
   const CourseDetailsContainer({

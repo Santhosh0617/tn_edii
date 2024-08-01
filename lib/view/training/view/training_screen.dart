@@ -8,7 +8,6 @@ import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/models/training.dart';
 import 'package:tn_edii/providers/training_provider.dart';
-import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
 import 'package:tn_edii/view/home/widgets/course_types_tile.dart';
 
 import 'package:tn_edii/view/training/widget/training_card.dart';

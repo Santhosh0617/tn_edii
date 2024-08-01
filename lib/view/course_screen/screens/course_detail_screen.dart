@@ -71,7 +71,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                   const HeightFull(),
                   ListTile(
                     onTap: () {
-                      context.push(Routes.mentorProfile,extra: training);
+                      context.push(Routes.mentorProfile, extra: training);
                     },
                     contentPadding: EdgeInsets.zero,
                     leading: const NetworkImageCustom(logo: ''),
@@ -136,5 +136,6 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
     );
   }
 
-  void enRoll() {}
+  void enRoll() {
+  }
 }

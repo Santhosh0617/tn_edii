@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/bottom_sheets.dart';
@@ -53,7 +52,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       children: [
                         Center(
                           child: Stack(
-                            alignment: Alignment(1, 1),
+                            alignment: const Alignment(1, 1),
                             children: [
                               Container(
                                 height: 120,
