@@ -33,7 +33,7 @@ class _ResourceCardTileState extends State<ResourceCardTile> {
                       topLeft: Radius.circular(22),
                       bottomLeft: Radius.circular(22)),
                   color: Palette.dark),
-              child: NetworkImageCustom(logo: "")),
+              child: const NetworkImageCustom(logo: "")),
           const Expanded(
             child: Padding(
               padding: EdgeInsets.all(SizeUnit.lg),
