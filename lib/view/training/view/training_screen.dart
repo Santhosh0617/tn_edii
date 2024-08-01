@@ -41,11 +41,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     Training trainingDetails = train.selectedTrainings[index];
-                    return TrainingCard(
-                      title: trainingDetails.title ?? '',
-                      description: trainingDetails.description ?? "",
-                      price: trainingDetails.feeAmount.toString().money(),
-                    );
+                    return TrainingCard(trainingDetails: trainingDetails);
                   },
                   separatorBuilder: (context, index) {
                     return const HeightFull();

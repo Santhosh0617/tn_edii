@@ -23,8 +23,7 @@ class ResourceTypesTile extends StatelessWidget {
             ResourceType resourceType = resourceProvider.resourceTypes[i];
             return InkWell(
               onTap: () {
-                context.push(Routes.resourcesDetail,
-                    extra: resourceType.resource);
+                context.push(Routes.resourcesDetail, extra: resourceType);
               },
               child: Container(
                   width: 100,

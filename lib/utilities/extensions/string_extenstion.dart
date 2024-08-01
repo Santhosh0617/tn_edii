@@ -45,6 +45,11 @@ extension StringExtension on String {
     return Color(int.parse(temp, radix: 16) + 0xFF000000);
   }
 
+  bool get isNullOrEmpty {
+    String temp = this;
+    return temp == 'null' || isEmpty;
+  }
+
   DateTime? get unix {
     if (emptyIfNull.isEmpty) return null;
 

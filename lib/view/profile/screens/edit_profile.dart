@@ -11,6 +11,9 @@ import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/common/widgets/text_fields.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
+import 'package:tn_edii/models/user.dart';
+import 'package:tn_edii/providers/providers.dart';
+import 'package:tn_edii/repositories/profile_repository.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/extensions/context_extention.dart';
 
@@ -33,116 +36,119 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return CustomScaffold(
       isStackedAppBar: false,
       appBar: const AppBarCommon(
-        automaticLeadingImplies: true,
-        title: "Edit Profile",
-        isText: false,
-      ),
-      body: Column(
-        children: [
-          Stack(
-            alignment: const Alignment(0, -1.1),
-            children: [
-              Container(
-                width: context.widthFull(),
-                padding: const EdgeInsets.all(SizeUnit.lg),
-                margin: const EdgeInsets.all(SizeUnit.lg),
-                // decoration: ThemeGuide.cardDecoration(),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Center(
-                        child: Stack(
-                          alignment: Alignment(1, 1),
-                          children: [
-                            Container(
-                              height: 120,
-                              width: 120,
-                              padding: const EdgeInsets.all(6),
-                              clipBehavior: Clip.antiAlias,
-                              decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Palette.primary),
-                              child: img == null
-                                  ? Container(
-                                      height: 100,
-                                      width: 100,
-                                      decoration: const BoxDecoration(
-                                          shape: BoxShape.circle),
-                                      child: const NetworkImageCustom(logo: ""))
-                                  : Container(
-                                      height: 100,
-                                      width: 100,
-                                      clipBehavior: Clip.antiAlias,
-                                      decoration: const BoxDecoration(
-                                          shape: BoxShape.circle),
-                                      child:
-                                          Image.file(img!, fit: BoxFit.cover),
-                                    ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                commonBottomSheet(context, ImagePickerSelect(
-                                  onPicked: (File? data) {
-                                    img = data;
-                                    setState(() {});
-                                  },
-                                ));
-                              },
-                              child: Container(
-                                height: 30,
-                                width: 30,
-                                padding: const EdgeInsets.all(2),
+          automaticLeadingImplies: true, title: "Edit Profile", isText: false),
+      body: Form(
+        child: Column(
+          children: [
+            Stack(
+              alignment: const Alignment(0, -1.1),
+              children: [
+                Container(
+                  width: context.widthFull(),
+                  padding: const EdgeInsets.all(SizeUnit.lg),
+                  margin: const EdgeInsets.all(SizeUnit.lg),
+                  // decoration: ThemeGuide.cardDecoration(),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: Stack(
+                            alignment: Alignment(1, 1),
+                            children: [
+                              Container(
+                                height: 120,
+                                width: 120,
+                                padding: const EdgeInsets.all(6),
                                 clipBehavior: Clip.antiAlias,
                                 decoration: const BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: Palette.pureWhite),
-                                child: Icon(Icons.edit,
-                                    color: Palette.primary, size: 22),
+                                    color: Palette.primary),
+                                child: img == null
+                                    ? Container(
+                                        height: 100,
+                                        width: 100,
+                                        decoration: const BoxDecoration(
+                                            shape: BoxShape.circle),
+                                        child:
+                                            const NetworkImageCustom(logo: ""))
+                                    : Container(
+                                        height: 100,
+                                        width: 100,
+                                        clipBehavior: Clip.antiAlias,
+                                        decoration: const BoxDecoration(
+                                            shape: BoxShape.circle),
+                                        child:
+                                            Image.file(img!, fit: BoxFit.cover),
+                                      ),
                               ),
-                            )
-                          ],
+                              InkWell(
+                                onTap: () {
+                                  commonBottomSheet(context, ImagePickerSelect(
+                                    onPicked: (File? data) {
+                                      img = data;
+                                      setState(() {});
+                                    },
+                                  ));
+                                },
+                                child: Container(
+                                  height: 30,
+                                  width: 30,
+                                  padding: const EdgeInsets.all(2),
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Palette.pureWhite),
+                                  child: const Icon(Icons.edit,
+                                      color: Palette.primary, size: 22),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                      const HeightFull(multiplier: 2),
-                      const TextCustom("Name", fontWeight: FontWeight.bold),
-                      const HeightHalf(),
-                      TextFormFieldCustom(
-                          label: 'Name',
-                          keyboardType: TextInputType.emailAddress,
-                          controller: nameController,
-                          isBorderLess: false,
-                          hint: 'Enter your Name'),
-                      const HeightFull(),
-                      const TextCustom("Mobile", fontWeight: FontWeight.bold),
-                      const HeightHalf(),
-                      TextFormFieldCustom(
-                          label: 'Mobile',
-                          keyboardType: TextInputType.emailAddress,
-                          controller: nameController,
-                          hint: 'Enter your Mobile Number'),
-                      const HeightFull(),
-                      const TextCustom("Email", fontWeight: FontWeight.bold),
-                      const HeightHalf(),
-                      TextFormFieldCustom(
-                          label: 'Email',
-                          keyboardType: TextInputType.emailAddress,
-                          controller: nameController,
-                          hint: 'Enter your Email Id'),
-                      const HeightFull(multiplier: 2),
-                      Center(
-                          child: ButtonPrimary(
-                              onPressed: hitAPI, label: "Update Profile"))
-                    ]),
-              ),
-            ],
-          ),
-        ],
+                        const HeightFull(multiplier: 2),
+                        const TextCustom("Name", fontWeight: FontWeight.bold),
+                        const HeightHalf(),
+                        TextFormFieldCustom(
+                            label: 'Name',
+                            keyboardType: TextInputType.emailAddress,
+                            controller: nameController,
+                            isBorderLess: false,
+                            hint: 'Enter your Name'),
+                        const HeightFull(),
+                        const TextCustom("Mobile", fontWeight: FontWeight.bold),
+                        const HeightHalf(),
+                        TextFormFieldCustom(
+                            label: 'Mobile',
+                            keyboardType: TextInputType.emailAddress,
+                            controller: nameController,
+                            hint: 'Enter your Mobile Number'),
+                        const HeightFull(),
+                        const TextCustom("Email", fontWeight: FontWeight.bold),
+                        const HeightHalf(),
+                        TextFormFieldCustom(
+                            label: 'Email',
+                            keyboardType: TextInputType.emailAddress,
+                            controller: nameController,
+                            hint: 'Enter your Email Id'),
+                        const HeightFull(multiplier: 2),
+                        Center(
+                            child: ButtonPrimary(
+                                onPressed: hitAPI, label: "Update Profile"))
+                      ]),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
 
   hitAPI() {
-    context.pop();
+    User? user = authProvider.user;
+    user = user?.copywith(name: 'Sandy');
+    ProfileRepository().updateUser(context, user?.toJson() ?? {});
+    // context.pop();
   }
 }
 

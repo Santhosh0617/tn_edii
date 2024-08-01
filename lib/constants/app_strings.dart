@@ -16,5 +16,5 @@ abstract class AppStrings {
   static String imgUrl = targetUrl;
 
   /// Playstore application url
-  static String playstoreUrl = '';
+  static String playstoreUrl = 'https://Playstore.com';
 }

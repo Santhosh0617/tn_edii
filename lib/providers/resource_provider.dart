@@ -11,9 +11,10 @@ class ResourceProvider extends ChangeNotifier {
   }
 
   List<ResourceType> resourceTypes = [
-    ResourceType(resource: 'Articles', image: LocalImages.articles),
-    ResourceType(resource: 'Videos', image: LocalImages.videos),
-    ResourceType(resource: 'E-Books', image: LocalImages.eBooks),
-    ResourceType(resource: 'Tools', image: LocalImages.tools),
+    ResourceType(
+        key: 'articles', resource: 'Articles', image: LocalImages.articles),
+    ResourceType(key: 'videos', resource: 'Videos', image: LocalImages.videos),
+    ResourceType(key: 'Ebooks', resource: 'E-Books', image: LocalImages.eBooks),
+    ResourceType(key: 'tools', resource: 'Tools', image: LocalImages.tools),
   ];
 }

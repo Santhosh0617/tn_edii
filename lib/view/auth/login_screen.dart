@@ -56,16 +56,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         obscured: true,
                         hint: 'Enter your password'),
                     // const HeightFull(),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                          onPressed: onForgotPassword,
-                          child: const TextCustom(
-                            'Forgot Password?',
-                            color: Palette.grey,
-                          )),
-                    ),
-                    const HeightFull(),
+                    // Align(
+                    //   alignment: Alignment.centerRight,
+                    //   child: TextButton(
+                    //       onPressed: onForgotPassword,
+                    //       child: const TextCustom(
+                    //         'Forgot Password?',
+                    //         color: Palette.grey,
+                    //       )),
+                    // ),
+                    const HeightFull(multiplier: 2),
                     Consumer<AuthProvider>(
                       builder: (context, value, child) => Row(children: [
                         Expanded(

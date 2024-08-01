@@ -1,5 +1,6 @@
 import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/providers/auth_provider.dart';
+import 'package:tn_edii/providers/profile_provider.dart';
 import 'package:tn_edii/providers/training_provider.dart';
 import 'package:tn_edii/providers/info_provider.dart';
 import 'package:tn_edii/providers/resource_provider.dart';
@@ -16,6 +17,8 @@ List<SingleChildWidget> providers = [
       create: (context) => TrainingProvider()),
   ChangeNotifierProvider<ResourceProvider>(
       create: (context) => ResourceProvider()),
+  ChangeNotifierProvider<ProfileProvider>(
+      create: (context) => ProfileProvider()),
 ];
 
 var themeManager =
@@ -28,3 +31,5 @@ var trainingsProvider =
     Provider.of<TrainingProvider>(mainKey.currentContext!, listen: false);
 var resourceProvider =
     Provider.of<ResourceProvider>(mainKey.currentContext!, listen: false);
+var profileProvider =
+    Provider.of<ProfileProvider>(mainKey.currentContext!, listen: false);
