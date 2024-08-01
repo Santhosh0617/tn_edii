@@ -177,7 +177,7 @@ class FeedbackTextfield extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         height: height ?? 150,
-        decoration: BoxDecoration(color: Palette.pureWhite),
+        decoration: const BoxDecoration(color: Palette.pureWhite),
         child: TextFormField(
           controller: controller,
           keyboardType: TextInputType.multiline,

@@ -105,7 +105,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Container(
                 height: 120,
                 width: 120,
-                padding: EdgeInsets.all(2),
+                padding: const EdgeInsets.all(2),
                 clipBehavior: Clip.antiAlias,
                 decoration: const BoxDecoration(
                     shape: BoxShape.circle, color: Palette.primary),
@@ -113,7 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 100,
                     width: 100,
                     decoration: const BoxDecoration(shape: BoxShape.circle),
-                    child: NetworkImageCustom(logo: "")),
+                    child: const NetworkImageCustom(logo: "")),
               )
             ],
           ),

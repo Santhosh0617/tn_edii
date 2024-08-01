@@ -1,5 +1,4 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/constants/assets/local_icons.dart';

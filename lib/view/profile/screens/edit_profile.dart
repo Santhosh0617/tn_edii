@@ -52,7 +52,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     children: [
                       Center(
                         child: Stack(
-                          alignment: Alignment(1, 1),
+                          alignment: const Alignment(1, 1),
                           children: [
                             Container(
                               height: 120,
@@ -96,7 +96,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 decoration: const BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: Palette.pureWhite),
-                                child: Icon(Icons.edit,
+                                child: const Icon(Icons.edit,
                                     color: Palette.primary, size: 22),
                               ),
                             )

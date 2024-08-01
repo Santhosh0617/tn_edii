@@ -6,14 +6,14 @@ import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/view/resources/widgets/resource_card.dart';
 
-class ResourceDetailScreen extends StatefulWidget {
-  const ResourceDetailScreen({super.key});
+class ExpertsDetailScreen extends StatefulWidget {
+  const ExpertsDetailScreen({super.key});
 
   @override
-  State<ResourceDetailScreen> createState() => _ResourceDetailScreenState();
+  State<ExpertsDetailScreen> createState() => _ExpertsDetailScreenState();
 }
 
-class _ResourceDetailScreenState extends State<ResourceDetailScreen> {
+class _ExpertsDetailScreenState extends State<ExpertsDetailScreen> {
   String get title => GoRouterState.of(context).extra as String;
   @override
   Widget build(BuildContext context) {

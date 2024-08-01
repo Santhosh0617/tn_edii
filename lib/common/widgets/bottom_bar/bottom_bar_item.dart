@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tn_edii/common/widgets/bottom_bar/bottom_bar_data.dart';
-import 'package:tn_edii/common/widgets/image_circle.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
-import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/theme/Palette.dart';
-import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class BottomBarItem extends StatelessWidget {

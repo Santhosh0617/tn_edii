@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tn_edii/common/widgets/network_image_cus.dart';
 import 'package:tn_edii/common/widgets/text.dart';
-import 'package:tn_edii/constants/assets/local_images.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/theme/palette.dart';
@@ -37,7 +36,7 @@ class TrainingCard extends StatelessWidget {
                       topLeft: Radius.circular(22),
                       bottomLeft: Radius.circular(22)),
                   color: Palette.dark),
-              child: NetworkImageCustom(logo: "")),
+              child: const NetworkImageCustom(logo: "")),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(SizeUnit.lg),

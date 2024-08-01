@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
 import 'package:tn_edii/common/widgets/text.dart';
@@ -98,7 +97,7 @@ class _CourseDetailsContainerState extends State<CourseDetailsContainer> {
                 //     )),
                 //   ],
                 // ),
-                HeightFull(),
+                const HeightFull(),
                 // Row(
                 //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 //   children: [

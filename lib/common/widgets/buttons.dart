@@ -115,7 +115,7 @@ class ButtonSecondary extends FilledButton {
                   : TextCustom(label,
                       size: 16,
                       fontWeight: FontWeight.bold,
-                      color: Palette.pureWhite),
+                      color: Palette.dark),
             ),
             onPressed: isLoading ? () {} : onPressed);
 }
