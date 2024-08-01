@@ -18,6 +18,7 @@ class Routes {
   static const String privacy = '/privacy';
   static const String appInfo = '/app-Info';
   static const String feedback = '/feedback';
+  static const String mentorProfile = '/mentor-profile';
 
   ///Course Detail
   static const String courseDetail = '/course-detail';

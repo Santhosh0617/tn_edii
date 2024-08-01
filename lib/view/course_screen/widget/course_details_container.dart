@@ -32,7 +32,7 @@ class _CourseDetailsContainerState extends State<CourseDetailsContainer> {
 
   @override
   Widget build(BuildContext context) {
-    logger.e(widget.training.toJson());
+    logger.w(widget.training.toJson());
     return Container(
       margin: const EdgeInsets.only(
           top: SizeUnit.xlg * 14, left: SizeUnit.lg, right: SizeUnit.lg),
@@ -78,6 +78,24 @@ class _CourseDetailsContainerState extends State<CourseDetailsContainer> {
                   fontWeight: FontWeight.bold,
                   color: Palette.grey,
                 ),
+                const HeightHalf(),
+                Row(
+                  children: [
+                    const TextCustom(
+                      "Course Mode:",
+                      size: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Palette.dark,
+                    ),
+                    const WidthHalf(),
+                    TextCustom(
+                      widget.training.mode ?? '',
+                      size: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Palette.grey,
+                    ),
+                  ],
+                ),
                 // Row(
                 //   children: [
                 //     Expanded(
@@ -97,7 +115,7 @@ class _CourseDetailsContainerState extends State<CourseDetailsContainer> {
                 //     )),
                 //   ],
                 // ),
-                const HeightFull(),
+                const HeightHalf(),
                 // Row(
                 //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 //   children: [
@@ -112,145 +130,186 @@ class _CourseDetailsContainerState extends State<CourseDetailsContainer> {
                 //         TextCustom(" 21 Class", fontWeight: FontWeight.w800),
                 //       ],
                 //     ),
-                TextCustom(
-                  widget.training.feeAmount.toString().money(),
-                  size: 21,
-                  fontWeight: FontWeight.w800,
-                  color: Palette.primary,
-                )
-                //   ],
-                // ),
-              ],
-            ),
-          ),
-          const HeightFull(),
-          Row(
-            children: [
-              Expanded(
-                child: InkWell(
-                  onTap: () {
-                    _onItemTapped(true);
-                  },
-                  child: Container(
-                    margin: EdgeInsets.zero,
-                    height: 50,
-                    width: context.widthHalf(),
-                    color:
-                        isAboutSelected ? Palette.primary : Palette.secondary,
-                    child: Center(
-                      child: TextCustom(
-                        "About",
-                        size: 16,
-                        color:
-                            isAboutSelected ? Palette.pureWhite : Palette.dark,
-                        fontWeight: FontWeight.w800,
-                      ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const TextCustom(
+                      "Course Fee:",
+                      size: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Palette.dark,
                     ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: InkWell(
-                  onTap: () {
-                    _onItemTapped(false);
-                  },
-                  child: Container(
-                    margin: EdgeInsets.zero,
-                    height: 50,
-                    width: context.widthHalf(),
-                    color:
-                        !isAboutSelected ? Palette.primary : Palette.secondary,
-                    child: Center(
-                      child: TextCustom(
-                        "Curriculum",
-                        size: 16,
-                        color:
-                            !isAboutSelected ? Palette.pureWhite : Palette.dark,
-                        fontWeight: FontWeight.w800,
-                      ),
+                    TextCustom(
+                      widget.training.feeAmount.toString().money(),
+                      size: 21,
+                      fontWeight: FontWeight.w800,
+                      color: Palette.primary,
                     ),
-                  ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
-            child: Column(
-              children: [
-                if (isAboutSelected == true) ...[
-                  const HeightFull(),
-                  const ReadMoreText(
-                    'Flutter is Google’s mobile UI open source framework to build high-quality The Annotation feature enhances the interactivity and functionality of the text content. You can define custom styles and interactions for patterns like hashtags, URLs, and mentions. native (super fast) interfaces for iOS and Android apps with the unified codebase.',
+                const HeightHalf(),
+                const TextCustom("Description:",  size: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Palette.dark,),
+                 ReadMoreText(
+                    widget.training.description??"-",
                     trimMode: TrimMode.Line,
                     textAlign: TextAlign.justify,
                     trimLines: 3,
                     colorClickableText: Palette.primary,
                     trimCollapsedText: 'Show More',
                     trimExpandedText: 'Show Less',
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w700,
                         height: 1.5,
                         color: Palette.grey),
-                    moreStyle: TextStyle(
+                    moreStyle: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w700,
                         color: Palette.primary,
                         decoration: TextDecoration.underline),
-                    lessStyle: TextStyle(
+                    lessStyle: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w700,
                         color: Palette.primary,
                         decoration: TextDecoration.underline),
                   ),
-                ],
-                if (isAboutSelected == false) ...[
-                  const HeightFull(),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          TextCustom(
-                            "Section 01 - ",
-                            size: 15,
-                            fontWeight: FontWeight.w800,
-                          ),
-                          TextCustom(
-                            "Introducation",
-                            size: 15,
-                            fontWeight: FontWeight.w800,
-                            color: Palette.primary,
-                          ),
-                        ],
-                      ),
-                      TextCustom(
-                        "25 Mins",
-                        size: 15,
-                        fontWeight: FontWeight.w800,
-                        color: Palette.primary,
-                      )
-                    ],
-                  ),
-                  const HeightFull(),
-                  ListView.separated(
-                      padding: EdgeInsets.zero,
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return const CurriculumListTile();
-                      },
-                      separatorBuilder: (context, index) {
-                        return const Divider(
-                          color: Palette.grey,
-                        );
-                      },
-                      itemCount: 3)
-                ]
+                //   ],
+                // ),
               ],
             ),
           ),
+          // const HeightFull(),
+          // Row(
+          //   children: [
+          //     Expanded(
+          //       child: InkWell(
+          //         onTap: () {
+          //           _onItemTapped(true);
+          //         },
+          //         child: Container(
+          //           margin: EdgeInsets.zero,
+          //           height: 50,
+          //           width: context.widthHalf(),
+          //           color:
+          //               isAboutSelected ? Palette.primary : Palette.secondary,
+          //           child: Center(
+          //             child: TextCustom(
+          //               "About",
+          //               size: 16,
+          //               color:
+          //                   isAboutSelected ? Palette.pureWhite : Palette.dark,
+          //               fontWeight: FontWeight.w800,
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //     Expanded(
+          //       child: InkWell(
+          //         onTap: () {
+          //           _onItemTapped(false);
+          //         },
+          //         child: Container(
+          //           margin: EdgeInsets.zero,
+          //           height: 50,
+          //           width: context.widthHalf(),
+          //           color:
+          //               !isAboutSelected ? Palette.primary : Palette.secondary,
+          //           child: Center(
+          //             child: TextCustom(
+          //               "Curriculum",
+          //               size: 16,
+          //               color:
+          //                   !isAboutSelected ? Palette.pureWhite : Palette.dark,
+          //               fontWeight: FontWeight.w800,
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          // HeightFull(),
+               
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
+          //   child: Column(
+          //     children: [
+          //       if (isAboutSelected == true) ...[
+          //         const HeightFull(),
+          //          ReadMoreText(
+          //           widget.training.description??"-",
+          //           trimMode: TrimMode.Line,
+          //           textAlign: TextAlign.justify,
+          //           trimLines: 3,
+          //           colorClickableText: Palette.primary,
+          //           trimCollapsedText: 'Show More',
+          //           trimExpandedText: 'Show Less',
+          //           style: const TextStyle(
+          //               fontSize: 12,
+          //               fontWeight: FontWeight.w700,
+          //               height: 1.5,
+          //               color: Palette.grey),
+          //           moreStyle: const TextStyle(
+          //               fontSize: 12,
+          //               fontWeight: FontWeight.w700,
+          //               color: Palette.primary,
+          //               decoration: TextDecoration.underline),
+          //           lessStyle: const TextStyle(
+          //               fontSize: 12,
+          //               fontWeight: FontWeight.w700,
+          //               color: Palette.primary,
+          //               decoration: TextDecoration.underline),
+          //         ),
+          //       ],
+          //       if (isAboutSelected == false) ...[
+          //         const HeightFull(),
+          //         const Row(
+          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //           children: [
+          //             Row(
+          //               children: [
+          //                 TextCustom(
+          //                   "Section 01 - ",
+          //                   size: 15,
+          //                   fontWeight: FontWeight.w800,
+          //                 ),
+          //                 TextCustom(
+          //                   "Introducation",
+          //                   size: 15,
+          //                   fontWeight: FontWeight.w800,
+          //                   color: Palette.primary,
+          //                 ),
+          //               ],
+          //             ),
+          //             TextCustom(
+          //               "25 Mins",
+          //               size: 15,
+          //               fontWeight: FontWeight.w800,
+          //               color: Palette.primary,
+          //             )
+          //           ],
+          //         ),
+          //         const HeightFull(),
+          //         ListView.separated(
+          //             padding: EdgeInsets.zero,
+          //             physics: const NeverScrollableScrollPhysics(),
+          //             shrinkWrap: true,
+          //             itemBuilder: (context, index) {
+          //               return const CurriculumListTile();
+          //             },
+          //             separatorBuilder: (context, index) {
+          //               return const Divider(
+          //                 color: Palette.grey,
+          //               );
+          //             },
+          //             itemCount: 3)
+          //       ]
+          //     ],
+          //   ),
+          // ),
           const HeightFull(),
         ],
       ),

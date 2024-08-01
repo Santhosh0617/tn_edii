@@ -12,6 +12,7 @@ import 'package:tn_edii/view/main_screen.dart';
 import 'package:tn_edii/view/profile/screens/app_info.dart';
 import 'package:tn_edii/view/profile/screens/edit_profile.dart';
 import 'package:tn_edii/view/profile/screens/feedback.dart';
+import 'package:tn_edii/view/profile/screens/mentor_profile_screen.dart';
 import 'package:tn_edii/view/profile/screens/privacy_policy.dart';
 import 'package:tn_edii/view/profile/screens/profile_screen.dart';
 import 'package:tn_edii/view/resources/screens/experts_detail_screen.dart';
@@ -61,6 +62,7 @@ final GoRouter router = GoRouter(
     customRoute(path: Routes.privacy, child: const PrivacyPolicyScreen()),
     customRoute(path: Routes.appInfo, child: const AppInfoScreen()),
     customRoute(path: Routes.feedback, child: const FeedBackScreen()),
+    customRoute(path: Routes.mentorProfile, child: const MentorProfileScreen()),
     customRoute(
         path: Routes.resourcesDetail, child: const ResourceDetailScreen()),
     customRoute(path: Routes.expertDetail, child: const ExpertsDetailScreen()),

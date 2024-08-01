@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/constants/keys.dart';
@@ -44,23 +45,28 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Palette.primary,
-      body: Center(
-          child: FadeInUp(
-        child: const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Image.asset(
-            //   LocalIcons.appIcon,
-            //   height: context.widthQuarter(),
-            // ),
-            // const HeightFull(),
-            TextCustom('EDII TN',
-                fontWeight: FontWeight.w800, size: 24, color: Palette.pureWhite)
-          ],
-        ),
-      )),
+    return AnnotatedRegion(
+      value: const SystemUiOverlayStyle(statusBarIconBrightness: Brightness.dark),
+      child: Scaffold(
+        backgroundColor: Palette.primary,
+        body: Center(
+            child: FadeInUp(
+          child: const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Image.asset(
+              //   LocalIcons.appIcon,
+              //   height: context.widthQuarter(),
+              // ),
+              // const HeightFull(),
+              TextCustom('EDII TN',
+                  fontWeight: FontWeight.w800,
+                  size: 24,
+                  color: Palette.pureWhite)
+            ],
+          ),
+        )),
+      ),
     );
   }
 }
