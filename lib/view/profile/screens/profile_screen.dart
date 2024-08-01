@@ -28,8 +28,8 @@ List profileList(BuildContext context) => [
         "ontap": () => context.push(Routes.editProfile),
       },
       // {
-      //   "id": 2,
-      //   "name": "My Enrolements",
+    //   "id": 2,
+      //   "name": "View Profile",
       //   "image": "assets/icons/my_enroll.png",
       //   "ontap": () {},
       // },

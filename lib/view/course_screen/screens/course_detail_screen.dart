@@ -136,5 +136,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
     );
   }
 
-  void enRoll() {}
+  void enRoll() {
+    context.push(Routes.editProfile);
+  }
 }
