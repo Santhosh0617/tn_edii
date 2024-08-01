@@ -17,4 +17,7 @@ class Palette {
   static const Color yellow = Color(0xFFFBC83C);
   static const Color muted = Color(0xffE8E8E8);
   static const Color grey = Color(0xFF5F7085);
+  static const Color orange = Color(0xffFF6B00);
+  static const Color wavyBlue = Color(0xffF5F9FF);
+  static const Color wavyBlueBorder = Color(0xffE8F1FF);
 }

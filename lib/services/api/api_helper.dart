@@ -10,7 +10,8 @@ import 'package:tn_edii/utilities/message.dart';
 class APIHelper {
   ResponseData httpErrorHandle({required Response? response}) {
     Map<String, dynamic> data =
-        response?.data is String ? {} : response?.data ?? {};
+        response?.data is Map ? response?.data ?? {} : {};
+    List datas = response?.data is List ? response?.data ?? [] : [];
     int statusCode = response?.statusCode ?? 500;
     String message = data['message'] ?? '';
     if (statusCode == 500) showMessage('Server or Database not running');
@@ -21,7 +22,7 @@ class APIHelper {
       handleUnauthorized();
     }
     ResponseData responseData =
-        ResponseData(data: data, statusCode: statusCode);
+        ResponseData(data: data, datas: datas, statusCode: statusCode);
     return responseData;
   }
 

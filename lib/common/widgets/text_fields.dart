@@ -20,6 +20,7 @@ class TextFormFieldCustom extends StatefulWidget {
   final Function(String)? onChanged;
   final VoidCallback? onTap;
   final bool isBorderLess;
+  final int? maxLength;
 
   const TextFormFieldCustom({
     super.key,
@@ -38,6 +39,7 @@ class TextFormFieldCustom extends StatefulWidget {
     this.onChanged,
     this.onTap,
     this.isBorderLess = false,
+    this.maxLength,
   });
 
   @override
@@ -54,6 +56,7 @@ class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
       enabled: widget.enabled,
       readOnly: widget.onTap != null,
       onTap: widget.onTap,
+      maxLength: widget.maxLength,
       inputFormatters: getInputFormatters,
       onTapOutside: (event) => FocusScope.of(context).unfocus(),
       obscureText: widget.obscured && !isVisible,
@@ -69,6 +72,11 @@ class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
             widget.keyboardType == TextInputType.emailAddress &&
             !input.isEmail) {
           return "Kindly enter valid mail";
+        }
+        if (!widget.isOptional &&
+            widget.maxLength != null &&
+            input.length != widget.maxLength) {
+          return '${widget.label} must be ${widget.maxLength} digit';
         }
         // If the validator is not null custom validation logic to be performed
         if (widget.validator != null) {

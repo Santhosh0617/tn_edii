@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tn_edii/common/widgets/bottom_bar/bottom_bar.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
+import 'package:tn_edii/repositories/training_repository.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key, required this.child});
@@ -11,10 +12,20 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((e) => init());
+    super.initState();
+  }
+
+  void init() {
+    TrainingRepository().getTrainings(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CustomScaffold(
       body: widget.child,
-      bottomBar: BottomNavBar(),
+      bottomBar: const BottomNavBar(),
     );
   }
 }

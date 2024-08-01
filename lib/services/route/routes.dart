@@ -9,9 +9,14 @@ class Routes {
   ///Main Screens
   static const String home = '/';
   static const String resources = '/resources';
+  static const String resourcesDetail = '/resources-detail';
+  static const String training = '/training';
   static const String profile = '/profile';
   static const String editProfile = '/edit-profile';
   static const String privacy = '/privacy';
   static const String appInfo = '/app-Info';
   static const String feedback = '/feedback';
+
+  ///Course Detail
+  static const String courseDetail = '/course-detail';
 }

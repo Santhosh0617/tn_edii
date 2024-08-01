@@ -3,17 +3,17 @@ import 'package:provider/provider.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/models/course_type.dart';
-import 'package:tn_edii/providers/course_provider.dart';
+import 'package:tn_edii/providers/training_provider.dart';
 import 'package:tn_edii/providers/providers.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/theme/theme_guide.dart';
 
-class CourseTypesTile extends StatelessWidget {
-  const CourseTypesTile({super.key});
+class TrainingsTypesTile extends StatelessWidget {
+  const TrainingsTypesTile({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CourseProvider>(
+    return Consumer<TrainingProvider>(
       builder: (context, value, child) => SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
@@ -21,12 +21,12 @@ class CourseTypesTile extends StatelessWidget {
             CourseType courseType = courseTypes[i];
             bool isSelected = courseType == value.selectedCourseType;
             return GestureDetector(
-              onTap: () => courseProvider.selectedCourseType = courseType,
+              onTap: () => trainingsProvider.selectedCourseType = courseType,
               child: Container(
                 margin: EdgeInsets.only(
                     left: i == 0 ? SizeUnit.lg : 0, right: SizeUnit.lg),
                 padding: const EdgeInsets.symmetric(
-                    horizontal: SizeUnit.lg, vertical: SizeUnit.sm),
+                    horizontal: SizeUnit.xlg, vertical: SizeUnit.sm),
                 decoration: ThemeGuide.cardDecoration(
                     color: isSelected ? Palette.primary : Palette.secondary,
                     borderRadius: BorderRadius.circular(100)),
