@@ -41,11 +41,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     const TextCustom(
                       'Sign In to EDII-TN by your registered email id',
                       fontWeight: FontWeight.bold,
-                      color: Palette.secondary,
+                      color: Palette.grey,
                     ),
                     const HeightFull(multiplier: 2),
                     TextFormFieldCustom(
                         label: 'Email ID',
+                        keyboardType: TextInputType.emailAddress,
                         controller: contEmail,
                         hint: 'Enter your email'),
                     const HeightFull(),
@@ -61,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           onPressed: onForgotPassword,
                           child: const TextCustom(
                             'Forgot Password?',
-                            color: Palette.secondary,
+                            color: Palette.grey,
                           )),
                     ),
                     const HeightFull(),
@@ -81,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         const TextCustom("Don't have an account?",
                             fontWeight: FontWeight.bold,
-                            color: Palette.secondary,
+                            color: Palette.grey,
                             align: TextAlign.center),
                         TextButton(
                             onPressed: onRegister,
@@ -97,11 +98,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void onLogin() {
-    AuthRepository().navigateHome(context);
-    return;
     if (_formKey.hasError) return;
     Map<String, dynamic> params = {
-      'email': contEmail.text,
+      'username': contEmail.text,
       'password': contPassword.text
     };
     AuthRepository().login(context, params);

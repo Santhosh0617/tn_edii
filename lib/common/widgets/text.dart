@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tn_edii/constants/size_unit.dart';
+import 'package:tn_edii/constants/space.dart';
+import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/extensions/double_extension.dart';
 import 'package:readmore/readmore.dart';
 
@@ -37,6 +40,80 @@ class TextCustom extends StatelessWidget {
           decoration: decoration,
           height: height),
     );
+  }
+}
+class NameCard extends StatelessWidget {
+  const NameCard({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    this.subtitlecolor,
+    this.titlecolor,
+    this.crossAxisAlignment = CrossAxisAlignment.start,
+    this.titleSize,
+    this.subtitleSize,
+  });
+  final String title;
+  final String subtitle;
+  final Color? titlecolor;
+  final Color? subtitlecolor;
+  final double? titleSize;
+  final double? subtitleSize;
+  final CrossAxisAlignment crossAxisAlignment;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: crossAxisAlignment,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+              fontSize: titleSize ?? 12,
+              fontWeight: FontWeight.w700,
+              color: titlecolor ?? Palette.grey),
+        ),
+        // const HeightHalf(),
+        Text(
+          maxLines: 2,
+          subtitle,
+          style: TextStyle(
+              fontSize: subtitleSize ?? 12,
+              fontWeight: FontWeight.w500,
+              color: subtitlecolor ?? Palette.grey),
+        ),
+        const HeightHalf(),
+      ],
+    );
+  }
+}
+
+class TextColumn extends StatelessWidget {
+  const TextColumn(
+      {super.key,
+      required this.head,
+      required this.value,
+      this.color,
+      this.isStart = false,
+      this.isEnd = false});
+  final String head, value;
+  final Color? color;
+  final bool isStart, isEnd;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+        crossAxisAlignment: isEnd
+            ? CrossAxisAlignment.end
+            : isStart
+                ? CrossAxisAlignment.start
+                : CrossAxisAlignment.center,
+        children: [
+          TextCustom(head, size: 11, color: Palette.grey),
+          const SizedBox(height: SizeUnit.sm / 4),
+          TextCustom(value,
+              fontWeight: FontWeight.w500,
+              size: 15,
+              color: color ?? Palette.grey)
+        ]);
   }
 }
 

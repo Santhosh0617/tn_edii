@@ -6,8 +6,10 @@ class LocalIcons {
   /// App Icon
   static const String appIcon = 'assets/icons/app_icon.png';
 
-  /// Home Icons
+  /// Notification Icons
   static const String notification = 'assets/icons/home_icons/notification.png';
+
+  /// Bottom Bar Icons
   static const String home = 'assets/icons/home_icons/home.png';
   static const String profile = 'assets/icons/home_icons/profile.png';
   static const String resources = 'assets/icons/home_icons/resources.png';

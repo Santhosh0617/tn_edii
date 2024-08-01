@@ -145,15 +145,14 @@ class CustomCheckBox extends StatelessWidget {
         ),
         if (title.isNotEmpty) ...[
           const WidthHalf(),
-          TextCustom(title,
-              color: Palette.secondary, fontWeight: FontWeight.bold)
+          TextCustom(title, color: Palette.grey, fontWeight: FontWeight.bold)
         ]
       ]),
     );
   }
 
   Color get boxColor => value ? Palette.primary : Palette.pureWhite;
-  Color get borderColor => value ? Palette.primary : Palette.secondary;
+  Color get borderColor => value ? Palette.primary : Palette.grey;
 }
 
 class SecondaryIconButton extends IconButton {

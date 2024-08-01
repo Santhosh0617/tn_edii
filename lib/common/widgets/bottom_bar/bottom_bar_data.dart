@@ -1,25 +1,22 @@
+import 'package:tn_edii/constants/assets/local_icons.dart';
 import 'package:tn_edii/services/route/routes.dart';
 
 class BottomBarData {
   List<BottomBarDatum> data = [
+    BottomBarDatum(title: "HOME", image: LocalIcons.home, route: Routes.home),
     BottomBarDatum(
-        filledImage: 'LocalIcons.home',
-        outlinedImage: "LocalIcons.homeOutlined",
-        route: Routes.home),
+        title: "RESOURCES",
+        image: LocalIcons.resources,
+        route: Routes.resources),
     BottomBarDatum(
-        filledImage: "LocalIcons.location",
-        outlinedImage: "LocalIcons.locationOutlined",
-        route: Routes.home),
+        title: "TRAINING", image: LocalIcons.training, route: Routes.training),
     BottomBarDatum(
-        filledImage: "LocalIcons.reels",
-        outlinedImage: "LocalIcons.reelsOutlined",
-        route: Routes.home),
+        title: "PROFILE", image: LocalIcons.profile, route: Routes.profile),
   ];
 }
 
 class BottomBarDatum {
-  final String outlinedImage, filledImage, route;
+  final String title, image, route;
 
-  BottomBarDatum(
-      {this.outlinedImage = '', this.filledImage = '', required this.route});
+  BottomBarDatum({required this.title, this.image = '', required this.route});
 }

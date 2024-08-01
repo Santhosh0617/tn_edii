@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
-import 'package:tn_edii/common/widgets/app_bars/app_bar_main.dart';
 import 'package:tn_edii/common/widgets/bottom_bar/bottom_bar.dart';
-import 'package:tn_edii/common/widgets/buttons.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
-import 'package:tn_edii/common/widgets/loaders.dart';
-import 'package:tn_edii/constants/assets/local_images.dart';
-import 'package:tn_edii/services/route/routes.dart';
-import 'package:tn_edii/theme/palette.dart';
+import 'package:tn_edii/repositories/training_repository.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key, required this.child});
@@ -19,19 +12,20 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((e) => init());
+    super.initState();
+  }
+
+  void init() {
+    TrainingRepository().getTrainings(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      appBar: const AppBarMain(),
-      body: ListView(
-        children: [
-          ButtonPrimary(
-              onPressed: () {
-                context.push(Routes.singleCourseDetails);
-                // context.push(Routes.trainingDashboard);
-              },
-              label: "view")
-        ],
-      ),
+      body: widget.child,
+      bottomBar: const BottomNavBar(),
     );
   }
 }

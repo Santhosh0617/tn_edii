@@ -17,11 +17,12 @@ class AppBarCommon extends StatelessWidget {
     this.automaticLeadingImplies = true,
     this.actions = const [],
     this.isStacked = false,
+    this.isText = false,
   });
   final String title, subTitle;
   final VoidCallback? onRefresh;
   final bool safeArea;
-  final bool automaticLeadingImplies, isStacked;
+  final bool automaticLeadingImplies, isStacked, isText;
   final List<Widget> actions;
 
   @override
@@ -39,10 +40,15 @@ class AppBarCommon extends StatelessWidget {
                       onPressed: () => context.pop(),
                       icon: const Icon(Icons.arrow_back_ios_new))
                 else
-                  IconButton.filled(
-                      onPressed: () => context.pop(),
-                      icon: const Icon(Icons.arrow_back_ios_new)),
+                  InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: const Icon(Icons.arrow_back_ios_new,
+                          color: Palette.dark)),
                 const WidthFull()
+              ],
+              if (isText) ...[
+                TextCustom(title,
+                    maxLines: 1, size: 18, fontWeight: FontWeight.w800),
               ],
               Expanded(
                   child: Column(

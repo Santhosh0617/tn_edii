@@ -23,7 +23,7 @@ Map<String, String> setHeaders() {
   return {
     'AppCode': AppStrings.appName,
     'Accept': "application/json",
-    // 'Authorization': "Bearer ${authProvider.token}",
+    'Authorization': "Bearer ${authProvider.accessToken}",
   };
 }
 
@@ -37,7 +37,7 @@ class APIService {
 
 // post call
   Future<ResponseData> post(BuildContext context, String url,
-      {body, params, bool isAuth = false}) async {
+      {Map<String, dynamic> body = const {}, params}) async {
     while (true) {
       if (!await InfoRepository().checkInternetConnection()) {
         // Wait for a moment before retrying
@@ -55,7 +55,7 @@ class APIService {
 
   //get call
   Future get(BuildContext context, String url,
-      {body, params, bool isAuth = false}) async {
+      {Map<String, dynamic> body = const {}, params}) async {
     while (true) {
       if (!await InfoRepository().checkInternetConnection()) {
         // Wait for a moment before retrying

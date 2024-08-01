@@ -39,22 +39,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
         decoration: ThemeGuide.cardDecoration(
             borderRadius: BorderRadius.vertical(top: ThemeGuide.radius),
             color: Palette.pureWhite),
-        child: Padding(
-          padding: const EdgeInsets.only(right: SizeUnit.xlg * 3.2),
-          child: AnimatedVisibility(
-            visible: isVisible,
-            enterDuration: const Duration(milliseconds: 500),
-            enter: slideInVertically(),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ...List.generate(
-                      data.length,
-                      (index) => BottomBarItem(
-                            data: data[index],
-                          )),
-                  // const CustomFloatingActionButton()
-                ]),
+        child: AnimatedVisibility(
+          visible: isVisible,
+          enterDuration: const Duration(milliseconds: 500),
+          enter: slideInVertically(),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: List.generate(
+                data.length, (index) => BottomBarItem(data: data[index])),
           ),
         ),
       ),

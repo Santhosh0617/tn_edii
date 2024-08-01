@@ -8,7 +8,7 @@ extension ResponseExtension on ResponseData {
       return false;
     }
     if (statusCode == 401) return true;
-    String errMsg = data['message'] ?? '';
+    String errMsg = data['message'] ?? data['error'] ?? '';
     if (errMsg.isNotEmpty) showMessage(errMsg);
     return true;
   }

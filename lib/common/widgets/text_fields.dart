@@ -20,6 +20,7 @@ class TextFormFieldCustom extends StatefulWidget {
   final Function(String)? onChanged;
   final VoidCallback? onTap;
   final bool isBorderLess;
+  final int? maxLength;
 
   const TextFormFieldCustom({
     super.key,
@@ -38,6 +39,7 @@ class TextFormFieldCustom extends StatefulWidget {
     this.onChanged,
     this.onTap,
     this.isBorderLess = false,
+    this.maxLength,
   });
 
   @override
@@ -54,6 +56,7 @@ class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
       enabled: widget.enabled,
       readOnly: widget.onTap != null,
       onTap: widget.onTap,
+      maxLength: widget.maxLength,
       inputFormatters: getInputFormatters,
       onTapOutside: (event) => FocusScope.of(context).unfocus(),
       obscureText: widget.obscured && !isVisible,
@@ -69,6 +72,11 @@ class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
             widget.keyboardType == TextInputType.emailAddress &&
             !input.isEmail) {
           return "Kindly enter valid mail";
+        }
+        if (!widget.isOptional &&
+            widget.maxLength != null &&
+            input.length != widget.maxLength) {
+          return '${widget.label} must be ${widget.maxLength} digit';
         }
         // If the validator is not null custom validation logic to be performed
         if (widget.validator != null) {
@@ -150,5 +158,47 @@ class LowerCaseTextFormatter extends TextInputFormatter {
       text: newValue.text.toLowerCase(),
       selection: newValue.selection,
     );
+  }
+}
+
+class FeedbackTextfield extends StatelessWidget {
+  final TextEditingController controller;
+  final String? hint;
+  final double? height;
+  final TextInputType? textInputType;
+  const FeedbackTextfield(
+      {super.key,
+      required this.controller,
+      this.hint,
+      this.textInputType,
+      this.height});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: height ?? 150,
+        decoration: const BoxDecoration(color: Palette.pureWhite),
+        child: TextFormField(
+          controller: controller,
+          keyboardType: TextInputType.multiline,
+          maxLines: 10,
+          obscureText: false,
+          cursorColor: Palette.primary,
+          style: const TextStyle(),
+          decoration: InputDecoration(
+              fillColor: Palette.pureWhite,
+              filled: false,
+              counterText: "",
+              hintText: hint,
+              contentPadding: const EdgeInsets.all(12),
+              hintStyle:
+                  TextStyle(fontSize: 12, color: Palette.grey.withOpacity(0.8)),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: const BorderSide(color: Palette.primary)),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: BorderSide(color: Colors.grey.withOpacity(.3)))),
+        ));
   }
 }

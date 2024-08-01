@@ -1,5 +1,4 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/constants/assets/local_icons.dart';
@@ -23,7 +22,7 @@ class AppBarMain extends StatelessWidget {
               TextCustom('Hi, ESTHER',
                   size: 18, fontWeight: FontWeight.w700, maxLines: 1),
               TextCustom('What would you like to learn today?',
-                  color: Palette.secondary, fontWeight: FontWeight.bold),
+                  color: Palette.grey, fontWeight: FontWeight.bold),
             ]),
           ),
           const WidthFull(),

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:tn_edii/theme/palette.dart';
+import 'package:tn_edii/constants/assets/local_images.dart';
 
 class NetworkImageCustom extends StatelessWidget {
   const NetworkImageCustom({
@@ -33,13 +33,13 @@ class NetworkImageCustom extends StatelessWidget {
   }
 
   Widget placeholder() {
-    String temp = placeholderImage ?? "LocalImages.placeHolder";
+    String temp = placeholderImage ?? LocalImages.placeholder;
     // if (temp.isEmpty) return Icon(Icons.person_2_outlined, color: color);
-    return Image.asset(temp, color: color ?? Palette.pureWhite);
+    return Image.asset(temp, color: color);
   }
 
   Widget errorWidget() {
-    String temp = "LocalImages.placeHolder";
+    String temp = LocalImages.placeholder;
     return Image.asset(temp, color: color);
   }
 }

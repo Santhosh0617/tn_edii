@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tn_edii/common/widgets/network_image_cus.dart';
 import 'package:tn_edii/common/widgets/text.dart';
-import 'package:tn_edii/constants/assets/local_images.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/theme/palette.dart';
@@ -28,19 +28,15 @@ class TrainingCard extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            clipBehavior: Clip.hardEdge,
-            height: 138,
-            width: 136,
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(22),
-                    bottomLeft: Radius.circular(22)),
-                color: Palette.pureDark),
-            child: Image.asset(
-              LocalImages.sampleImg,
-              fit: BoxFit.cover,
-            ),
-          ),
+              clipBehavior: Clip.hardEdge,
+              height: 138,
+              width: 136,
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(22),
+                      bottomLeft: Radius.circular(22)),
+                  color: Palette.dark),
+              child: const NetworkImageCustom(logo: "")),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(SizeUnit.lg),
@@ -51,6 +47,7 @@ class TrainingCard extends StatelessWidget {
                     title,
                     size: 14,
                     fontWeight: FontWeight.w800,
+                    maxLines: 1,
                     color: Palette.dark,
                   ),
                   const HeightHalf(),
