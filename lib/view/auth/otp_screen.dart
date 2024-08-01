@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:tn_edii/common/widgets/buttons.dart';
 import 'package:tn_edii/common/widgets/text.dart';
-import 'package:tn_edii/common/widgets/text_fields.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/providers/auth_provider.dart';
-import 'package:tn_edii/repositories/auth_repository.dart';
-import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/theme/theme_guide.dart';
-import 'package:tn_edii/utilities/extensions/form_extension.dart';
 
 class OTPScreen extends StatefulWidget {
   const OTPScreen({super.key});

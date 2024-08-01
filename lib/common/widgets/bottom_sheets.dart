@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tn_edii/constants/size_unit.dart';
-import 'package:tn_edii/theme/palette.dart';
 
 Future<void> commonBottomSheet(BuildContext context, child) {
   return showModalBottomSheet<void>(

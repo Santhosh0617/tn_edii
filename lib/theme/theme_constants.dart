@@ -1,4 +1,3 @@
-import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:tn_edii/theme/theme_guide.dart';

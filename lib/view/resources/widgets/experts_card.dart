@@ -6,14 +6,14 @@ import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/extensions/context_extention.dart';
 
-class ResourceCardTile extends StatefulWidget {
-  const ResourceCardTile({super.key});
+class ExpertsCardTile extends StatefulWidget {
+  const ExpertsCardTile({super.key});
 
   @override
-  State<ResourceCardTile> createState() => _ResourceCardTileState();
+  State<ExpertsCardTile> createState() => _ExpertsCardTileState();
 }
 
-class _ResourceCardTileState extends State<ResourceCardTile> {
+class _ExpertsCardTileState extends State<ExpertsCardTile> {
   @override
   Widget build(BuildContext context) {
     return Container(

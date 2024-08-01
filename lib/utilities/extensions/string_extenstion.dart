@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:tn_edii/constants/app_strings.dart';
 import 'package:tn_edii/utilities/date_format.dart';
 import 'package:tn_edii/utilities/number_formatter.dart';
 // ignore: depend_on_referenced_packages

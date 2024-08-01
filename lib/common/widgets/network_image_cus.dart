@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tn_edii/constants/assets/local_images.dart';
-import 'package:tn_edii/theme/palette.dart';
 
 class NetworkImageCustom extends StatelessWidget {
   const NetworkImageCustom({
