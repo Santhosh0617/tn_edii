@@ -112,7 +112,7 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
       isStackedAppBar: false,
       appBar: const AppBarCommon(
           automaticLeadingImplies: true,
-          title: "Complete Profile",
+          title: "Complete Registration",
           isText: false),
       body: Form(
         key: formkey,
@@ -127,7 +127,7 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
                 children: [
                   TextFormFieldCustom(
                       label: 'Name',
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.name,
                       controller: nameController,
                       hint: 'Enter your name'),
                   const HeightFull(),
@@ -159,7 +159,7 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
                   TextFormFieldCustom(
                       label: 'University',
                       // keyboardType: TextInputType.number,
-                      controller: districtController,
+                      controller: universityController,
                       hint: 'Enter your district'),
                   const HeightFull(),
                   TextFormFieldCustom(
@@ -170,7 +170,7 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
                   const HeightFull(),
                   TextFormFieldCustom(
                       label: 'Year of completion ',
-                      // keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.number,
                       controller: yearController,
                       hint: 'Enter your year of completion'),
                   const HeightFull(),
@@ -195,6 +195,7 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
                   TextFormFieldCustom(
                       label: 'Father/Guardian Contact Number',
                       keyboardType: TextInputType.number,
+                      maxLength: 10,
                       controller: fatherPhnController,
                       hint: 'Enter your father/guardian contact number'),
                   const HeightFull(),
