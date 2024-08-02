@@ -496,7 +496,7 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
               child: Row(children: [
                 Expanded(
                   child:
-                      ButtonPrimary(onPressed: hitAPI, label: "Update Profile"),
+                      ButtonPrimary(onPressed: hitAPI, label: "Submit"),
                 ),
               ]),
             ),
