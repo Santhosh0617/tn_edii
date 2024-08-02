@@ -32,23 +32,16 @@ class _BottomNavBarState extends State<BottomNavBar> {
   List data = BottomBarData().data;
   @override
   Widget build(BuildContext context) {
-    return FadeInRight(
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-            vertical: SizeUnit.md, horizontal: SizeUnit.lg),
-        decoration: ThemeGuide.cardDecoration(
-            borderRadius: BorderRadius.vertical(top: ThemeGuide.radius),
-            color: Palette.pureWhite),
-        child: AnimatedVisibility(
-          visible: isVisible,
-          enterDuration: const Duration(milliseconds: 500),
-          enter: slideInVertically(),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: List.generate(
-                data.length, (index) => BottomBarItem(data: data[index])),
-          ),
-        ),
+    return Container(
+      padding: const EdgeInsets.symmetric(
+          vertical: SizeUnit.md, horizontal: SizeUnit.lg),
+      decoration: ThemeGuide.cardDecoration(
+          borderRadius: BorderRadius.vertical(top: ThemeGuide.radius),
+          color: Palette.pureWhite),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: List.generate(
+            data.length, (index) => BottomBarItem(data: data[index])),
       ),
     );
   }

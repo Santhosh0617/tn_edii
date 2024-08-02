@@ -74,7 +74,9 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                       context.push(Routes.mentorProfile, extra: training);
                     },
                     contentPadding: EdgeInsets.zero,
-                    leading: const NetworkImageCustom(logo: ''),
+                    leading: const NetworkImageCustom(
+                        logo: '',
+                        placeholderImage: LocalImages.profilePlaceholder),
                     title: TextCustom(training.user?.name ?? "-",
                         size: 16, fontWeight: FontWeight.w800),
                     subtitle: TextCustom(training.user?.role ?? "-",
@@ -137,6 +139,6 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
   }
 
   void enRoll() {
-    context.push(Routes.editProfile);
+    context.push(Routes.registerProfile, extra: true);
   }
 }

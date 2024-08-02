@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tn_edii/common/widgets/text.dart';
+import 'package:tn_edii/constants/assets/local_images.dart';
 import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/models/user.dart';
 import 'package:tn_edii/providers/providers.dart';
@@ -13,6 +14,8 @@ import 'package:tn_edii/services/route/router.dart';
 import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/services/storage/storage_constants.dart';
 import 'package:tn_edii/theme/palette.dart';
+import 'package:tn_edii/theme/theme_guide.dart';
+import 'package:tn_edii/utilities/extensions/context_extention.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -46,23 +49,22 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion(
-      value: const SystemUiOverlayStyle(statusBarIconBrightness: Brightness.dark),
+      value:
+          const SystemUiOverlayStyle(statusBarIconBrightness: Brightness.dark),
       child: Scaffold(
         backgroundColor: Palette.primary,
         body: Center(
             child: FadeInUp(
-          child: const Column(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Image.asset(
-              //   LocalIcons.appIcon,
-              //   height: context.widthQuarter(),
-              // ),
-              // const HeightFull(),
-              TextCustom('EDII TN',
-                  fontWeight: FontWeight.w800,
-                  size: 24,
-                  color: Palette.pureWhite)
+              Container(
+                decoration: ThemeGuide.cardDecoration(),
+                child: Image.asset(
+                  LocalImages.logo,
+                  height: context.widthHalf(),
+                ),
+              ),
             ],
           ),
         )),

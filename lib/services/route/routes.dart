@@ -14,6 +14,7 @@ class Routes {
   static const String training = '/training';
   static const String profile = '/profile';
   static const String editProfile = '/edit-profile';
+  static const String registerProfile = '/register-profile';
   static const String privacy = '/privacy';
   static const String appInfo = '/app-Info';
   static const String feedback = '/feedback';

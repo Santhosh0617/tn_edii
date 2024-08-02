@@ -11,9 +11,8 @@ class AppBarMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<AuthProvider>(
-      builder: (context, value, child) => FadeInRight(
-          child: SafeArea(
-              child: Padding(
+      builder: (context, value, child) => SafeArea(
+          child: Padding(
         padding: const EdgeInsets.all(SizeUnit.lg),
         child: Row(
           children: [
@@ -37,7 +36,7 @@ class AppBarMain extends StatelessWidget {
             //     icon: Image.asset(LocalIcons.notification, height: 25)),
           ],
         ),
-      ))),
+      )),
     );
   }
 }

@@ -16,7 +16,7 @@ class ResourceTypesTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
+        padding: const EdgeInsets.all(SizeUnit.lg),
         scrollDirection: Axis.horizontal,
         child: Row(
           children: List.generate(resourceProvider.resourceTypes.length, (i) {
@@ -31,8 +31,9 @@ class ResourceTypesTile extends StatelessWidget {
                   padding: const EdgeInsets.all(12),
                   margin: EdgeInsets.only(left: i == 0 ? 0 : SizeUnit.lg),
                   child: Column(children: [
-                    Image.asset(resourceType.image,
-                        color: const Color(0xff5F7085), height: 44, width: 70),
+                    ClipRRect(
+                        borderRadius: ThemeGuide.borderRadius(),
+                        child: Image.asset(resourceType.image)),
                     const HeightFull(),
                     TextCustom(
                       resourceType.resource,

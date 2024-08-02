@@ -29,8 +29,7 @@ class AppBarCommon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        FadeInRight(
-            child: SafeArea(
+        SafeArea(
           child: Container(
             padding: const EdgeInsets.all(SizeUnit.lg),
             child: Row(children: [
@@ -66,7 +65,7 @@ class AppBarCommon extends StatelessWidget {
               ...actions
             ]),
           ),
-        )),
+        ),
       ],
     );
   }

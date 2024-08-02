@@ -38,6 +38,8 @@ class ProfileCircle extends StatelessWidget {
                 ? Image.asset(LocalImages.placeholder)
                 : const NetworkImageCustom(
                     logo: '',
+                    
+                      placeholderImage: LocalImages.profilePlaceholder
                   )),
       ),
     );

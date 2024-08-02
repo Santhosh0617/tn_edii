@@ -23,9 +23,7 @@ class ThemeGuide {
   /// Primary Dark Box Shadow
   static List<BoxShadow>? primaryShadow = [
     BoxShadow(
-        color: Palette.secondary.withOpacity(.1),
-        blurRadius: .5,
-        spreadRadius: .5)
+        color: Palette.grey.withOpacity(.3), blurRadius: .5, spreadRadius: .5)
   ];
 
   /// Primary Text Shadow

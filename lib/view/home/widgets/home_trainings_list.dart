@@ -17,7 +17,7 @@ class HomeTrainingsList extends StatelessWidget {
     return Consumer<TrainingProvider>(
         builder: (context, value, child) => value.isLoading
             ? SizedBox(
-                height: 200,
+                height: 216,
                 child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
@@ -33,7 +33,7 @@ class HomeTrainingsList extends StatelessWidget {
                         ))),
               )
             : SizedBox(
-                height: 200,
+                height: 216,
                 child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,

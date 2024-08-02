@@ -5,6 +5,7 @@ import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
 import 'package:tn_edii/common/widgets/network_image_cus.dart';
 import 'package:tn_edii/common/widgets/text.dart';
+import 'package:tn_edii/constants/assets/local_images.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/models/expense_type.dart';
@@ -50,7 +51,9 @@ class _MentorDetailScreenState extends State<MentorDetailScreen> {
                       leading: const CircleAvatar(
                         maxRadius: 35,
                         backgroundColor: Palette.accent,
-                        child: NetworkImageCustom(logo: ''),
+                        child: NetworkImageCustom(
+                            logo: '',
+                            placeholderImage: LocalImages.profilePlaceholder),
                       ),
                       title: TextCustom(
                         user.name ?? '',

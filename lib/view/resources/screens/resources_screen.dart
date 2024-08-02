@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
+import 'package:tn_edii/common/widgets/heading.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
@@ -13,6 +14,7 @@ import 'package:tn_edii/providers/training_provider.dart';
 import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/theme/theme_guide.dart';
 import 'package:tn_edii/utilities/extensions/context_extention.dart';
+import 'package:tn_edii/view/home/widgets/resource_types_tile.dart';
 
 class ResourcesScreen extends StatefulWidget {
   const ResourcesScreen({super.key});
@@ -31,88 +33,18 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
       ),
       body: Consumer<TrainingProvider>(
         builder: (context, train, child) => ListView(
-            padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
             shrinkWrap: true,
+            padding: const EdgeInsets.all(0),
             children: [
-              // GridView.builder(
-              //     itemCount: resourceProvider.resourceTypes.length,
-              //     shrinkWrap: true,
-              //     padding: const EdgeInsets.all(0),
-              //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              //         mainAxisSpacing: 12,
-              //         crossAxisSpacing: 12,
-              //         childAspectRatio: 1.3,
-              //         crossAxisCount: 2),
-              //     itemBuilder: (context, i) {
-              //       ResourceType resourceType =
-              //           resourceProvider.resourceTypes[i];
-
-              //       return InkWell(
-              //         onTap: () {
-              //           context.push(Routes.resourcesDetail,
-              //               extra: resourceType);
-              //         },
-              //         child: Container(
-              //           clipBehavior: Clip.antiAlias,
-              //           decoration: ThemeGuide.cardDecoration(),
-              //           child: Column(
-              //             children: [
-              //               Image.asset(
-              //                 resourceType.image,
-              //                 height: 100,
-              //                 width: context.widthFull(),
-              //                 fit: BoxFit.cover,
-              //               ),
-              //               const HeightHalf(),
-              //               Center(
-              //                   child: TextCustom(resourceType.resource,
-              //                       fontWeight: FontWeight.bold))
-              //             ],
-              //           ),
-              //         ),
-              //       );
-              //     }),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children:
-                      List.generate(resourceProvider.resourceTypes.length, (i) {
-                    ResourceType resourceType =
-                        resourceProvider.resourceTypes[i];
-                    return InkWell(
-                      onTap: () {
-                        context.push(Routes.resourcesDetail,
-                            extra: resourceType);
-                      },
-                      child: Container(
-                          width: 100,
-                          decoration: ThemeGuide.cardDecoration(),
-                          padding: const EdgeInsets.all(12),
-                          margin:
-                              EdgeInsets.only(left: i == 0 ? 0 : SizeUnit.lg),
-                          child: Column(children: [
-                            Image.asset(resourceType.image,
-                                color: const Color(0xff5F7085),
-                                height: 44,
-                                width: 70),
-                            const HeightFull(),
-                            TextCustom(
-                              resourceType.resource,
-                              fontWeight: FontWeight.w700,
-                            )
-                          ])),
-                    );
-                  }),
-                ),
-              ),
+              const ResourceTypesTile(),
               const HeightFull(),
-              const TextCustom("Connect With Expense",
-                  maxLines: 1, size: 16, fontWeight: FontWeight.bold),
+              const Heading('Connect With Experts'),
               const HeightFull(),
               GridView.builder(
                   itemCount: resourceProvider.resourceTypes.length,
                   shrinkWrap: true,
-                  padding: const EdgeInsets.all(0),
+                  padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
+                  physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       mainAxisSpacing: 12,
                       crossAxisSpacing: 12,

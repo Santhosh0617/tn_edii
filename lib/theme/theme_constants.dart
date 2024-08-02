@@ -7,7 +7,7 @@ ThemeData lightTheme = ThemeData(
   fontFamily: "Mulish",
   brightness: Brightness.light,
   primaryColor: Palette.primary,
-  scaffoldBackgroundColor: Palette.bg,
+  scaffoldBackgroundColor: Palette.pureWhite,
   appBarTheme: const AppBarTheme(
       foregroundColor: Palette.pureWhite,
       backgroundColor: Palette.primary,

@@ -44,11 +44,19 @@ class NetworkImageCustom extends StatelessWidget {
   Widget placeholder() {
     String temp = placeholderImage ?? LocalImages.placeholder;
     // if (temp.isEmpty) return Icon(Icons.person_2_outlined, color: color);
-    return Image.asset(temp, color: color);
+    return Image.asset(
+      temp,
+      color: color,
+      fit: BoxFit.cover,
+    );
   }
 
   Widget errorWidget() {
     String temp = LocalImages.placeholder;
-    return Image.asset(temp, color: color);
+    return Image.asset(
+      temp,
+      color: color,
+      fit: BoxFit.cover,
+    );
   }
 }

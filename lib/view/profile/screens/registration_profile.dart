@@ -17,14 +17,14 @@ import 'package:tn_edii/utilities/custom_date_time.dart';
 import 'package:tn_edii/utilities/extensions/form_extension.dart';
 import 'package:tn_edii/utilities/message.dart';
 
-class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({super.key});
+class RegistrationProfile extends StatefulWidget {
+  const RegistrationProfile({super.key});
 
   @override
-  State<EditProfileScreen> createState() => _EditProfileScreenState();
+  State<RegistrationProfile> createState() => _RegistrationProfileState();
 }
 
-class _EditProfileScreenState extends State<EditProfileScreen> {
+class _RegistrationProfileState extends State<RegistrationProfile> {
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController mobileController = TextEditingController();
@@ -110,8 +110,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return CustomScaffold(
       isStackedAppBar: false,
-      appBar: AppBarCommon(
-          automaticLeadingImplies: true, title: "Edit Profile", isText: false),
+      appBar: const AppBarCommon(
+          automaticLeadingImplies: true,
+          title: "Complete Profile",
+          isText: false),
       body: Form(
         key: formkey,
         child: ListView(

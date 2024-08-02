@@ -20,37 +20,48 @@ class HomeTrainingsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     String price = course.feeAmount.toString();
     price = price == '0' ? 'Free' : price.money();
-    return InkWell(
-      onTap: () => context.push(Routes.courseDetail, extra: course),
-      child: Container(
-        width: 300,
-        clipBehavior: Clip.antiAlias,
-        decoration: ThemeGuide.cardDecoration(),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Expanded(
-              child: NetworkImageCustom(
-                  logo:
-                      '${AppStrings.apiUrl}users/uploads/training_images/${course.id}.jpeg')),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: SizeUnit.lg, vertical: SizeUnit.sm),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextCustom(
-                  course.title ?? '',
-                  size: 16,
-                  fontWeight: FontWeight.w700,
+    return Column(
+      children: [
+        InkWell(
+          onTap: () => context.push(Routes.courseDetail, extra: course),
+          child: Container(
+            width: 300,
+            height: 200,
+            clipBehavior: Clip.antiAlias,
+            decoration: ThemeGuide.cardDecoration(),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Expanded(
+                child: Container(
+                  width: 300,
+                  color: const Color(0xffCCCCCC),
+                  child: NetworkImageCustom(
+                      logo:
+                          '${AppStrings.apiUrl}users/uploads/training_images/${course.id}.jpeg'),
                 ),
-                TextCustom(
-                  price,
-                  fontWeight: FontWeight.bold,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: SizeUnit.lg, vertical: SizeUnit.sm),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextCustom(
+                      course.title ?? '',
+                      size: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    TextCustom(
+                      price,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ]),
           ),
-        ]),
-      ),
+        ),
+      ],
     );
   }
 }

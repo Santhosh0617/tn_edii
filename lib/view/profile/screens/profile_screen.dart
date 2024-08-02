@@ -6,6 +6,7 @@ import 'package:tn_edii/common/widgets/custom_scaffold.dart';
 import 'package:tn_edii/common/widgets/network_image_cus.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/constants/app_strings.dart';
+import 'package:tn_edii/constants/assets/local_images.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/repositories/auth_repository.dart';
@@ -28,7 +29,7 @@ List profileList(BuildContext context) => [
         "ontap": () => context.push(Routes.editProfile),
       },
       // {
-    //   "id": 2,
+      //   "id": 2,
       //   "name": "View Profile",
       //   "image": "assets/icons/my_enroll.png",
       //   "ontap": () {},
@@ -111,7 +112,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 100,
                     width: 100,
                     decoration: const BoxDecoration(shape: BoxShape.circle),
-                    child: const NetworkImageCustom(logo: "")),
+                    child: const NetworkImageCustom(
+                        logo: "",
+                        placeholderImage: LocalImages.profilePlaceholder)),
               )
             ],
           ),

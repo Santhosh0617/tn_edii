@@ -99,8 +99,7 @@ class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
               horizontal: SizeUnit.lg, vertical: SizeUnit.lg),
           border: ThemeGuide.focussedBorder,
           errorBorder: ThemeGuide.errorBorder,
-          enabledBorder: ThemeGuide.defaultBorder(
-              color: widget.isBorderLess ? null : Palette.grey),
+          enabledBorder: ThemeGuide.defaultBorder(color: Palette.grey),
           focusedBorder: ThemeGuide.focussedBorder),
     );
   }

@@ -15,6 +15,7 @@ import 'package:tn_edii/view/profile/screens/feedback.dart';
 import 'package:tn_edii/view/profile/screens/mentor_profile_screen.dart';
 import 'package:tn_edii/view/profile/screens/privacy_policy.dart';
 import 'package:tn_edii/view/profile/screens/profile_screen.dart';
+import 'package:tn_edii/view/profile/screens/registration_profile.dart';
 import 'package:tn_edii/view/resources/screens/mentor_detail_screen.dart';
 import 'package:tn_edii/view/resources/screens/resource_detail_screen.dart';
 import 'package:tn_edii/view/resources/screens/resources_screen.dart';
@@ -58,6 +59,8 @@ final GoRouter router = GoRouter(
     customRoute(
         path: Routes.forgotPassword, child: const ForgotPasswordScreen()),
     customRoute(path: Routes.editProfile, child: const EditProfileScreen()),
+    customRoute(
+        path: Routes.registerProfile, child: const RegistrationProfile()),
     customRoute(path: Routes.privacy, child: const PrivacyPolicyScreen()),
     customRoute(path: Routes.appInfo, child: const AppInfoScreen()),
     customRoute(path: Routes.feedback, child: const FeedBackScreen()),
