@@ -4,7 +4,7 @@ import 'package:tn_edii/constants/backend_urls.dart';
 
 abstract class AppStrings {
   /// App name
-  static const String appName = "Map Man";
+  static const String appName = "TN-EDII";
 
   /// Target API url
   static String targetUrl = BackEndUrls.serverUrl;

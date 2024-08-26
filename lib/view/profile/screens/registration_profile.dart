@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/buttons.dart';
@@ -9,9 +10,6 @@ import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/common/widgets/text_fields.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
-import 'package:tn_edii/models/user.dart';
-import 'package:tn_edii/providers/providers.dart';
-import 'package:tn_edii/repositories/user_repository.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/custom_date_time.dart';
 import 'package:tn_edii/utilities/extensions/form_extension.dart';
@@ -125,60 +123,187 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextFormFieldCustom(
-                      label: 'Name',
-                      keyboardType: TextInputType.name,
-                      controller: nameController,
-                      hint: 'Enter your name'),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormFieldCustom(
+                            label: 'Name',
+                            keyboardType: TextInputType.name,
+                            controller: nameController,
+                            hint: 'Enter your name'),
+                      ),
+                      const WidthFull(),
+                      Expanded(
+                        child: TextFormFieldCustom(
+                            label: 'Mobile',
+                            keyboardType: TextInputType.number,
+                            controller: mobileController,
+                            maxLength: 10,
+                            hint: 'Enter your mobile number'),
+                      ),
+                    ],
+                  ),
                   const HeightFull(),
-                  TextFormFieldCustom(
-                      label: 'Mobile',
-                      keyboardType: TextInputType.number,
-                      controller: mobileController,
-                      maxLength: 10,
-                      hint: 'Enter your mobile number'),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormFieldCustom(
+                            label: 'Email',
+                            keyboardType: TextInputType.emailAddress,
+                            controller: emailController,
+                            hint: 'Enter your email id'),
+                      ),
+                      const WidthFull(),
+                      Expanded(
+                        child: TextFormFieldCustom(
+                            label: 'Date Of Birth',
+                            controller: dateController,
+                            onTap: () => datePick(),
+                            hint: 'Enter your date'),
+                      ),
+                    ],
+                  ),
                   const HeightFull(),
-                  TextFormFieldCustom(
-                      label: 'Email',
-                      keyboardType: TextInputType.emailAddress,
-                      controller: emailController,
-                      hint: 'Enter your email id'),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormFieldCustom(
+                            label: 'Age',
+                            keyboardType: TextInputType.number,
+                            controller: ageController,
+                            hint: 'Enter your Age'),
+                      ),
+                      const WidthFull(),
+                      Expanded(
+                        child: TextFormFieldCustom(
+                            label: 'District',
+                            // keyboardType: TextInputType.number,
+                            controller: districtController,
+                            hint: 'Enter your district'),
+                      ),
+                    ],
+                  ),
                   const HeightFull(),
-                  TextFormFieldCustom(
-                      label: 'Date Of Birth',
-                      controller: dateController,
-                      onTap: () => datePick(),
-                      hint: 'Enter your date'),
+                  const TextCustom("Gender",
+                      color: Palette.grey,
+                      size: 14,
+                      fontWeight: FontWeight.w700),
+                  Wrap(
+                      children: List.generate(
+                          gender.length,
+                          (i) => RadioListTile(
+                              value: seletedGender,
+                              title: TextCustom(gender[i]['title'] ?? ''),
+                              groupValue: gender,
+                              onChanged: (e) {
+                                seletedGender = gender[i];
+                                setState(() {});
+                              }))),
                   const HeightFull(),
-                  TextFormFieldCustom(
-                      label: 'Age',
-                      keyboardType: TextInputType.number,
-                      controller: ageController,
-                      hint: 'Enter your Age'),
+                  const TextCustom("Community",
+                      color: Palette.grey,
+                      size: 14,
+                      fontWeight: FontWeight.w700),
+                  Wrap(
+                      children: List.generate(
+                          community.length,
+                          (i) => RadioListTile(
+                              value: seletedcommunity,
+                              title: TextCustom(community[i]['title'] ?? ''),
+                              groupValue: community,
+                              onChanged: (e) {
+                                seletedcommunity = community[i];
+                                setState(() {});
+                              }))),
                   const HeightFull(),
-                  TextFormFieldCustom(
-                      label: 'University',
-                      // keyboardType: TextInputType.number,
-                      controller: universityController,
-                      hint: 'Enter your district'),
+                  const TextCustom("Religion",
+                      color: Palette.grey,
+                      size: 14,
+                      fontWeight: FontWeight.w700),
+                  Wrap(
+                      children: List.generate(
+                          religion.length,
+                          (i) => RadioListTile(
+                              value: seletedreligion,
+                              title: TextCustom(religion[i]['title'] ?? ''),
+                              groupValue: religion,
+                              onChanged: (e) {
+                                seletedreligion = religion[i];
+                                setState(() {});
+                              }))),
                   const HeightFull(),
-                  TextFormFieldCustom(
-                      label: 'Degree',
-                      // keyboardType: TextInputType.number,
-                      controller: degreeController,
-                      hint: 'Enter your degree'),
+                  const TextCustom("Are you differently abled?",
+                      color: Palette.grey,
+                      size: 14,
+                      fontWeight: FontWeight.w700),
+                  Wrap(
+                      children: List.generate(
+                          abled.length,
+                          (i) => RadioListTile(
+                              value: seletedabled,
+                              title: TextCustom(abled[i]['title'] ?? ''),
+                              groupValue: abled,
+                              onChanged: (e) {
+                                seletedabled = abled[i];
+                                setState(() {});
+                              }))),
                   const HeightFull(),
-                  TextFormFieldCustom(
-                      label: 'Year of completion ',
-                      keyboardType: TextInputType.number,
-                      controller: yearController,
-                      hint: 'Enter your year of completion'),
+                  const TextCustom("Qualification",
+                      color: Palette.grey,
+                      size: 14,
+                      fontWeight: FontWeight.w700),
+                  Wrap(
+                      children: List.generate(
+                          qualification.length,
+                          (i) => RadioListTile(
+                              value: seleteQualification,
+                              title:
+                                  TextCustom(qualification[i]['title'] ?? ''),
+                              groupValue: qualification,
+                              onChanged: (e) {
+                                seleteQualification = qualification[i];
+                                setState(() {});
+                              }))),
                   const HeightFull(),
-                  TextFormFieldCustom(
-                      label: 'Percentage/Grade',
-                      // keyboardType: TextInputType.number,
-                      controller: gradeController,
-                      hint: 'Enter your percentage/grade'),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormFieldCustom(
+                            label: 'University',
+                            // keyboardType: TextInputType.number,
+                            controller: universityController,
+                            hint: 'Enter your university'),
+                      ),
+                      const WidthFull(),
+                      Expanded(
+                        child: TextFormFieldCustom(
+                            label: 'Degree',
+                            // keyboardType: TextInputType.number,
+                            controller: degreeController,
+                            hint: 'Enter your degree'),
+                      ),
+                    ],
+                  ),
+                  const HeightFull(),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormFieldCustom(
+                            label: 'Percentage/Grade',
+                            // keyboardType: TextInputType.number,
+                            controller: gradeController,
+                            hint: 'Enter your percentage/grade'),
+                      ),
+                      const WidthFull(),
+                      Expanded(
+                        child: TextFormFieldCustom(
+                            label: 'Year of completion ',
+                            keyboardType: TextInputType.number,
+                            controller: yearController,
+                            hint: 'Enter your year of completion'),
+                      ),
+                    ],
+                  ),
                   const HeightFull(),
                   TextFormFieldCustom(
                       label: 'Father/Guardian Name',
@@ -207,288 +332,10 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
                   const HeightFull(),
                   TextFormFieldCustom(
                       label: 'Communication Address',
-                      // keyboardType: TextInputType.number,
+                      // keyboardType: TextInputType.number,∂∂∂
                       controller: communicationAddController,
                       hint: 'Enter your communication address'),
-                  const HeightFull(),
-                  TextFormFieldCustom(
-                      label: 'District',
-                      // keyboardType: TextInputType.number,
-                      controller: districtController,
-                      hint: 'Enter your district'),
                 ],
-              ),
-            ),
-            const HeightFull(),
-            const Padding(
-              padding: EdgeInsets.only(left: SizeUnit.lg),
-              child: TextCustom("Gender",
-                  color: Palette.grey, size: 14, fontWeight: FontWeight.w700),
-            ),
-            const HeightHalf(),
-            SizedBox(
-              height: 50,
-              child: ListView.builder(
-                // padding: EdgeInsets.symmetric(horizontal: 0),
-                itemCount: gender.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  bool isSelect = seletedGender?["id"] == gender[index]["id"];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          splashFactory: NoSplash.splashFactory,
-                          onTap: () {
-                            seletedGender = gender[index];
-                            setState(() {});
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(
-                                left: SizeUnit.lg - 6, right: SizeUnit.lg - 6),
-                            height: 58,
-                            width: 125,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 8),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: isSelect
-                                    ? Palette.primary
-                                    : Palette.secondary),
-                            child: Center(
-                              child: TextCustom(gender[index]["title"],
-                                  fontWeight: FontWeight.w700,
-                                  size: 14,
-                                  color: isSelect ? Palette.pureWhite : null),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
-            const HeightFull(),
-            const Padding(
-              padding: EdgeInsets.only(left: SizeUnit.lg),
-              child: TextCustom("Community",
-                  color: Palette.grey, size: 14, fontWeight: FontWeight.w700),
-            ),
-            const HeightHalf(),
-            SizedBox(
-              height: 50,
-              child: ListView.builder(
-                // padding: EdgeInsets.symmetric(horizontal: 0),
-                itemCount: community.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  bool isSelect =
-                      seletedcommunity?["id"] == community[index]["id"];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          splashFactory: NoSplash.splashFactory,
-                          onTap: () {
-                            seletedcommunity = community[index];
-                            setState(() {});
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(
-                                left: SizeUnit.lg - 6, right: SizeUnit.lg - 6),
-                            height: 58,
-                            width: 125,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 8),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: isSelect
-                                    ? Palette.primary
-                                    : Palette.secondary),
-                            child: Center(
-                              child: TextCustom(community[index]["title"],
-                                  fontWeight: FontWeight.w700,
-                                  size: 14,
-                                  color: isSelect ? Palette.pureWhite : null),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
-            const HeightFull(),
-            const Padding(
-              padding: EdgeInsets.only(left: SizeUnit.lg),
-              child: TextCustom(
-                "Religion",
-                size: 14,
-                fontWeight: FontWeight.w700,
-                color: Palette.grey,
-              ),
-            ),
-            const HeightHalf(),
-            SizedBox(
-              height: 50,
-              child: ListView.builder(
-                // padding: EdgeInsets.symmetric(horizontal: 0),
-                itemCount: religion.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  bool isSelect =
-                      seletedreligion?["id"] == religion[index]["id"];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          splashFactory: NoSplash.splashFactory,
-                          onTap: () {
-                            seletedreligion = religion[index];
-                            setState(() {});
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(
-                                left: SizeUnit.lg - 6, right: SizeUnit.lg - 6),
-                            height: 58,
-                            width: 125,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 8),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: isSelect
-                                    ? Palette.primary
-                                    : Palette.secondary),
-                            child: Center(
-                              child: TextCustom(religion[index]["title"],
-                                  fontWeight: FontWeight.w700,
-                                  size: 14,
-                                  color: isSelect ? Palette.pureWhite : null),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
-            const HeightFull(),
-            const Padding(
-              padding: EdgeInsets.only(left: SizeUnit.lg),
-              child: TextCustom("Are you differently abled?",
-                  color: Palette.grey, size: 14, fontWeight: FontWeight.w700),
-            ),
-            const HeightHalf(),
-            SizedBox(
-              height: 50,
-              child: ListView.builder(
-                // padding: EdgeInsets.symmetric(horizontal: 0),
-                itemCount: abled.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  bool isSelect = seletedabled?["id"] == abled[index]["id"];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          splashFactory: NoSplash.splashFactory,
-                          onTap: () {
-                            seletedabled = abled[index];
-                            setState(() {});
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(
-                                left: SizeUnit.lg - 6, right: SizeUnit.lg - 6),
-                            height: 58,
-                            width: 125,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 8),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: isSelect
-                                    ? Palette.primary
-                                    : Palette.secondary),
-                            child: Center(
-                              child: TextCustom(abled[index]["title"],
-                                  fontWeight: FontWeight.w700,
-                                  size: 14,
-                                  color: isSelect ? Palette.pureWhite : null),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
-            const HeightFull(),
-            const Padding(
-              padding: EdgeInsets.only(left: SizeUnit.lg),
-              child: TextCustom("Qualification",
-                  color: Palette.grey, size: 14, fontWeight: FontWeight.w700),
-            ),
-            const HeightHalf(),
-            SizedBox(
-              height: 50,
-              child: ListView.builder(
-                // padding: EdgeInsets.symmetric(horizontal: 0),
-                itemCount: qualification.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  bool isSelect =
-                      seleteQualification?["id"] == qualification[index]["id"];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          splashFactory: NoSplash.splashFactory,
-                          onTap: () {
-                            seleteQualification = qualification[index];
-                            setState(() {});
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(
-                                left: SizeUnit.lg - 6, right: SizeUnit.lg - 6),
-                            height: 58,
-                            width: 125,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 8),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: isSelect
-                                    ? Palette.primary
-                                    : Palette.secondary),
-                            child: Center(
-                              child: TextCustom(qualification[index]["title"],
-                                  fontWeight: FontWeight.w700,
-                                  size: 14,
-                                  color: isSelect ? Palette.pureWhite : null),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
               ),
             ),
             const HeightFull(multiplier: 2),
@@ -496,12 +343,11 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
               padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
               child: Row(children: [
                 Expanded(
-                  child:
-                      ButtonPrimary(onPressed: hitAPI, label: "Submit"),
+                  child: ButtonPrimary(onPressed: hitAPI, label: "Submit"),
                 ),
               ]),
             ),
-            const HeightFull(),
+            const HeightFull(multiplier: 2),
           ],
         ),
       ),

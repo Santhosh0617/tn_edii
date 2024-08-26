@@ -38,7 +38,10 @@ class _TrainingScreenState extends State<TrainingScreen> {
             const Calender(),
             Container(
               decoration: ThemeGuide.cardDecoration(),
-            )
+            ),
+            const HeightFull(),
+            if (train.selectedTrainings.isNotEmpty)
+              TrainingCard(trainingDetails: train.selectedTrainings[0]),
             // const TrainingsTypesTile(),
             // const HeightFull(),
             // ListView.separated(

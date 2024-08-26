@@ -28,7 +28,6 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    logger.f(authProvider.user?.toJson());
     return Scaffold(
       backgroundColor: Palette.bg,
       body: SingleChildScrollView(

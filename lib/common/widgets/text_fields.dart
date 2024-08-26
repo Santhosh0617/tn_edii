@@ -89,6 +89,7 @@ class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
           prefixIcon: widget.prefix,
           suffixIcon: suffix,
           errorStyle: const TextStyle(fontSize: 13, color: Palette.red),
+          counterText: '',
           filled: true,
           fillColor: Colors.white,
           labelStyle: const TextStyle(color: Colors.grey, fontSize: 14),
@@ -99,7 +100,8 @@ class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
               horizontal: SizeUnit.lg, vertical: SizeUnit.lg),
           border: ThemeGuide.focussedBorder,
           errorBorder: ThemeGuide.errorBorder,
-          enabledBorder: ThemeGuide.defaultBorder(color: Palette.grey),
+          enabledBorder:
+              ThemeGuide.defaultBorder(color: Palette.grey.withOpacity(.5)),
           focusedBorder: ThemeGuide.focussedBorder),
     );
   }
@@ -200,5 +202,14 @@ class FeedbackTextfield extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                   borderSide: BorderSide(color: Colors.grey.withOpacity(.3)))),
         ));
+  }
+}
+
+class DoubleTextField extends StatelessWidget {
+  const DoubleTextField({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
