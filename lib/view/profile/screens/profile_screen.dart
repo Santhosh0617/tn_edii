@@ -13,6 +13,7 @@ import 'package:tn_edii/repositories/auth_repository.dart';
 import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/theme/theme_guide.dart';
+import 'package:tn_edii/view/auth/logout_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -63,7 +64,8 @@ List profileList(BuildContext context) => [
         "id": 8,
         "name": "Logout",
         "image": "assets/icons/Stroke 1.png",
-        "ontap": () => AuthRepository().logout(context)
+        "ontap": () => showDialog(
+            context: context, builder: (context) => const LogoutScreen())
       },
     ];
 

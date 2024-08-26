@@ -8,6 +8,7 @@ import 'package:tn_edii/services/api/api_services.dart';
 import 'package:tn_edii/services/route/router.dart';
 import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/utilities/extensions/response_extension.dart';
+import 'package:tn_edii/utilities/message.dart';
 
 class AuthRepository {
   String prefix = 'auth';
@@ -40,6 +41,8 @@ class AuthRepository {
     await Future.delayed(const Duration(milliseconds: 500));
     navigateLogin(context);
     clearCredentials();
+    // String message=
+    showMessage('Logout successfully');
     authProvider.isLoading = false;
     return true;
   }

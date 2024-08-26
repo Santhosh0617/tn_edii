@@ -14,6 +14,7 @@ class TextCustom extends StatelessWidget {
   final TextAlign? align;
   final TextDecoration? decoration;
   final double? height;
+  final TextOverflow? overflow;
   const TextCustom(
     this.value, {
     super.key,
@@ -24,6 +25,7 @@ class TextCustom extends StatelessWidget {
     this.align,
     this.decoration,
     this.height,
+    this.overflow,
   });
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class TextCustom extends StatelessWidget {
     return Text(
       value,
       maxLines: maxLines ?? 10000,
-      overflow: TextOverflow.ellipsis,
+      overflow: overflow ?? TextOverflow.ellipsis,
       textAlign: align,
       style: TextStyle(
           fontSize: fontSize,
@@ -42,6 +44,7 @@ class TextCustom extends StatelessWidget {
     );
   }
 }
+
 class NameCard extends StatelessWidget {
   const NameCard({
     super.key,
