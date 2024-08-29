@@ -3,11 +3,9 @@ import 'package:flutter/widgets.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
 import 'package:tn_edii/common/widgets/text.dart';
-import 'package:tn_edii/common/widgets/text_fields.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/theme/palette.dart';
-import 'package:tn_edii/utilities/extensions/context_extention.dart';
 
 class CompletedCourseDetails extends StatefulWidget {
   const CompletedCourseDetails({super.key});
@@ -28,14 +26,78 @@ class _CompletedCourseDetailsState extends State<CompletedCourseDetails> {
           title: "My Courses",
           isText: false,
         ),
-        body: ListView.separated(
-            itemBuilder: (context, index) {
-              return Container();
-            },
-            separatorBuilder: (context, index) {
-              return const Divider();
-            },
-            itemCount: 12)
+        body: Column(
+          children: [
+            Expanded(
+              child: ListView.separated(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: SizeUnit.lg, vertical: SizeUnit.lg),
+                  itemBuilder: (context, index) {
+                    return Container(
+                      padding: const EdgeInsets.all(SizeUnit.lg),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(22),
+                          color: Palette.pureWhite),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  TextCustom("Section ${index + 1} -",
+                                      size: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: Palette.dark),
+                                  const TextCustom(" Title",
+                                      size: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: Palette.primary),
+                                ],
+                              ),
+                              const TextCustom("125 Min",
+                                  size: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: Palette.primary)
+                            ],
+                          ),
+                          ...List.generate(2, (index) {
+                            return ListTile(
+                              contentPadding: EdgeInsets.symmetric(horizontal: 0),
+                                  leading: CircleAvatar(
+                                    backgroundColor: Palette.bg,
+                                    child: TextCustom("${index + 1}",size: 14,fontWeight: FontWeight.w700,color: Palette.dark,),
+                                  ),
+                                  title: TextCustom("Why Using 3D Blender",size: 15,maxLines: 1,fontWeight: FontWeight.w700,color: Palette.dark,),
+                                  // subtitle: ,
+                                ); 
+                          })
+
+                          // ListView.separated(
+                          //   physics: NeverScrollableScrollPhysics(),
+                          //     itemBuilder: (context, index) {
+                          //       return ListTile(
+                          //         leading: CircleAvatar(
+                          //           backgroundColor: Palette.bg,
+                          //           child: TextCustom("${index + 1}"),
+                          //         ),
+                          //       );
+                          //     },
+                          //     separatorBuilder: (context, index) {
+                          //       return Divider();
+                          //     },
+                          //     itemCount: 2)
+                        ],
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const HeightFull();
+                  },
+                  itemCount: 25),
+            ),
+          ],
+        )
         // ListView(
         //   shrinkWrap: true,
         //   physics:NeverScrollableScrollPhysics(),
