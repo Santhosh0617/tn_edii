@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tn_edii/common/widgets/shimmer_custom.dart';
-import 'package:tn_edii/common/widgets/shimmer_list.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/providers/training_provider.dart';
-import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/theme/theme_guide.dart';
 import 'package:tn_edii/view/home/widgets/home_trainings_tile.dart';
 

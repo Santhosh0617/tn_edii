@@ -6,7 +6,6 @@ import 'package:tn_edii/constants/app_strings.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/models/training.dart';
 import 'package:tn_edii/services/route/routes.dart';
-import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/theme/theme_guide.dart';
 import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
 
