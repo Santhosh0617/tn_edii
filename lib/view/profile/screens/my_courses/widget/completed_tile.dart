@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tn_edii/common/widgets/buttons.dart';
+import 'package:tn_edii/common/widgets/custom_validator.dart';
 import 'package:tn_edii/common/widgets/network_image_cus.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/common/widgets/text_fields.dart';
@@ -12,6 +13,7 @@ import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/extensions/context_extention.dart';
+import 'package:tn_edii/utilities/extensions/form_extension.dart';
 import 'package:tn_edii/utilities/message.dart';
 
 class CompletedTile extends StatefulWidget {
@@ -225,34 +227,59 @@ class ReviewBottomSheet extends StatefulWidget {
 
 class _ReviewBottomSheetState extends State<ReviewBottomSheet> {
   TextEditingController feedbackController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(12),
-      child: Column(children: [
-        const TextCustom(
-          "Review",
-          size: 16,
-          fontWeight: FontWeight.bold,
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Center(
+          child: const TextCustom(
+            "Review",
+            size: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const HeightFull(),
+        Center(
+          child: const TextCustom(
+            "How did you think about this training?",
+            fontWeight: FontWeight.normal,
+          ),
         ),
         const HeightFull(),
         FeedbackTextfield(
           controller: feedbackController,
           hint: "Please write your honest review",
+          onChanged: (p0) {
+            setState(() {
+              hasError = p0.isEmpty;
+            });
+          },
         ),
+        CustomValidator('The review field is required', isShow: hasError),
         const HeightFull(multiplier: 2),
-        ButtonPrimary(
-          onPressed: hitAPI,
-          label: "Submit",
-        )
+        Row(
+          children: [
+            Expanded(
+              child: ButtonPrimary(
+                onPressed: hitAPI,
+                label: "Submit",
+              ),
+            ),
+          ],
+        ),
+        const HeightFull(),
       ]),
     );
   }
 
+  bool hasError = false;
   hitAPI() {
     if (feedbackController.text.isEmpty) {
-      showToastMessage("Kindly Enter Review");
+      // return showMessage("Kindly Enter Review");
+      hasError = true;
+      setState(() {});
+      return;
     }
     Navigator.of(context)
       ..pop()

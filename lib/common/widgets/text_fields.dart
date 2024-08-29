@@ -168,12 +168,14 @@ class FeedbackTextfield extends StatelessWidget {
   final String? hint;
   final double? height;
   final TextInputType? textInputType;
+  final Function(String)? onChanged;
   const FeedbackTextfield(
       {super.key,
       required this.controller,
       this.hint,
       this.textInputType,
-      this.height});
+      this.height,
+      this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -185,6 +187,7 @@ class FeedbackTextfield extends StatelessWidget {
           keyboardType: TextInputType.multiline,
           maxLines: 10,
           obscureText: false,
+          onChanged: onChanged,
           cursorColor: Palette.primary,
           style: const TextStyle(),
           decoration: InputDecoration(

@@ -6,6 +6,7 @@ import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/theme/palette.dart';
+import 'package:tn_edii/view/profile/screens/my_courses/widget/completed_tile.dart';
 
 class OnGoingCourseDetails extends StatefulWidget {
   const OnGoingCourseDetails({super.key});
@@ -25,7 +26,10 @@ class _OnGoingCourseDetailsState extends State<OnGoingCourseDetails> {
             automaticLeadingImplies: true, title: "My Courses", isText: false),
         bottomBar: Padding(
             padding: EdgeInsets.all(SizeUnit.lg),
-            child: ButtonPrimary(onPressed: () {}, label: 'Continue')),
+            child: ButtonPrimary(
+                onPressed: () =>
+                    commonDialog(context, const CourseCompletedDialog()),
+                label: 'Continue')),
         body: Column(
           children: [
             Expanded(
