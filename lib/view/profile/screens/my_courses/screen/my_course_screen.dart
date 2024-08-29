@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
+import 'package:tn_edii/common/widgets/buttons.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
 import 'package:tn_edii/common/widgets/text_fields.dart';
 import 'package:tn_edii/constants/assets/local_icons.dart';
@@ -19,7 +20,7 @@ class MyCourseScreen extends StatefulWidget {
 }
 
 class _MyCourseScreenState extends State<MyCourseScreen> {
-  final TextEditingController searchCont=TextEditingController();
+  final TextEditingController searchCont = TextEditingController();
   int selectedIndex = 0;
   final PageController _pageController = PageController(initialPage: 0);
 
@@ -40,7 +41,10 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
         padding: const EdgeInsets.all(SizeUnit.lg),
         child: Column(
           children: [
-            TextFormFieldCustom(controller: searchCont, hint: "Search",),
+            TextFormFieldCustom(
+              controller: searchCont,
+              hint: "Search",
+            ),
             HeightFull(),
             Row(
                 children: List.generate(
@@ -53,8 +57,10 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
                               title: titles[index]['title'],
                               isFirst: index == 0),
                         ))),
-                        // HeightHalf(),
-                        SizedBox(height: SizeUnit.sm,),
+            // HeightHalf(),
+            SizedBox(
+              height: SizeUnit.sm,
+            ),
             Expanded(
               child: PageView.builder(
                   controller: _pageController,
@@ -63,8 +69,7 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
                   },
                   itemCount: titles.length,
                   itemBuilder: (context, index) {
-                    return 
-                    switch (selectedIndex) {
+                    return switch (selectedIndex) {
                       0 => const CompletedTile(),
                       _ => const OngoingTile(),
                     };
@@ -75,9 +80,8 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
       ),
     );
   }
-   void changeIndex(int i) {
+
+  void changeIndex(int i) {
     setState(() => selectedIndex = i);
   }
 }
-
-

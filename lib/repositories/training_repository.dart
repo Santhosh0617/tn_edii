@@ -10,17 +10,30 @@ import 'package:tn_edii/utilities/message.dart';
 class TrainingRepository {
   String prefix = 'training';
   APIService get _api => APIService(prefixUrl: prefix);
-  Future<bool> getTrainings(BuildContext context, {String search = ''}) async {
+  Future<bool> getTrainings(BuildContext context) async {
     trainingsProvider.isLoading = true;
     ResponseData responseData =
-        await _api.get(context, '', params: {'title_like': 'Go'});
-    // await _api.get(context, '', params: {'istrainingall': true});
+        // await _api.get(context, '', params: {'title_like': 'Go'});
+        await _api.get(context, '', params: {'istrainingall': true});
     // await _api.get(context, '');
     trainingsProvider.isLoading = false;
     if (responseData.hasError) return false;
     trainingsProvider.trainings = Training().fromJsonList(responseData.datas);
     return true;
   }
+
+  // Future<bool> searchTrainings(BuildContext context,
+  //     String search = '') async {
+  //   trainingsProvider.isLoading = true;
+  //   ResponseData responseData =
+  //       // await _api.get(context, '', params: {'title_like': 'Go'});
+  //       await _api.get(context, '', params: {'istrainingall': true});
+  //   // await _api.get(context, '');
+  //   trainingsProvider.isLoading = false;
+  //   if (responseData.hasError) return false;
+  //   trainingsProvider.trainings = Training().fromJsonList(responseData.datas);
+  //   return true;
+  // }
 
   Future<bool> registerTraining(BuildContext context, int id) async {
     trainingsProvider.isLoading = true;

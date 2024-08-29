@@ -22,7 +22,7 @@ class TrainingListScreen extends StatefulWidget {
 
 class _TrainingListScreenState extends State<TrainingListScreen> {
   void onChanged(String? value) {
-    TrainingRepository().getTrainings(context, search: contSearch.text);
+    // TrainingRepository().getTrainings(context, search: contSearch.text);
   }
 
   final contSearch = TextEditingController();

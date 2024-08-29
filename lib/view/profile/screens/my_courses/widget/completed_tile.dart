@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tn_edii/common/widgets/network_image_cus.dart';
 import 'package:tn_edii/common/widgets/text.dart';
+import 'package:tn_edii/constants/app_strings.dart';
 import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
@@ -22,12 +24,14 @@ class _CompletedTileState extends State<CompletedTile> {
       children: [
         Expanded(
           child: ListView.separated(
-            padding: EdgeInsets.only(top: 5),
+              padding: EdgeInsets.only(top: 5),
               itemBuilder: (context, index) {
                 return const CourseCompletedContainer();
               },
               separatorBuilder: (context, index) {
-                return const SizedBox(height: SizeUnit.sm,);
+                return const SizedBox(
+                  height: SizeUnit.sm,
+                );
               },
               itemCount: 10),
         )
@@ -54,7 +58,8 @@ class CourseCompletedContainer extends StatelessWidget {
           height: 158,
           width: context.widthFull(),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(22), color: Palette.pureWhite),
+              borderRadius: BorderRadius.circular(22),
+              color: Palette.pureWhite),
           child: Row(
             children: [
               Container(
@@ -66,6 +71,9 @@ class CourseCompletedContainer extends StatelessWidget {
                         topLeft: Radius.circular(22),
                         bottomLeft: Radius.circular(22)),
                     color: Palette.dark),
+                child: NetworkImageCustom(
+                    logo:
+                        "${AppStrings.apiUrl}users/uploads/training_images/1.jpeg"),
                 // child: Image.asset(LocalImages.js, fit: BoxFit.cover)
               ),
               const Expanded(

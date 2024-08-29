@@ -15,6 +15,7 @@ import 'package:tn_edii/view/profile/screens/feedback.dart';
 import 'package:tn_edii/view/profile/screens/mentor_profile_screen.dart';
 import 'package:tn_edii/view/profile/screens/my_courses/screen/completed_course_details.dart';
 import 'package:tn_edii/view/profile/screens/my_courses/screen/my_course_screen.dart';
+import 'package:tn_edii/view/profile/screens/my_courses/screen/ongoing_course_details.dart';
 import 'package:tn_edii/view/profile/screens/privacy_policy.dart';
 import 'package:tn_edii/view/profile/screens/profile_screen.dart';
 import 'package:tn_edii/view/profile/screens/registration_profile.dart';
@@ -73,7 +74,11 @@ final GoRouter router = GoRouter(
         path: Routes.resourcesDetail, child: const ResourceDetailScreen()),
     customRoute(path: Routes.mentorDetail, child: const MentorDetailScreen()),
     customRoute(path: Routes.myCourses, child: const MyCourseScreen()),
-    customRoute(path: Routes.completedCourseDetails, child: const CompletedCourseDetails()),
+    customRoute(
+        path: Routes.completedCourseDetails,
+        child: const CompletedCourseDetails()),
+    customRoute(
+        path: Routes.onGoingCourseDetails, child: const OnGoingCourseDetails()),
   ],
   redirect: (context, state) {
     String path = state.uri.path;

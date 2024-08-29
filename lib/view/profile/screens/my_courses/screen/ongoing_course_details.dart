@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
+import 'package:tn_edii/common/widgets/buttons.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/theme/palette.dart';
 
-class CompletedCourseDetails extends StatefulWidget {
-  const CompletedCourseDetails({super.key});
+class OnGoingCourseDetails extends StatefulWidget {
+  const OnGoingCourseDetails({super.key});
 
   @override
-  State<CompletedCourseDetails> createState() => _CompletedCourseDetailsState();
+  State<OnGoingCourseDetails> createState() => _OnGoingCourseDetailsState();
 }
 
-class _CompletedCourseDetailsState extends State<CompletedCourseDetails> {
+class _OnGoingCourseDetailsState extends State<OnGoingCourseDetails> {
   final TextEditingController searchCont = TextEditingController();
 
   @override
@@ -22,6 +23,9 @@ class _CompletedCourseDetailsState extends State<CompletedCourseDetails> {
         color: Palette.bg,
         appBar: const AppBarCommon(
             automaticLeadingImplies: true, title: "My Courses", isText: false),
+        bottomBar: Padding(
+            padding: EdgeInsets.all(SizeUnit.lg),
+            child: ButtonPrimary(onPressed: () {}, label: 'Continue')),
         body: Column(
           children: [
             Expanded(
