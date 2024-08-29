@@ -52,18 +52,23 @@ class FormatDate {
         inputDate = DateTime.parse(parseDate.toString());
       } on Exception {
         try {
-          parseDate = DateFormat("yyyy/MM/dd").parse(date);
+          parseDate = DateFormat("dd-MM-yyyy").parse(date);
           inputDate = DateTime.parse(parseDate.toString());
         } on Exception {
           try {
-            parseDate = DateFormat("HH:mm:ss").parse(date);
+            parseDate = DateFormat("yyyy/MM/dd").parse(date);
             inputDate = DateTime.parse(parseDate.toString());
           } on Exception {
             try {
-              parseDate = DateFormat("hh:mm a").parse(date);
+              parseDate = DateFormat("HH:mm:ss").parse(date);
               inputDate = DateTime.parse(parseDate.toString());
             } on Exception {
-              //
+              try {
+                parseDate = DateFormat("hh:mm a").parse(date);
+                inputDate = DateTime.parse(parseDate.toString());
+              } on Exception {
+                //
+              }
             }
           }
         }
