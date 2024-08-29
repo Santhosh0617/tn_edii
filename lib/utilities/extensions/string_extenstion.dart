@@ -82,6 +82,11 @@ extension StringExtension on String {
     return result;
   }
 
+  String get ddMMYYYY {
+    String result = FormatDate.formattedStr(this, 'dd-MM-yyyy');
+    return result;
+  }
+
   String get formattedRailwayTimeStr {
     String result = FormatDate.formattedTimeStr(this, 'HH:mm');
     return result;
@@ -94,6 +99,11 @@ extension StringExtension on String {
 
   TimeOfDay? get strToTime {
     TimeOfDay? result = FormatDate.strToTime(this);
+    return result;
+  }
+
+  DateTime? get strToDate {
+    DateTime? result = FormatDate.getFormattedDate(this);
     return result;
   }
 

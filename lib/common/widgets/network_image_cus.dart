@@ -1,7 +1,7 @@
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tn_edii/constants/assets/local_images.dart';
-import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/providers/providers.dart';
 
 class NetworkImageCustom extends StatelessWidget {
@@ -21,7 +21,6 @@ class NetworkImageCustom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    logger.e(logo);
     if (logo.isEmpty) return placeholder();
     return SizedBox(
       width: width,

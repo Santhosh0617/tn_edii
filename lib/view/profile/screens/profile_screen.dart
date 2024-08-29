@@ -9,10 +9,10 @@ import 'package:tn_edii/constants/app_strings.dart';
 import 'package:tn_edii/constants/assets/local_images.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
-import 'package:tn_edii/repositories/auth_repository.dart';
 import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/theme/theme_guide.dart';
+import 'package:tn_edii/view/auth/logout_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -28,12 +28,12 @@ List profileList(BuildContext context) => [
         "image": "assets/icons/my_enroll.png",
         "ontap": () => context.push(Routes.editProfile),
       },
-      // {
-      //   "id": 2,
-      //   "name": "View Profile",
-      //   "image": "assets/icons/my_enroll.png",
-      //   "ontap": () {},
-      // },
+      {
+        "id": 2,
+        "name": "My Courses",
+        "image": "assets/icons/e-book.png",
+        "ontap": () =>context.push(Routes.myCourses),
+      },
       {
         "id": 4,
         "name": "Privacy Policy",
@@ -63,7 +63,8 @@ List profileList(BuildContext context) => [
         "id": 8,
         "name": "Logout",
         "image": "assets/icons/Stroke 1.png",
-        "ontap": () => AuthRepository().logout(context)
+        "ontap": () => showDialog(
+            context: context, builder: (context) => const LogoutScreen())
       },
     ];
 

@@ -106,7 +106,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return CustomScaffold(
       isStackedAppBar: false,
-      appBar: AppBarCommon(
+      appBar: const AppBarCommon(
           automaticLeadingImplies: true, title: "Edit Profile", isText: false),
       body: Form(
         key: formkey,

@@ -1,0 +1,305 @@
+import 'dart:ui';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tn_edii/common/widgets/buttons.dart';
+import 'package:tn_edii/common/widgets/text.dart';
+import 'package:tn_edii/common/widgets/text_fields.dart';
+import 'package:tn_edii/constants/size_unit.dart';
+import 'package:tn_edii/constants/space.dart';
+import 'package:tn_edii/services/route/routes.dart';
+import 'package:tn_edii/theme/palette.dart';
+import 'package:tn_edii/utilities/extensions/context_extention.dart';
+import 'package:tn_edii/utilities/message.dart';
+
+class CompletedTile extends StatefulWidget {
+  const CompletedTile({super.key});
+
+  @override
+  State<CompletedTile> createState() => _CompletedTileState();
+}
+
+class _CompletedTileState extends State<CompletedTile> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: ListView.separated(
+              padding: const EdgeInsets.only(top: 5),
+              itemBuilder: (context, index) {
+                return const CourseCompletedContainer();
+              },
+              separatorBuilder: (context, index) {
+                return const SizedBox(
+                  height: SizeUnit.sm,
+                );
+              },
+              itemCount: 10),
+        )
+      ],
+    );
+  }
+}
+
+class CourseCompletedContainer extends StatelessWidget {
+  const CourseCompletedContainer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(children: [
+      InkWell(
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        onTap: () => context.push(Routes.completedCourseDetails),
+        child: Container(
+          margin: const EdgeInsets.only(top: SizeUnit.md),
+          clipBehavior: Clip.hardEdge,
+          height: 158,
+          width: context.widthFull(),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(22),
+              color: Palette.pureWhite),
+          child: Row(
+            children: [
+              Container(
+                clipBehavior: Clip.hardEdge,
+                height: 158,
+                width: 136,
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(22),
+                        bottomLeft: Radius.circular(22)),
+                    color: Palette.dark),
+                // child: Image.asset(LocalImages.js, fit: BoxFit.cover)
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(SizeUnit.lg),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const TextCustom(
+                        "Graphic Design",
+                        size: 14,
+                        fontWeight: FontWeight.w600,
+                        maxLines: 1,
+                        color: Palette.orange,
+                      ),
+                      const HeightHalf(),
+                      const TextCustom(
+                        "JavaScript Advacned Ebook vdsfh",
+                        size: 14,
+                        fontWeight: FontWeight.w800,
+                        maxLines: 1,
+                        color: Palette.dark,
+                      ),
+                      const HeightHalf(),
+                      const Row(
+                        children: [
+                          Icon(Icons.star, color: Palette.yellow),
+                          TextCustom("4.2",
+                              size: 14,
+                              color: Palette.dark,
+                              fontWeight: FontWeight.w700),
+                          WidthHalf(),
+                          TextCustom(
+                            "|",
+                            size: 14,
+                            color: Palette.dark,
+                            fontWeight: FontWeight.w700,
+                          ),
+                          WidthHalf(),
+                          TextCustom("2 Hrs 36 Mins",
+                              size: 14,
+                              color: Palette.dark,
+                              fontWeight: FontWeight.w700),
+                        ],
+                      ),
+                      const HeightFull(),
+                      const HeightHalf(),
+                      InkWell(
+                        onTap: () {
+                          commonDialog(context, const CourseCompletedDialog());
+                        },
+                        child: const Align(
+                          alignment: AlignmentDirectional.centerEnd,
+                          child: TextCustom(
+                            "View Certificate",
+                            decoration: TextDecoration.underline,
+                            size: 13,
+                            fontWeight: FontWeight.w800,
+                            decorationColor: Palette.greenAccent,
+                            color: Palette.greenAccent,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+      Positioned(
+          top: 1.5, right: 28.0, child: Image.asset("assets/icons/Group 7.png"))
+    ]);
+  }
+}
+
+class CourseCompletedDialog extends StatelessWidget {
+  const CourseCompletedDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+        InkWell(
+            onTap: () => Navigator.pop(context),
+            child: const Icon(Icons.close, color: Palette.dark, size: 28))
+      ]),
+      const HeightFull(),
+      Image.asset("assets/images/Group 31.png",
+          height: context.heightQuarter() - 60),
+      const HeightFull(multiplier: 2),
+      const TextCustom("Course Completed",
+          fontWeight: FontWeight.bold, size: 22),
+      const HeightHalf(),
+      const TextCustom("Complete your Course. Please Write a\n Review",
+          align: TextAlign.center,
+          color: Palette.grey,
+          fontWeight: FontWeight.w500),
+      const HeightFull(),
+      Image.asset("assets/images/Star1.png", height: 24),
+      const HeightFull(multiplier: 2),
+      InkWell(
+        onTap: () {
+          commonBottomSheetReport(context, const ReviewBottomSheet());
+        },
+        child: Container(
+          width: context.widthHalf() + 40,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(44), color: Palette.primary),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(left: 8),
+                child: TextCustom(
+                  "Write your Review",
+                  fontWeight: FontWeight.bold,
+                  color: Palette.pureWhite,
+                  size: 15,
+                ),
+              ),
+              const WidthHalf(),
+              Container(
+                margin: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(12),
+                decoration: const BoxDecoration(
+                    shape: BoxShape.circle, color: Palette.pureWhite),
+                child: const Icon(Icons.arrow_forward, color: Palette.primary),
+              )
+            ],
+          ),
+        ),
+      ),
+    ]);
+  }
+}
+
+class ReviewBottomSheet extends StatefulWidget {
+  const ReviewBottomSheet({super.key});
+
+  @override
+  State<ReviewBottomSheet> createState() => _ReviewBottomSheetState();
+}
+
+class _ReviewBottomSheetState extends State<ReviewBottomSheet> {
+  TextEditingController feedbackController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(12),
+      child: Column(children: [
+        const TextCustom(
+          "Review",
+          size: 16,
+          fontWeight: FontWeight.bold,
+        ),
+        const HeightFull(),
+        FeedbackTextfield(
+          controller: feedbackController,
+          hint: "Please write your honest review",
+        ),
+        const HeightFull(multiplier: 2),
+        ButtonPrimary(
+          onPressed: hitAPI,
+          label: "Submit",
+        )
+      ]),
+    );
+  }
+
+  hitAPI() {
+    if (feedbackController.text.isEmpty) {
+      showToastMessage("Kindly Enter Review");
+    }
+    Navigator.of(context)
+      ..pop()
+      ..pop();
+    showMessage("Review Submitted Successfully");
+  }
+}
+
+commonDialog(BuildContext context, Widget child) {
+  return showDialog(
+      barrierColor: Colors.transparent,
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        var size = MediaQuery.of(context).size;
+        return BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+          child: Scaffold(
+              backgroundColor: const Color(0xffB88187).withOpacity(.6),
+              body: SizedBox(
+                height: size.height,
+                width: size.width,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                        decoration: BoxDecoration(
+                            color: Palette.pureWhite,
+                            borderRadius: BorderRadius.circular(12)),
+                        width: size.width - 24,
+                        child: Padding(
+                            padding: const EdgeInsets.all(16), child: child)),
+                  ],
+                ),
+              )),
+        );
+      });
+}
+
+commonBottomSheetReport(BuildContext context, Widget child) =>
+    showModalBottomSheet<dynamic>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.white,
+      builder: (BuildContext context) {
+        return SingleChildScrollView(
+          // Wrap your content in SingleChildScrollView
+          child: Container(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+            ),
+            child: child,
+          ),
+        );
+      },
+    );

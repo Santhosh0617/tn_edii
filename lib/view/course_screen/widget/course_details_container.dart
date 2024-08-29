@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
 import 'package:tn_edii/common/widgets/text.dart';
-import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/models/training.dart';
@@ -23,10 +22,8 @@ class _CourseDetailsContainerState extends State<CourseDetailsContainer> {
   bool isAboutSelected = true;
   bool isReadMore = false;
 
-
   @override
   Widget build(BuildContext context) {
-    logger.w(widget.training.toJson());
     return Container(
       margin: const EdgeInsets.only(
           top: SizeUnit.xlg * 14, left: SizeUnit.lg, right: SizeUnit.lg),
@@ -142,33 +139,36 @@ class _CourseDetailsContainerState extends State<CourseDetailsContainer> {
                   ],
                 ),
                 const HeightHalf(),
-                const TextCustom("Description:",  size: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Palette.dark,),
-                 ReadMoreText(
-                    widget.training.description??"-",
-                    trimMode: TrimMode.Line,
-                    textAlign: TextAlign.justify,
-                    trimLines: 3,
-                    colorClickableText: Palette.primary,
-                    trimCollapsedText: 'Show More',
-                    trimExpandedText: 'Show Less',
-                    style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        height: 1.5,
-                        color: Palette.grey),
-                    moreStyle: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Palette.primary,
-                        decoration: TextDecoration.underline),
-                    lessStyle: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Palette.primary,
-                        decoration: TextDecoration.underline),
-                  ),
+                const TextCustom(
+                  "Description:",
+                  size: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Palette.dark,
+                ),
+                ReadMoreText(
+                  widget.training.description ?? "-",
+                  trimMode: TrimMode.Line,
+                  textAlign: TextAlign.justify,
+                  trimLines: 3,
+                  colorClickableText: Palette.primary,
+                  trimCollapsedText: 'Show More',
+                  trimExpandedText: 'Show Less',
+                  style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      height: 1.5,
+                      color: Palette.grey),
+                  moreStyle: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: Palette.primary,
+                      decoration: TextDecoration.underline),
+                  lessStyle: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: Palette.primary,
+                      decoration: TextDecoration.underline),
+                ),
                 //   ],
                 // ),
               ],
@@ -226,7 +226,7 @@ class _CourseDetailsContainerState extends State<CourseDetailsContainer> {
           //   ],
           // ),
           // HeightFull(),
-               
+
           // Padding(
           //   padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
           //   child: Column(

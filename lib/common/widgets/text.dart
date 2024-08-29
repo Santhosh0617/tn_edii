@@ -8,12 +8,13 @@ import 'package:readmore/readmore.dart';
 class TextCustom extends StatelessWidget {
   final String value;
   final double? size;
-  final Color? color;
+  final Color? color,decorationColor;
   final FontWeight? fontWeight;
   final int? maxLines;
   final TextAlign? align;
   final TextDecoration? decoration;
   final double? height;
+  final TextOverflow? overflow;
   const TextCustom(
     this.value, {
     super.key,
@@ -24,6 +25,7 @@ class TextCustom extends StatelessWidget {
     this.align,
     this.decoration,
     this.height,
+    this.overflow, this.decorationColor,
   });
   @override
   Widget build(BuildContext context) {
@@ -31,17 +33,19 @@ class TextCustom extends StatelessWidget {
     return Text(
       value,
       maxLines: maxLines ?? 10000,
-      overflow: TextOverflow.ellipsis,
+      overflow: overflow ?? TextOverflow.ellipsis,
       textAlign: align,
       style: TextStyle(
           fontSize: fontSize,
           color: color,
           fontWeight: fontWeight,
           decoration: decoration,
+          decorationColor: decorationColor,
           height: height),
     );
   }
 }
+
 class NameCard extends StatelessWidget {
   const NameCard({
     super.key,

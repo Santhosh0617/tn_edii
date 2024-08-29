@@ -8,6 +8,7 @@ class LocalIcons {
 
   /// Notification Icons
   static const String notification = 'assets/icons/home_icons/notification.png';
+  static const String search = 'assets/icons/home_icons/search.png';
 
   /// Bottom Bar Icons
   static const String home = 'assets/icons/home_icons/home.png';

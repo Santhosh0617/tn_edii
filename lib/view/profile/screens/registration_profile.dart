@@ -1,17 +1,26 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:http/http.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/buttons.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/common/widgets/text_fields.dart';
+import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
+import 'package:tn_edii/models/user.dart';
+import 'package:tn_edii/providers/providers.dart';
+import 'package:tn_edii/providers/user_provider.dart';
+import 'package:tn_edii/repositories/training_repository.dart';
+import 'package:tn_edii/repositories/user_repository.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/custom_date_time.dart';
 import 'package:tn_edii/utilities/extensions/form_extension.dart';
+import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
 import 'package:tn_edii/utilities/message.dart';
 
 class RegistrationProfile extends StatefulWidget {
@@ -39,12 +48,13 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
   final TextEditingController permanentAddController = TextEditingController();
   final TextEditingController communicationAddController =
       TextEditingController();
-  DateTime? date;
+  // DateTime? date;
 
   bool get isRegistration => (GoRouterState.of(context).extra ?? false) as bool;
   File? img;
   datePick() async {
     FocusScope.of(context).unfocus();
+    DateTime date = dateController.text.strToDate ?? CustomDateTime().now;
     DateTime? pickedDate = await showDatePicker(
         builder: (BuildContext context, Widget? child) {
           return Theme(
@@ -60,14 +70,13 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
           );
         },
         context: context,
-        initialDate: date ?? CustomDateTime().now,
+        initialDate: date,
         firstDate: DateTime(1990),
         lastDate: DateTime(2025));
     if (pickedDate != null) {
-      String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);
+      String formattedDate = pickedDate.toString().ddMMYYYY;
       setState(() {
         dateController.text = formattedDate;
-        date = pickedDate;
       });
     } else {}
   }
@@ -103,6 +112,50 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
     {"id": 2, "title": "PG"},
     {"id": 3, "title": "UG(final year)"},
   ];
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((t) => init());
+    super.initState();
+  }
+
+  void init() {
+    User? user = authProvider.user;
+    if (user == null) return;
+    nameController.text = user.name ?? '';
+    mobileController.text = user.phonenumber ?? '';
+    emailController.text = user.email ?? '';
+    dateController.text = user.dateOfBirth?.ddMMYYYY ?? '';
+    ageController.text = user.age ?? '';
+    districtController.text = user.location ?? '';
+    seletedGender = gender.firstWhere(
+        (e) =>
+            e['title'].toString().toLowerCase() == user.gender?.toLowerCase(),
+        orElse: () => null);
+    seletedcommunity = community.firstWhere((e) => e['title'] == user.community,
+        orElse: () => null);
+    seletedreligion = religion.firstWhere(
+        (e) =>
+            e['title'].toString().toLowerCase() == user.religion?.toLowerCase(),
+        orElse: () => null);
+    if (user.differentlyAbled != null) {
+      seletedabled = user.differentlyAbled! ? abled.first : abled.last;
+    }
+    seleteQualification = qualification.firstWhere(
+        (e) => e['title'] == user.qualification,
+        orElse: () => null);
+    universityController.text = user.nameOfUniversity ?? '';
+    degreeController.text = user.nameOfDegree ?? '';
+    gradeController.text = user.percentageOfMarks ?? '';
+    yearController.text = user.yearOfCompletion ?? '';
+    fatherNameController.text = user.fatherName ?? '';
+    motherNameController.text = user.motherName ?? '';
+    fatherPhnController.text = user.guardianNumber ?? '';
+    permanentAddController.text = user.permanentAddress ?? '';
+    communicationAddController.text = user.addressOfCommunication ?? '';
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -122,60 +175,188 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextFormFieldCustom(
-                      label: 'Name',
-                      keyboardType: TextInputType.name,
-                      controller: nameController,
-                      hint: 'Enter your name'),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormFieldCustom(
+                            label: 'Name',
+                            keyboardType: TextInputType.name,
+                            controller: nameController,
+                            hint: 'Enter your name'),
+                      ),
+                      const WidthFull(),
+                      Expanded(
+                        child: TextFormFieldCustom(
+                            label: 'Mobile',
+                            keyboardType: TextInputType.number,
+                            controller: mobileController,
+                            maxLength: 10,
+                            hint: 'Enter your mobile number'),
+                      ),
+                    ],
+                  ),
                   const HeightFull(),
-                  TextFormFieldCustom(
-                      label: 'Mobile',
-                      keyboardType: TextInputType.number,
-                      controller: mobileController,
-                      maxLength: 10,
-                      hint: 'Enter your mobile number'),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormFieldCustom(
+                            label: 'Email',
+                            keyboardType: TextInputType.emailAddress,
+                            controller: emailController,
+                            hint: 'Enter your email id'),
+                      ),
+                      const WidthFull(),
+                      Expanded(
+                        child: TextFormFieldCustom(
+                            label: 'Date Of Birth',
+                            controller: dateController,
+                            onTap: () => datePick(),
+                            hint: 'Enter your date'),
+                      ),
+                    ],
+                  ),
                   const HeightFull(),
-                  TextFormFieldCustom(
-                      label: 'Email',
-                      keyboardType: TextInputType.emailAddress,
-                      controller: emailController,
-                      hint: 'Enter your email id'),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormFieldCustom(
+                            label: 'Age',
+                            keyboardType: TextInputType.number,
+                            controller: ageController,
+                            hint: 'Enter your Age'),
+                      ),
+                      const WidthFull(),
+                      Expanded(
+                        child: TextFormFieldCustom(
+                            label: 'District',
+                            // keyboardType: TextInputType.number,
+                            controller: districtController,
+                            hint: 'Enter your district'),
+                      ),
+                    ],
+                  ),
                   const HeightFull(),
-                  TextFormFieldCustom(
-                      label: 'Date Of Birth',
-                      controller: dateController,
-                      onTap: () => datePick(),
-                      hint: 'Enter your date'),
+                  const TextCustom("Gender",
+                      color: Palette.grey,
+                      size: 14,
+                      fontWeight: FontWeight.w700),
+                  Wrap(
+                      children: List.generate(
+                          gender.length,
+                          (i) => RadioListTile(
+                              value: gender[i],
+                              title: TextCustom(gender[i]['title'] ?? ''),
+                              groupValue: seletedGender,
+                              onChanged: (e) {
+                                seletedGender = gender[i];
+                                logger.e(seletedGender);
+                                setState(() {});
+                              }))),
                   const HeightFull(),
-                  TextFormFieldCustom(
-                      label: 'Age',
-                      keyboardType: TextInputType.number,
-                      controller: ageController,
-                      hint: 'Enter your Age'),
+                  const TextCustom("Community",
+                      color: Palette.grey,
+                      size: 14,
+                      fontWeight: FontWeight.w700),
+                  Wrap(
+                      children: List.generate(
+                          community.length,
+                          (i) => RadioListTile(
+                              groupValue: seletedcommunity,
+                              title: TextCustom(community[i]['title'] ?? ''),
+                              value: community[i],
+                              onChanged: (e) {
+                                seletedcommunity = community[i];
+                                setState(() {});
+                              }))),
                   const HeightFull(),
-                  TextFormFieldCustom(
-                      label: 'University',
-                      // keyboardType: TextInputType.number,
-                      controller: universityController,
-                      hint: 'Enter your district'),
+                  const TextCustom("Religion",
+                      color: Palette.grey,
+                      size: 14,
+                      fontWeight: FontWeight.w700),
+                  Wrap(
+                      children: List.generate(
+                          religion.length,
+                          (i) => RadioListTile(
+                              groupValue: seletedreligion,
+                              title: TextCustom(religion[i]['title'] ?? ''),
+                              value: religion[i],
+                              onChanged: (e) {
+                                seletedreligion = religion[i];
+                                setState(() {});
+                              }))),
                   const HeightFull(),
-                  TextFormFieldCustom(
-                      label: 'Degree',
-                      // keyboardType: TextInputType.number,
-                      controller: degreeController,
-                      hint: 'Enter your degree'),
+                  const TextCustom("Are you differently abled?",
+                      color: Palette.grey,
+                      size: 14,
+                      fontWeight: FontWeight.w700),
+                  Wrap(
+                      children: List.generate(
+                          abled.length,
+                          (i) => RadioListTile(
+                              groupValue: seletedabled,
+                              title: TextCustom(abled[i]['title'] ?? ''),
+                              value: abled[i],
+                              onChanged: (e) {
+                                seletedabled = abled[i];
+                                setState(() {});
+                              }))),
                   const HeightFull(),
-                  TextFormFieldCustom(
-                      label: 'Year of completion ',
-                      keyboardType: TextInputType.number,
-                      controller: yearController,
-                      hint: 'Enter your year of completion'),
+                  const TextCustom("Qualification",
+                      color: Palette.grey,
+                      size: 14,
+                      fontWeight: FontWeight.w700),
+                  Wrap(
+                      children: List.generate(
+                          qualification.length,
+                          (i) => RadioListTile(
+                              groupValue: seleteQualification,
+                              title:
+                                  TextCustom(qualification[i]['title'] ?? ''),
+                              value: qualification[i],
+                              onChanged: (e) {
+                                seleteQualification = qualification[i];
+                                setState(() {});
+                              }))),
                   const HeightFull(),
-                  TextFormFieldCustom(
-                      label: 'Percentage/Grade',
-                      // keyboardType: TextInputType.number,
-                      controller: gradeController,
-                      hint: 'Enter your percentage/grade'),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormFieldCustom(
+                            label: 'University',
+                            // keyboardType: TextInputType.number,
+                            controller: universityController,
+                            hint: 'Enter your university'),
+                      ),
+                      const WidthFull(),
+                      Expanded(
+                        child: TextFormFieldCustom(
+                            label: 'Degree',
+                            // keyboardType: TextInputType.number,
+                            controller: degreeController,
+                            hint: 'Enter your degree'),
+                      ),
+                    ],
+                  ),
+                  const HeightFull(),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormFieldCustom(
+                            label: 'Percentage/Grade',
+                            // keyboardType: TextInputType.number,
+                            controller: gradeController,
+                            hint: 'Enter your percentage/grade'),
+                      ),
+                      const WidthFull(),
+                      Expanded(
+                        child: TextFormFieldCustom(
+                            label: 'Year of completion ',
+                            keyboardType: TextInputType.number,
+                            controller: yearController,
+                            hint: 'Enter your year of completion'),
+                      ),
+                    ],
+                  ),
                   const HeightFull(),
                   TextFormFieldCustom(
                       label: 'Father/Guardian Name',
@@ -204,313 +385,63 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
                   const HeightFull(),
                   TextFormFieldCustom(
                       label: 'Communication Address',
-                      // keyboardType: TextInputType.number,
+                      // keyboardType: TextInputType.number,∂∂∂
                       controller: communicationAddController,
                       hint: 'Enter your communication address'),
-                  const HeightFull(),
-                  TextFormFieldCustom(
-                      label: 'District',
-                      // keyboardType: TextInputType.number,
-                      controller: districtController,
-                      hint: 'Enter your district'),
                 ],
               ),
             ),
-            const HeightFull(),
-            const Padding(
-              padding: EdgeInsets.only(left: SizeUnit.lg),
-              child: TextCustom("Gender",
-                  color: Palette.grey, size: 14, fontWeight: FontWeight.w700),
-            ),
-            const HeightHalf(),
-            SizedBox(
-              height: 50,
-              child: ListView.builder(
-                // padding: EdgeInsets.symmetric(horizontal: 0),
-                itemCount: gender.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  bool isSelect = seletedGender?["id"] == gender[index]["id"];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          splashFactory: NoSplash.splashFactory,
-                          onTap: () {
-                            seletedGender = gender[index];
-                            setState(() {});
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(
-                                left: SizeUnit.lg - 6, right: SizeUnit.lg - 6),
-                            height: 58,
-                            width: 125,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 8),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: isSelect
-                                    ? Palette.primary
-                                    : Palette.secondary),
-                            child: Center(
-                              child: TextCustom(gender[index]["title"],
-                                  fontWeight: FontWeight.w700,
-                                  size: 14,
-                                  color: isSelect ? Palette.pureWhite : null),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
-            const HeightFull(),
-            const Padding(
-              padding: EdgeInsets.only(left: SizeUnit.lg),
-              child: TextCustom("Community",
-                  color: Palette.grey, size: 14, fontWeight: FontWeight.w700),
-            ),
-            const HeightHalf(),
-            SizedBox(
-              height: 50,
-              child: ListView.builder(
-                // padding: EdgeInsets.symmetric(horizontal: 0),
-                itemCount: community.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  bool isSelect =
-                      seletedcommunity?["id"] == community[index]["id"];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          splashFactory: NoSplash.splashFactory,
-                          onTap: () {
-                            seletedcommunity = community[index];
-                            setState(() {});
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(
-                                left: SizeUnit.lg - 6, right: SizeUnit.lg - 6),
-                            height: 58,
-                            width: 125,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 8),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: isSelect
-                                    ? Palette.primary
-                                    : Palette.secondary),
-                            child: Center(
-                              child: TextCustom(community[index]["title"],
-                                  fontWeight: FontWeight.w700,
-                                  size: 14,
-                                  color: isSelect ? Palette.pureWhite : null),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
-            const HeightFull(),
-            const Padding(
-              padding: EdgeInsets.only(left: SizeUnit.lg),
-              child: TextCustom(
-                "Religion",
-                size: 14,
-                fontWeight: FontWeight.w700,
-                color: Palette.grey,
-              ),
-            ),
-            const HeightHalf(),
-            SizedBox(
-              height: 50,
-              child: ListView.builder(
-                // padding: EdgeInsets.symmetric(horizontal: 0),
-                itemCount: religion.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  bool isSelect =
-                      seletedreligion?["id"] == religion[index]["id"];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          splashFactory: NoSplash.splashFactory,
-                          onTap: () {
-                            seletedreligion = religion[index];
-                            setState(() {});
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(
-                                left: SizeUnit.lg - 6, right: SizeUnit.lg - 6),
-                            height: 58,
-                            width: 125,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 8),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: isSelect
-                                    ? Palette.primary
-                                    : Palette.secondary),
-                            child: Center(
-                              child: TextCustom(religion[index]["title"],
-                                  fontWeight: FontWeight.w700,
-                                  size: 14,
-                                  color: isSelect ? Palette.pureWhite : null),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
-            const HeightFull(),
-            const Padding(
-              padding: EdgeInsets.only(left: SizeUnit.lg),
-              child: TextCustom("Are you differently abled?",
-                  color: Palette.grey, size: 14, fontWeight: FontWeight.w700),
-            ),
-            const HeightHalf(),
-            SizedBox(
-              height: 50,
-              child: ListView.builder(
-                // padding: EdgeInsets.symmetric(horizontal: 0),
-                itemCount: abled.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  bool isSelect = seletedabled?["id"] == abled[index]["id"];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          splashFactory: NoSplash.splashFactory,
-                          onTap: () {
-                            seletedabled = abled[index];
-                            setState(() {});
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(
-                                left: SizeUnit.lg - 6, right: SizeUnit.lg - 6),
-                            height: 58,
-                            width: 125,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 8),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: isSelect
-                                    ? Palette.primary
-                                    : Palette.secondary),
-                            child: Center(
-                              child: TextCustom(abled[index]["title"],
-                                  fontWeight: FontWeight.w700,
-                                  size: 14,
-                                  color: isSelect ? Palette.pureWhite : null),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
-            const HeightFull(),
-            const Padding(
-              padding: EdgeInsets.only(left: SizeUnit.lg),
-              child: TextCustom("Qualification",
-                  color: Palette.grey, size: 14, fontWeight: FontWeight.w700),
-            ),
-            const HeightHalf(),
-            SizedBox(
-              height: 50,
-              child: ListView.builder(
-                // padding: EdgeInsets.symmetric(horizontal: 0),
-                itemCount: qualification.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  bool isSelect =
-                      seleteQualification?["id"] == qualification[index]["id"];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          splashFactory: NoSplash.splashFactory,
-                          onTap: () {
-                            seleteQualification = qualification[index];
-                            setState(() {});
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(
-                                left: SizeUnit.lg - 6, right: SizeUnit.lg - 6),
-                            height: 58,
-                            width: 125,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 8),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: isSelect
-                                    ? Palette.primary
-                                    : Palette.secondary),
-                            child: Center(
-                              child: TextCustom(qualification[index]["title"],
-                                  fontWeight: FontWeight.w700,
-                                  size: 14,
-                                  color: isSelect ? Palette.pureWhite : null),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
+            const HeightFull(multiplier: 2),
+            Consumer<UserProvider>(
+              builder: (context, value, child) => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
+                child: Row(children: [
+                  Expanded(
+                    child: ButtonPrimary(
+                        onPressed: hitAPI,
+                        isLoading: value.isLoading,
+                        label: "Submit"),
+                  ),
+                ]),
               ),
             ),
             const HeightFull(multiplier: 2),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
-              child: Row(children: [
-                Expanded(
-                  child:
-                      ButtonPrimary(onPressed: hitAPI, label: "Submit"),
-                ),
-              ]),
-            ),
-            const HeightFull(),
           ],
         ),
       ),
     );
   }
 
-  hitAPI() {
+  hitAPI() async {
     if (formkey.hasError) return;
-    // User? user = authProvider.user;
-    // user = user?.copywith(name: 'Sandy');
-    // UserRepository().updateUser(context, user?.toJson() ?? {});
-    showMessage("Register Successfully...!");
-    context.pop();
+    User? user = authProvider.user;
+
+    user = user?.copywith(
+        name: nameController.text,
+        phonenumber: mobileController.text,
+        email: emailController.text,
+        dateOfBirth: dateController.text.strToDate.toString(),
+        age: ageController.text,
+        location: districtController.text,
+        nameOfUniversity: universityController.text,
+        nameOfDegree: degreeController.text,
+        yearOfCompletion: yearController.text,
+        percentageOfMarks: gradeController.text,
+        fatherName: fatherNameController.text,
+        motherName: motherNameController.text,
+        guardianNumber: fatherPhnController.text,
+        permanentAddress: permanentAddController.text,
+        addressOfCommunication: communicationAddController.text,
+        religion: seletedreligion?['title'],
+        differentlyAbled: seletedabled?['id'] == 1,
+        qualification: seleteQualification?['title'],
+        community: seletedcommunity?['title'],
+        gender: seletedGender?['title']);
+    bool value =
+        await UserRepository().updateUser(context, user?.toJson() ?? {});
+    if (!value) return;
+    context.pop(value);
+
+    // showMessage("Register Successfully...!");
   }
 }
