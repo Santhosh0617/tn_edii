@@ -8,10 +8,10 @@ import 'package:tn_edii/utilities/extensions/response_extension.dart';
 class TrainingRepository {
   String prefix = 'training';
   APIService get _api => APIService(prefixUrl: prefix);
-
-  Future<bool> getTrainings(BuildContext context) async {
+  Future<bool> getTrainings(BuildContext context, {String search = ''}) async {
     trainingsProvider.isLoading = true;
     ResponseData responseData =
+        // await _api.get(context, '', params: {'title_like': 'Go'});
         await _api.get(context, '', params: {'istrainingall': true});
     trainingsProvider.isLoading = false;
     if (responseData.hasError) return false;

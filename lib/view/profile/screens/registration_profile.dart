@@ -8,11 +8,16 @@ import 'package:tn_edii/common/widgets/buttons.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/common/widgets/text_fields.dart';
+import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
+import 'package:tn_edii/models/user.dart';
+import 'package:tn_edii/providers/providers.dart';
+import 'package:tn_edii/repositories/user_repository.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/custom_date_time.dart';
 import 'package:tn_edii/utilities/extensions/form_extension.dart';
+import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
 import 'package:tn_edii/utilities/message.dart';
 
 class RegistrationProfile extends StatefulWidget {
@@ -40,12 +45,13 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
   final TextEditingController permanentAddController = TextEditingController();
   final TextEditingController communicationAddController =
       TextEditingController();
-  DateTime? date;
+  // DateTime? date;
 
   bool get isRegistration => (GoRouterState.of(context).extra ?? false) as bool;
   File? img;
   datePick() async {
     FocusScope.of(context).unfocus();
+    DateTime date = dateController.text.strToDate ?? CustomDateTime().now;
     DateTime? pickedDate = await showDatePicker(
         builder: (BuildContext context, Widget? child) {
           return Theme(
@@ -61,14 +67,13 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
           );
         },
         context: context,
-        initialDate: date ?? CustomDateTime().now,
+        initialDate: date,
         firstDate: DateTime(1990),
         lastDate: DateTime(2025));
     if (pickedDate != null) {
-      String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);
+      String formattedDate = pickedDate.toString().ddMMYYYY;
       setState(() {
         dateController.text = formattedDate;
-        date = pickedDate;
       });
     } else {}
   }
@@ -104,6 +109,51 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
     {"id": 2, "title": "PG"},
     {"id": 3, "title": "UG(final year)"},
   ];
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((t) => init());
+    super.initState();
+  }
+
+  void init() {
+    User? user = authProvider.user;
+    if (user == null) return;
+    logger.e(user.toJson());
+    nameController.text = user.name ?? '';
+    mobileController.text = user.phonenumber ?? '';
+    emailController.text = user.email ?? '';
+    dateController.text = user.dateOfBirth?.ddMMYYYY ?? '';
+    ageController.text = user.age ?? '';
+    districtController.text = user.location ?? '';
+    seletedGender = gender.firstWhere(
+        (e) =>
+            e['title'].toString().toLowerCase() == user.gender?.toLowerCase(),
+        orElse: () => null);
+    seletedcommunity = community.firstWhere((e) => e['title'] == user.community,
+        orElse: () => null);
+    seletedreligion = religion.firstWhere(
+        (e) =>
+            e['title'].toString().toLowerCase() == user.religion?.toLowerCase(),
+        orElse: () => null);
+    if (user.differentlyAbled != null) {
+      seletedabled = user.differentlyAbled! ? abled.first : abled.last;
+    }
+    seleteQualification = qualification.firstWhere(
+        (e) => e['title'] == user.qualification,
+        orElse: () => null);
+    universityController.text = user.nameOfUniversity ?? '';
+    degreeController.text = user.nameOfDegree ?? '';
+    gradeController.text = user.percentageOfMarks ?? '';
+    yearController.text = user.yearOfCompletion ?? '';
+    fatherNameController.text = user.fatherName ?? '';
+    motherNameController.text = user.motherName ?? '';
+    fatherPhnController.text = user.guardianNumber ?? '';
+    permanentAddController.text = user.permanentAddress ?? '';
+    communicationAddController.text = user.addressOfCommunication ?? '';
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -192,11 +242,12 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
                       children: List.generate(
                           gender.length,
                           (i) => RadioListTile(
-                              value: seletedGender,
+                              value: gender[i],
                               title: TextCustom(gender[i]['title'] ?? ''),
-                              groupValue: gender,
+                              groupValue: seletedGender,
                               onChanged: (e) {
                                 seletedGender = gender[i];
+                                logger.e(seletedGender);
                                 setState(() {});
                               }))),
                   const HeightFull(),
@@ -208,9 +259,9 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
                       children: List.generate(
                           community.length,
                           (i) => RadioListTile(
-                              value: seletedcommunity,
+                              groupValue: seletedcommunity,
                               title: TextCustom(community[i]['title'] ?? ''),
-                              groupValue: community,
+                              value: community[i],
                               onChanged: (e) {
                                 seletedcommunity = community[i];
                                 setState(() {});
@@ -224,9 +275,9 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
                       children: List.generate(
                           religion.length,
                           (i) => RadioListTile(
-                              value: seletedreligion,
+                              groupValue: seletedreligion,
                               title: TextCustom(religion[i]['title'] ?? ''),
-                              groupValue: religion,
+                              value: religion[i],
                               onChanged: (e) {
                                 seletedreligion = religion[i];
                                 setState(() {});
@@ -240,9 +291,9 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
                       children: List.generate(
                           abled.length,
                           (i) => RadioListTile(
-                              value: seletedabled,
+                              groupValue: seletedabled,
                               title: TextCustom(abled[i]['title'] ?? ''),
-                              groupValue: abled,
+                              value: abled[i],
                               onChanged: (e) {
                                 seletedabled = abled[i];
                                 setState(() {});
@@ -256,10 +307,10 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
                       children: List.generate(
                           qualification.length,
                           (i) => RadioListTile(
-                              value: seleteQualification,
+                              groupValue: seleteQualification,
                               title:
                                   TextCustom(qualification[i]['title'] ?? ''),
-                              groupValue: qualification,
+                              value: qualification[i],
                               onChanged: (e) {
                                 seleteQualification = qualification[i];
                                 setState(() {});
@@ -356,9 +407,26 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
 
   hitAPI() {
     if (formkey.hasError) return;
-    // User? user = authProvider.user;
-    // user = user?.copywith(name: 'Sandy');
-    // UserRepository().updateUser(context, user?.toJson() ?? {});
+    User? user = authProvider.user;
+
+    user = user?.copywith(
+        name: nameController.text,
+        phonenumber: mobileController.text,
+        email: emailController.text,
+        dateOfBirth: dateController.text.strToDate.toString(),
+        age: ageController.text,
+        location: districtController.text,
+        nameOfUniversity: universityController.text,
+        nameOfDegree: degreeController.text,
+        yearOfCompletion: yearController.text,
+        percentageOfMarks: gradeController.text,
+        fatherName: fatherNameController.text,
+        motherName: motherNameController.text,
+        guardianNumber: fatherPhnController.text,
+        permanentAddress: permanentAddController.text,
+        addressOfCommunication: communicationAddController.text,
+        gender: seletedGender?['title']);
+    UserRepository().updateUser(context, user?.toJson() ?? {});
     showMessage("Register Successfully...!");
     context.pop();
   }
