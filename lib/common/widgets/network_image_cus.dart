@@ -1,13 +1,8 @@
-import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:tn_edii/constants/assets/local_images.dart';
-import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/providers/providers.dart';
-import 'package:http/http.dart' as http;
-import 'package:tn_edii/services/api/api_services.dart';
 
 class NetworkImageCustom extends StatelessWidget {
   const NetworkImageCustom({

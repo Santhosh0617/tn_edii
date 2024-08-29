@@ -3,8 +3,6 @@ import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/models/response.dart';
 import 'package:tn_edii/models/user.dart';
 import 'package:tn_edii/providers/providers.dart';
-import 'package:tn_edii/providers/user_provider.dart';
-import 'package:tn_edii/repositories/auth_repository.dart';
 import 'package:tn_edii/services/api/api_services.dart';
 import 'package:tn_edii/utilities/extensions/response_extension.dart';
 

@@ -23,4 +23,6 @@ class Routes {
 
   ///Course Detail
   static const String courseDetail = '/course-detail';
+  static const String myCourses = '/my-courses';
+  static const String completedCourseDetails = '/completed-course-details';
 }

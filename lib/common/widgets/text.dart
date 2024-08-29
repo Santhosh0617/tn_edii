@@ -8,7 +8,7 @@ import 'package:readmore/readmore.dart';
 class TextCustom extends StatelessWidget {
   final String value;
   final double? size;
-  final Color? color;
+  final Color? color,decorationColor;
   final FontWeight? fontWeight;
   final int? maxLines;
   final TextAlign? align;
@@ -25,7 +25,7 @@ class TextCustom extends StatelessWidget {
     this.align,
     this.decoration,
     this.height,
-    this.overflow,
+    this.overflow, this.decorationColor,
   });
   @override
   Widget build(BuildContext context) {
@@ -40,6 +40,7 @@ class TextCustom extends StatelessWidget {
           color: color,
           fontWeight: fontWeight,
           decoration: decoration,
+          decorationColor: decorationColor,
           height: height),
     );
   }

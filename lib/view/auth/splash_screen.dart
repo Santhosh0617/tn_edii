@@ -4,7 +4,6 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/constants/assets/local_images.dart';
 import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/models/user.dart';

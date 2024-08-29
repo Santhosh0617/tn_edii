@@ -5,13 +5,9 @@ import 'package:intl/intl.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/buttons.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
-import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/common/widgets/text_fields.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
-import 'package:tn_edii/models/user.dart';
-import 'package:tn_edii/providers/providers.dart';
-import 'package:tn_edii/repositories/user_repository.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/custom_date_time.dart';
 import 'package:tn_edii/utilities/extensions/form_extension.dart';
@@ -110,7 +106,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return CustomScaffold(
       isStackedAppBar: false,
-      appBar: AppBarCommon(
+      appBar: const AppBarCommon(
           automaticLeadingImplies: true, title: "Edit Profile", isText: false),
       body: Form(
         key: formkey,
