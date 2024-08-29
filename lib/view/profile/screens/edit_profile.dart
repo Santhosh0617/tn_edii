@@ -125,7 +125,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 children: [
                   TextFormFieldCustom(
                       label: 'Name',
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.name,
                       controller: nameController,
                       hint: 'Enter your name'),
                   const HeightFull(),

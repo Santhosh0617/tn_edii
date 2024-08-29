@@ -12,6 +12,7 @@ class Routes {
   static const String resourcesDetail = '/resources-detail';
   static const String mentorDetail = '/mentor-detail';
   static const String training = '/training';
+  static const String trainingList = '/training_list';
   static const String profile = '/profile';
   static const String editProfile = '/edit-profile';
   static const String registerProfile = '/register-profile';

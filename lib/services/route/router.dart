@@ -19,6 +19,7 @@ import 'package:tn_edii/view/profile/screens/registration_profile.dart';
 import 'package:tn_edii/view/resources/screens/mentor_detail_screen.dart';
 import 'package:tn_edii/view/resources/screens/resource_detail_screen.dart';
 import 'package:tn_edii/view/resources/screens/resources_screen.dart';
+import 'package:tn_edii/view/training/view/training_list_screen.dart';
 import 'package:tn_edii/view/training/view/training_screen.dart';
 import 'routes.dart';
 
@@ -45,6 +46,7 @@ final GoRouter router = GoRouter(
         customShellRoute(path: Routes.profile, child: const ProfileScreen()),
       ],
     ),
+    customRoute(path: Routes.trainingList, child: const TrainingListScreen()),
 
     ///Splash
     customRoute(path: Routes.splash, child: const SplashScreen()),

@@ -15,7 +15,7 @@
 /// )
 /// ```
 class SizeUnit {
-  static const double borderRadius = 12;
+  static const double borderRadius = 8;
 
   /// The default unit of spacing
   static const double _spaceUnit = 16;

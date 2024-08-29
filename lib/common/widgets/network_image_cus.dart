@@ -26,7 +26,6 @@ class NetworkImageCustom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    logger.e(logo);
     if (logo.isEmpty) return placeholder();
     return SizedBox(
       width: width,
