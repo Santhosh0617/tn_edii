@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/buttons.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
@@ -13,6 +14,8 @@ import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/models/user.dart';
 import 'package:tn_edii/providers/providers.dart';
+import 'package:tn_edii/providers/user_provider.dart';
+import 'package:tn_edii/repositories/training_repository.dart';
 import 'package:tn_edii/repositories/user_repository.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/custom_date_time.dart';
@@ -119,7 +122,6 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
   void init() {
     User? user = authProvider.user;
     if (user == null) return;
-    logger.e(user.toJson());
     nameController.text = user.name ?? '';
     mobileController.text = user.phonenumber ?? '';
     emailController.text = user.email ?? '';
@@ -390,13 +392,18 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
               ),
             ),
             const HeightFull(multiplier: 2),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
-              child: Row(children: [
-                Expanded(
-                  child: ButtonPrimary(onPressed: hitAPI, label: "Submit"),
-                ),
-              ]),
+            Consumer<UserProvider>(
+              builder: (context, value, child) => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
+                child: Row(children: [
+                  Expanded(
+                    child: ButtonPrimary(
+                        onPressed: hitAPI,
+                        isLoading: value.isLoading,
+                        label: "Submit"),
+                  ),
+                ]),
+              ),
             ),
             const HeightFull(multiplier: 2),
           ],
@@ -405,7 +412,7 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
     );
   }
 
-  hitAPI() {
+  hitAPI() async {
     if (formkey.hasError) return;
     User? user = authProvider.user;
 
@@ -425,9 +432,16 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
         guardianNumber: fatherPhnController.text,
         permanentAddress: permanentAddController.text,
         addressOfCommunication: communicationAddController.text,
+        religion: seletedreligion?['title'],
+        differentlyAbled: seletedabled?['id'] == 1,
+        qualification: seleteQualification?['title'],
+        community: seletedcommunity?['title'],
         gender: seletedGender?['title']);
-    UserRepository().updateUser(context, user?.toJson() ?? {});
-    showMessage("Register Successfully...!");
-    context.pop();
+    bool value =
+        await UserRepository().updateUser(context, user?.toJson() ?? {});
+    if (!value) return;
+    context.pop(value);
+
+    // showMessage("Register Successfully...!");
   }
 }

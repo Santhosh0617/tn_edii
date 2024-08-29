@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:tn_edii/common/widgets/buttons.dart';
 import 'package:tn_edii/common/widgets/network_image_cus.dart';
 import 'package:tn_edii/common/widgets/text.dart';
@@ -8,6 +9,8 @@ import 'package:tn_edii/constants/assets/local_images.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/models/training.dart';
+import 'package:tn_edii/providers/training_provider.dart';
+import 'package:tn_edii/repositories/training_repository.dart';
 import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/extensions/context_extention.dart';
@@ -23,6 +26,16 @@ class CourseDetailScreen extends StatefulWidget {
 
 class _CourseDetailScreenState extends State<CourseDetailScreen> {
   Training get training => GoRouterState.of(context).extra as Training;
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((t) => init());
+    super.initState();
+  }
+
+  void init() {
+    // if (training.id == null) return;
+    // TrainingRepository().getTraining(context, training.id!);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,15 +128,18 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                   // const HeightFull(
                   //   multiplier: 2,
                   // ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ButtonPrimary(
-                            label:
-                                "Enroll Course - ${training.feeAmount.toString().money()}/-",
-                            onPressed: enRoll),
-                      ),
-                    ],
+                  Consumer<TrainingProvider>(
+                    builder: (context, value, child) => Row(
+                      children: [
+                        Expanded(
+                          child: ButtonPrimary(
+                              label:
+                                  "Enroll Course - ${training.feeAmount.toString().money()}/-",
+                              isLoading: value.isLoading,
+                              onPressed: enRoll),
+                        ),
+                      ],
+                    ),
                   ),
                   const HeightFull(),
                 ],
@@ -135,7 +151,12 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
     );
   }
 
-  void enRoll() {
-    context.push(Routes.registerProfile, extra: true);
+  void enRoll() async {
+    bool val = await context.push(Routes.registerProfile, extra: true) ?? false;
+    if (training.id == null || !val) return;
+    bool isRegistered =
+        await TrainingRepository().registerTraining(context, training.id!);
+    if (!isRegistered) return;
+    context.pop();
   }
 }
