@@ -15,4 +15,5 @@ class LocalIcons {
   static const String profile = 'assets/icons/home_icons/profile.png';
   static const String resources = 'assets/icons/home_icons/resources.png';
   static const String training = 'assets/icons/home_icons/training.png';
+  static const String event = 'assets/icons/home_icons/event.png';
 }

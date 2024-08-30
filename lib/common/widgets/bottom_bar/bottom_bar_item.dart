@@ -19,7 +19,7 @@ class BottomBarItem extends StatelessWidget {
       child: AnimatedContainer(
         padding: EdgeInsets.symmetric(
             vertical: SizeUnit.sm * .5,
-            horizontal: isSelected ? SizeUnit.lg : SizeUnit.md),
+            horizontal: isSelected ? SizeUnit.sm : SizeUnit.sm / 2),
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(100)),
         clipBehavior: Clip.antiAliasWithSaveLayer,
         duration: const Duration(milliseconds: 400),
@@ -29,7 +29,7 @@ class BottomBarItem extends StatelessWidget {
           TextCustom(
             data.title,
             color: color,
-            size: 11,
+            size: 10,
             fontWeight: FontWeight.w800,
           )
         ]),
@@ -38,7 +38,7 @@ class BottomBarItem extends StatelessWidget {
   }
 
   Widget image(String image) =>
-      Image.asset(image, color: color, height: 25, width: 25);
+      Image.asset(image, color: color, height: 20, width: 20);
 
   bool isSelected = false;
 

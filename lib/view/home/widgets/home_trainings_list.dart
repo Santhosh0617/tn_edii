@@ -21,7 +21,7 @@ class PopularTrainings extends StatelessWidget {
       return Column(
         children: [
           Heading('Popular Trainings',
-              onSeeAll: () => context.push(Routes.trainingList)),
+              onSeeAll: () => context.go(Routes.training)),
           const TrainingsTypesTile(),
           const HeightFull(),
           value.isLoading

@@ -65,17 +65,15 @@ class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
       validator: (i) {
         String input = i ?? '';
         // Checks if the field is optional and input is empty
-        if (!widget.isOptional && input.isEmpty) {
-          return "The ${widget.label} is required";
+        if (widget.isOptional) return null;
+        if (input.isEmpty) {
+          return "${widget.label ?? 'This field'} is required";
         }
-        if (!widget.isOptional &&
-            widget.keyboardType == TextInputType.emailAddress &&
+        if (widget.keyboardType == TextInputType.emailAddress &&
             !input.isEmail) {
           return "Kindly enter valid mail";
         }
-        if (!widget.isOptional &&
-            widget.maxLength != null &&
-            input.length != widget.maxLength) {
+        if (widget.maxLength != null && input.length != widget.maxLength) {
           return '${widget.label} must be ${widget.maxLength} digit';
         }
         // If the validator is not null custom validation logic to be performed

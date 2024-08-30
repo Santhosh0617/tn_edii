@@ -7,6 +7,7 @@ import 'package:tn_edii/view/auth/otp_screen.dart';
 import 'package:tn_edii/view/auth/register_screen.dart';
 import 'package:tn_edii/view/auth/splash_screen.dart';
 import 'package:tn_edii/view/course_screen/screens/course_detail_screen.dart';
+import 'package:tn_edii/view/events/screens/event_screen.dart';
 import 'package:tn_edii/view/home/screens/home_screen.dart';
 import 'package:tn_edii/view/main_screen.dart';
 import 'package:tn_edii/view/profile/screens/app_info.dart';
@@ -22,7 +23,7 @@ import 'package:tn_edii/view/profile/screens/registration_profile.dart';
 import 'package:tn_edii/view/resources/screens/mentor_detail_screen.dart';
 import 'package:tn_edii/view/resources/screens/resource_detail_screen.dart';
 import 'package:tn_edii/view/resources/screens/resources_screen.dart';
-import 'package:tn_edii/view/training/view/training_list_screen.dart';
+import 'package:tn_edii/view/training/view/search_screen.dart';
 import 'package:tn_edii/view/training/view/training_screen.dart';
 import 'routes.dart';
 
@@ -46,16 +47,18 @@ final GoRouter router = GoRouter(
         customShellRoute(
             path: Routes.resources, child: const ResourcesScreen()),
         customShellRoute(path: Routes.training, child: const TrainingScreen()),
+        customShellRoute(path: Routes.events, child: const EventScreen()),
         customShellRoute(path: Routes.profile, child: const ProfileScreen()),
       ],
     ),
-    customRoute(path: Routes.trainingList, child: const TrainingListScreen()),
+    // customRoute(path: Routes.trainingList, child: const TrainingListScreen()),
 
     ///Splash
     customRoute(path: Routes.splash, child: const SplashScreen()),
 
     ///Course Detail Screen
     customRoute(path: Routes.courseDetail, child: const CourseDetailScreen()),
+    customRoute(path: Routes.search, child: const SearchScreen()),
 
     ///Authentication
     customRoute(path: Routes.login, child: const LoginScreen()),

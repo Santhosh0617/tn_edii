@@ -10,26 +10,25 @@ import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/models/training.dart';
 import 'package:tn_edii/providers/training_provider.dart';
 import 'package:tn_edii/repositories/training_repository.dart';
-import 'package:tn_edii/view/home/widgets/course_types_tile.dart';
 import 'package:tn_edii/view/training/widget/training_card.dart';
 
-class TrainingListScreen extends StatefulWidget {
-  const TrainingListScreen({super.key});
+class SearchScreen extends StatefulWidget {
+  const SearchScreen({super.key});
 
   @override
-  State<TrainingListScreen> createState() => _TrainingListScreenState();
+  State<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _TrainingListScreenState extends State<TrainingListScreen> {
+class _SearchScreenState extends State<SearchScreen> {
   void onChanged(String? value) {
-    // TrainingRepository().getTrainings(context, search: contSearch.text);
+    TrainingRepository().searchTrainings(context, search: contSearch.text);
   }
 
   final contSearch = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      appBar: const AppBarCommon(title: "Trainings"),
+      appBar: const AppBarCommon(title: "Search Trainings"),
       body: Consumer<TrainingProvider>(
         builder: (context, train, child) =>
             ListView(padding: EdgeInsets.zero, children: [
@@ -42,22 +41,21 @@ class _TrainingListScreenState extends State<TrainingListScreen> {
                       Image.asset(LocalIcons.search, width: 20),
                     ]),
                 onChanged: onChanged,
+                isOptional: true,
                 controller: contSearch,
                 hint: 'Search for'),
           ),
-          const HeightFull(),
-          const TrainingsTypesTile(),
           const HeightFull(),
           ListView.separated(
               padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                Training trainingDetails = train.selectedTrainings[index];
+                Training trainingDetails = train.searchedTrainings[index];
                 return TrainingCard(trainingDetails: trainingDetails);
               },
               separatorBuilder: (context, index) => const HeightFull(),
-              itemCount: train.selectedTrainings.length),
+              itemCount: train.searchedTrainings.length),
           const HeightFull(),
         ]),
       ),

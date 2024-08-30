@@ -34,6 +34,13 @@ class TrainingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  List<Training> _searchedTrainings = [];
+  List<Training> get searchedTrainings => _searchedTrainings;
+  set searchedTrainings(List<Training> trainings) {
+    _searchedTrainings = trainings;
+    notifyListeners();
+  }
+
   List<Training> _selectedTrainings = [];
   List<Training> get selectedTrainings => _selectedTrainings;
   set selectedTrainings(List<Training> selectedTrainings) {

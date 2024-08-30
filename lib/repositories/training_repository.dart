@@ -13,27 +13,24 @@ class TrainingRepository {
   Future<bool> getTrainings(BuildContext context) async {
     trainingsProvider.isLoading = true;
     ResponseData responseData =
-        // await _api.get(context, '', params: {'title_like': 'Go'});
         await _api.get(context, '', params: {'istrainingall': true});
-    // await _api.get(context, '');
     trainingsProvider.isLoading = false;
     if (responseData.hasError) return false;
     trainingsProvider.trainings = Training().fromJsonList(responseData.datas);
     return true;
   }
 
-  // Future<bool> searchTrainings(BuildContext context,
-  //     String search = '') async {
-  //   trainingsProvider.isLoading = true;
-  //   ResponseData responseData =
-  //       // await _api.get(context, '', params: {'title_like': 'Go'});
-  //       await _api.get(context, '', params: {'istrainingall': true});
-  //   // await _api.get(context, '');
-  //   trainingsProvider.isLoading = false;
-  //   if (responseData.hasError) return false;
-  //   trainingsProvider.trainings = Training().fromJsonList(responseData.datas);
-  //   return true;
-  // }
+  Future<bool> searchTrainings(BuildContext context,
+      {required String search}) async {
+    trainingsProvider.isLoading = true;
+    ResponseData responseData =
+        await _api.get(context, 'search', params: {'title_like': search});
+    trainingsProvider.isLoading = false;
+    if (responseData.hasError) return false;
+    trainingsProvider.searchedTrainings =
+        Training().fromJsonList(responseData.datas);
+    return true;
+  }
 
   Future<bool> registerTraining(BuildContext context, int id) async {
     trainingsProvider.isLoading = true;

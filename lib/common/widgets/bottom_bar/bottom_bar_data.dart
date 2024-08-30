@@ -9,6 +9,8 @@ class BottomBarData {
         image: LocalIcons.resources,
         route: Routes.resources),
     BottomBarDatum(
+        title: "Events", image: LocalIcons.event, route: Routes.events),
+    BottomBarDatum(
         title: "TRAININGS", image: LocalIcons.training, route: Routes.training),
     BottomBarDatum(
         title: "PROFILE", image: LocalIcons.profile, route: Routes.profile),
