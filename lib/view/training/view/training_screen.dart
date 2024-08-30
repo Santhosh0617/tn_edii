@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
-import 'package:tn_edii/common/widgets/text_fields.dart';
 import 'package:tn_edii/constants/assets/local_icons.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
@@ -28,6 +25,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      color: Palette.bg,
       appBar: AppBarCommon(
           title: "Trainings", automaticLeadingImplies: false, actions: actions),
       body: Consumer<TrainingProvider>(

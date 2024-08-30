@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +10,7 @@ import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/models/expense_type.dart';
+import 'package:tn_edii/models/resource_model.dart';
 import 'package:tn_edii/providers/providers.dart';
 import 'package:tn_edii/providers/training_provider.dart';
 import 'package:tn_edii/services/route/routes.dart';
@@ -31,7 +34,8 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
         title: "Resources",
       ),
       body: Consumer<TrainingProvider>(
-        builder: (context, train, child) => ListView(
+        builder: (context, train, child) {
+          return ListView(
             shrinkWrap: true,
             padding: const EdgeInsets.all(0),
             children: [
@@ -40,7 +44,7 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
               const Heading('Connect With Experts'),
               const HeightFull(),
               GridView.builder(
-                  itemCount: resourceProvider.resourceTypes.length,
+                  itemCount: resourceProvider.expenseTypes.length,
                   shrinkWrap: true,
                   padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
                   physics: const NeverScrollableScrollPhysics(),
@@ -51,9 +55,10 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
                       crossAxisCount: 2),
                   itemBuilder: (context, i) {
                     ExpenseType expenseType = resourceProvider.expenseTypes[i];
+                    // Resourses resourceData = resourceProvider.resourseData[i];
                     return InkWell(
                       onTap: () {
-                        context.push(Routes.mentorDetail, extra: expenseType);
+                        context.push(Routes.mentorDetail,extra: expenseType);
                       },
                       child: Container(
                         clipBehavior: Clip.antiAlias,
@@ -82,7 +87,8 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
                     );
                   }),
               const HeightFull(),
-            ]),
+            ]);
+        },
       ),
     );
   }

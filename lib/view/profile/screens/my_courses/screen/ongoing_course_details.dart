@@ -7,6 +7,7 @@ import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/view/profile/screens/my_courses/widget/completed_tile.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OnGoingCourseDetails extends StatefulWidget {
   const OnGoingCourseDetails({super.key});
@@ -65,44 +66,47 @@ class _OnGoingCourseDetailsState extends State<OnGoingCourseDetails> {
                                   color: Palette.primary)
                             ],
                           ),
+                          HeightHalf(),
                           ...List.generate(2, (index) {
-                            return ListTile(
-                              contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 0),
-                              leading: CircleAvatar(
-                                backgroundColor: Palette.bg,
-                                child: TextCustom(
-                                  "${index + 1}",
-                                  size: 14,
-                                  fontWeight: FontWeight.w700,
-                                  color: Palette.dark,
+                            return Column(
+                              children: [
+                                index!=0?Divider(color: Palette.bg,thickness: 1.5,):SizedBox.shrink(),
+                                ListTile(
+                                  onTap: () => openExApp("https://www.youtube.com/watch?v=6LD30ChPsSs&list=RDQ6mcDZui71I&index=13"),
+                                  contentPadding:
+                                      EdgeInsets.symmetric(horizontal: 0),
+                                  leading: CircleAvatar(
+                                    backgroundColor: Palette.bg,
+                                    child: TextCustom(
+                                      "${index + 1}",
+                                      size: 14,
+                                      fontWeight: FontWeight.w700,
+                                      color: Palette.dark,
+                                    ),
+                                  ),
+                                  title: TextCustom(
+                                    "Why Using 3D Blender",
+                                    size: 15,
+                                    maxLines: 1,
+                                    fontWeight: FontWeight.w700,
+                                    color: Palette.dark,
+                                  ),
+                                  subtitle: TextCustom(
+                                        "15 Mins",
+                                        size: 12,
+                                        fontWeight: FontWeight.w700,
+                                        color: Palette.grey,
+                                      ),
+                                      trailing: Image.asset(
+                                        "assets/icons/youtube.png",
+                                        width: 22,
+                                      ),
                                 ),
-                              ),
-                              title: TextCustom(
-                                "Why Using 3D Blender",
-                                size: 15,
-                                maxLines: 1,
-                                fontWeight: FontWeight.w700,
-                                color: Palette.dark,
-                              ),
-                              // subtitle: ,
+                              ],
                             );
                           })
 
-                          // ListView.separated(
-                          //   physics: NeverScrollableScrollPhysics(),
-                          //     itemBuilder: (context, index) {
-                          //       return ListTile(
-                          //         leading: CircleAvatar(
-                          //           backgroundColor: Palette.bg,
-                          //           child: TextCustom("${index + 1}"),
-                          //         ),
-                          //       );
-                          //     },
-                          //     separatorBuilder: (context, index) {
-                          //       return Divider();
-                          //     },
-                          //     itemCount: 2)
+                          
                         ],
                       ),
                     );
@@ -114,45 +118,14 @@ class _OnGoingCourseDetailsState extends State<OnGoingCourseDetails> {
             ),
           ],
         )
-        // ListView(
-        //   shrinkWrap: true,
-        //   physics:NeverScrollableScrollPhysics(),
-        //   padding: const EdgeInsets.all(SizeUnit.xlg),
-
-        //   children: [
-        //     HeightFull(),
-        //     Container(
-        //       padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
-        //       height: context.heightFull(),
-        //       decoration: BoxDecoration(
-        //           borderRadius: BorderRadius.circular(22),
-        //           color: Palette.pureWhite),
-        //           child: SizedBox(
-        //             height: context.heightFull(),
-        //             child: ListView.separated(
-        //               // physics: const NeverScrollableScrollPhysics(),
-        //                 itemBuilder: (context, index) {
-        //                   return  const Column(
-        //                     children: [
-        //                       Row(
-        //                         children: [
-        //                           TextCustom("Section 01 -",size: 14,fontWeight: FontWeight.w600,color: Palette.dark,),
-        //                           TextCustom(" Title",size: 14,fontWeight: FontWeight.w600,color: Palette.primary,),
-
-        //                         ],
-        //                       )
-        //                     ],
-        //                   );
-        //                 },
-        //                 separatorBuilder: (context, index) {
-        //                   return const Divider();
-        //                 },
-        //                 itemCount: 20),
-        //           ) ,
-        //     ),
-
-        //   ],
-        // ),
         );
+  }
+
+
+}
+  Future<void> openExApp(url) async {
+  Uri uri = url.runtimeType == String ? Uri.parse(url) : url;
+  if (!await launchUrl(uri)) {
+    throw 'Could not launch $url';
   }
 }

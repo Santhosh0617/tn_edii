@@ -7,13 +7,11 @@ import 'package:tn_edii/common/widgets/network_image_cus.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/common/widgets/text_fields.dart';
 import 'package:tn_edii/constants/app_strings.dart';
-import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/extensions/context_extention.dart';
-import 'package:tn_edii/utilities/extensions/form_extension.dart';
 import 'package:tn_edii/utilities/message.dart';
 
 class CompletedTile extends StatefulWidget {

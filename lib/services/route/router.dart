@@ -17,12 +17,14 @@ import 'package:tn_edii/view/profile/screens/mentor_profile_screen.dart';
 import 'package:tn_edii/view/profile/screens/my_courses/screen/completed_course_details.dart';
 import 'package:tn_edii/view/profile/screens/my_courses/screen/my_course_screen.dart';
 import 'package:tn_edii/view/profile/screens/my_courses/screen/ongoing_course_details.dart';
+import 'package:tn_edii/view/profile/screens/my_courses/screen/vedio_player_screen.dart';
 import 'package:tn_edii/view/profile/screens/privacy_policy.dart';
 import 'package:tn_edii/view/profile/screens/profile_screen.dart';
 import 'package:tn_edii/view/profile/screens/registration_profile.dart';
 import 'package:tn_edii/view/resources/screens/mentor_detail_screen.dart';
 import 'package:tn_edii/view/resources/screens/resource_detail_screen.dart';
 import 'package:tn_edii/view/resources/screens/resources_screen.dart';
+import 'package:tn_edii/view/resources/widgets/pdf_view.dart';
 import 'package:tn_edii/view/training/view/search_screen.dart';
 import 'package:tn_edii/view/training/view/training_screen.dart';
 import 'routes.dart';
@@ -59,6 +61,8 @@ final GoRouter router = GoRouter(
     ///Course Detail Screen
     customRoute(path: Routes.courseDetail, child: const CourseDetailScreen()),
     customRoute(path: Routes.search, child: const SearchScreen()),
+    customRoute(path: Routes.courseVedio, child: const VedioPlayerScreen()),
+    customRoute(path: Routes.pdfView, child: const PdfView()),
 
     ///Authentication
     customRoute(path: Routes.login, child: const LoginScreen()),

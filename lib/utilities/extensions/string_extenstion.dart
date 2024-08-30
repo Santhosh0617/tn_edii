@@ -5,6 +5,7 @@ import 'package:tn_edii/utilities/date_format.dart';
 import 'package:tn_edii/utilities/number_formatter.dart';
 // ignore: depend_on_referenced_packages
 import 'package:mime/mime.dart';
+import 'package:tn_edii/utilities/string_utilities.dart';
 
 extension StringExtension on String {
   bool get isEmail {
@@ -67,6 +68,29 @@ extension StringExtension on String {
       updatedString = updatedString.substring(0, 1).toUpperCase() +
           updatedString.substring(1);
       return updatedString;
+    } on Exception {
+      return this;
+    }
+  }
+
+  String get capitalize {
+    if (emptyIfNull.isEmpty) return '';
+    try {
+      List<String> list = split(' ');
+      list = list
+          .map((e) =>
+              e.substring(0, 1).toUpperCase() + e.substring(1).toLowerCase())
+          .toList();
+      return list.join(' ');
+    } on Exception {
+      return this;
+    }
+  }
+
+  String get capitalizeFirst {
+    if (emptyIfNull.isEmpty) return '';
+    try {
+      return substring(0, 1).toUpperCase() + substring(1).toLowerCase();
     } on Exception {
       return this;
     }
@@ -136,5 +160,12 @@ extension StringExtension on String {
 
   String get count {
     return NumberFormatter().count(this);
+  }
+
+   String toPdfUrl(String subFolder) {
+    return StringUtils.toPdfUrl(this, subFolder);
+  }
+   bool get isEmptyOrNull {
+    return StringUtils.isEmptyOrNull(this);
   }
 }

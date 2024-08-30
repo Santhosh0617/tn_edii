@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
-import 'package:tn_edii/common/widgets/buttons.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
 import 'package:tn_edii/common/widgets/text_fields.dart';
-import 'package:tn_edii/constants/assets/local_icons.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/theme/palette.dart';

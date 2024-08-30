@@ -6,9 +6,11 @@ import 'package:tn_edii/common/widgets/network_image_cus.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/constants/app_strings.dart';
 import 'package:tn_edii/constants/assets/local_images.dart';
+import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/models/training.dart';
+import 'package:tn_edii/providers/providers.dart';
 import 'package:tn_edii/providers/training_provider.dart';
 import 'package:tn_edii/repositories/training_repository.dart';
 import 'package:tn_edii/services/route/routes.dart';
@@ -16,6 +18,7 @@ import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/extensions/context_extention.dart';
 import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
 import 'package:tn_edii/view/course_screen/widget/course_details_container.dart';
+import 'dart:math' as math;
 
 class CourseDetailScreen extends StatefulWidget {
   const CourseDetailScreen({super.key});
@@ -39,6 +42,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    logger.w(training.toJson());
     return Scaffold(
       backgroundColor: Palette.bg,
       body: SingleChildScrollView(
@@ -55,7 +59,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
               SafeArea(
                   child: IconButton(
                       onPressed: () => context.pop(),
-                      icon: const Icon(Icons.arrow_back))),
+                      icon: const Icon(Icons.arrow_back_ios_new))),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: CourseDetailsContainer(training: training),
@@ -154,8 +158,14 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
   void enRoll() async {
     bool val = await context.push(Routes.registerProfile, extra: true) ?? false;
     if (training.id == null || !val) return;
-    bool isRegistered =
-        await TrainingRepository().registerTraining(context, training.id!);
+    int paymentId = math.Random().nextInt(1000) + 10000;
+    Map<String, dynamic> body = {
+      'userId': authProvider.user?.id,
+      'is_payment_done': true,
+      'payment_id': paymentId
+    };
+    bool isRegistered = await TrainingRepository()
+        .registerTraining(context, training.id!, body);
     if (!isRegistered) return;
     context.pop();
   }

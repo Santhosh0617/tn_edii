@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/models/training.dart';
 import 'package:tn_edii/models/response.dart';
 import 'package:tn_edii/providers/providers.dart';
@@ -32,9 +31,11 @@ class TrainingRepository {
     return true;
   }
 
-  Future<bool> registerTraining(BuildContext context, int id) async {
+  Future<bool> registerTraining(
+      BuildContext context, int id, Map<String, dynamic> params) async {
     trainingsProvider.isLoading = true;
-    ResponseData responseData = await _api.post(context, 'register-event/:$id');
+    ResponseData responseData = await _api.post(context, 'register-event/:$id',
+        body: params, params: {"trainingId": id});
     trainingsProvider.isLoading = false;
     if (responseData.hasError) return false;
     showMessage('Training was registered successfully');
