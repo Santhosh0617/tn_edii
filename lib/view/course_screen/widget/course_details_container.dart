@@ -7,6 +7,7 @@ import 'package:tn_edii/models/training.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/extensions/context_extention.dart';
 import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
+import 'package:tn_edii/view/course_screen/widget/curriculum_tile.dart';
 
 class CourseDetailsContainer extends StatefulWidget {
   const CourseDetailsContainer({
@@ -21,6 +22,11 @@ class CourseDetailsContainer extends StatefulWidget {
 class _CourseDetailsContainerState extends State<CourseDetailsContainer> {
   bool isAboutSelected = true;
   bool isReadMore = false;
+    void _onItemTapped(bool isAbout) {
+    setState(() {
+      isAboutSelected = isAbout;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +46,7 @@ class _CourseDetailsContainerState extends State<CourseDetailsContainer> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const HeightFull(multiplier: 2),
+                const HeightFull(),
                 // Row(
                 //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 //   children: [
@@ -169,6 +175,7 @@ class _CourseDetailsContainerState extends State<CourseDetailsContainer> {
                       color: Palette.primary,
                       decoration: TextDecoration.underline),
                 ),
+                
                 //   ],
                 // ),
               ],
@@ -230,33 +237,40 @@ class _CourseDetailsContainerState extends State<CourseDetailsContainer> {
           // Padding(
           //   padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
           //   child: Column(
+          //     crossAxisAlignment: CrossAxisAlignment.start,
           //     children: [
           //       if (isAboutSelected == true) ...[
           //         const HeightFull(),
-          //          ReadMoreText(
-          //           widget.training.description??"-",
-          //           trimMode: TrimMode.Line,
-          //           textAlign: TextAlign.justify,
-          //           trimLines: 3,
-          //           colorClickableText: Palette.primary,
-          //           trimCollapsedText: 'Show More',
-          //           trimExpandedText: 'Show Less',
-          //           style: const TextStyle(
-          //               fontSize: 12,
-          //               fontWeight: FontWeight.w700,
-          //               height: 1.5,
-          //               color: Palette.grey),
-          //           moreStyle: const TextStyle(
-          //               fontSize: 12,
-          //               fontWeight: FontWeight.w700,
-          //               color: Palette.primary,
-          //               decoration: TextDecoration.underline),
-          //           lessStyle: const TextStyle(
-          //               fontSize: 12,
-          //               fontWeight: FontWeight.w700,
-          //               color: Palette.primary,
-          //               decoration: TextDecoration.underline),
-          //         ),
+          //         const TextCustom(
+          //         "Description:",
+          //         size: 16,
+          //         fontWeight: FontWeight.bold,
+          //         color: Palette.dark,
+          //       ),
+          //       ReadMoreText(
+          //         widget.training.description ?? "-",
+          //         trimMode: TrimMode.Line,
+          //         textAlign: TextAlign.justify,
+          //         trimLines: 3,
+          //         colorClickableText: Palette.primary,
+          //         trimCollapsedText: 'Show More',
+          //         trimExpandedText: 'Show Less',
+          //         style: const TextStyle(
+          //             fontSize: 12,
+          //             fontWeight: FontWeight.w700,
+          //             height: 1.5,
+          //             color: Palette.grey),
+          //         moreStyle: const TextStyle(
+          //             fontSize: 12,
+          //             fontWeight: FontWeight.w700,
+          //             color: Palette.primary,
+          //             decoration: TextDecoration.underline),
+          //         lessStyle: const TextStyle(
+          //             fontSize: 12,
+          //             fontWeight: FontWeight.w700,
+          //             color: Palette.primary,
+          //             decoration: TextDecoration.underline),
+          //       ),
           //       ],
           //       if (isAboutSelected == false) ...[
           //         const HeightFull(),

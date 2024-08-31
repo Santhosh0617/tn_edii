@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:tn_edii/common/widgets/buttons.dart';
+import 'package:tn_edii/common/widgets/custom_scaffold.dart';
 import 'package:tn_edii/common/widgets/network_image_cus.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/constants/app_strings.dart';
@@ -19,6 +21,8 @@ import 'package:tn_edii/utilities/extensions/context_extention.dart';
 import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
 import 'package:tn_edii/view/course_screen/widget/course_details_container.dart';
 import 'dart:math' as math;
+
+import 'package:tn_edii/view/reviews/widget/reviews_card_widget.dart';
 
 class CourseDetailScreen extends StatefulWidget {
   const CourseDetailScreen({super.key});
@@ -43,8 +47,26 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
   @override
   Widget build(BuildContext context) {
     logger.w(training.toJson());
-    return Scaffold(
-      backgroundColor: Palette.bg,
+    return CustomScaffold(
+      color: Palette.bg,
+      bottomBar: Consumer<TrainingProvider>(
+        builder: (context, value, child) {
+          return Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(SizeUnit.lg),
+                  child: ButtonPrimary(
+                      label:
+                          "Enroll Course - ${training.feeAmount.toString().money()}/-",
+                      isLoading: value.isLoading,
+                      onPressed: enRoll),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -81,9 +103,10 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const TextCustom("Instructor",
-                      size: 16, fontWeight: FontWeight.w700),
+                      size: 16, fontWeight: FontWeight.w700,color: Palette.dark,),
                   const HeightFull(),
                   ListTile(
+                    splashColor: Colors.transparent,
                     onTap: () {
                       context.push(Routes.mentorProfile, extra: training);
                     },
@@ -97,9 +120,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                         size: 14, fontWeight: FontWeight.w600),
                     // trailing: Icon(Icons.message),
                   ),
-                  const HeightFull(
-                    multiplier: 2,
-                  ),
+                  const HeightFull(),
                   // const TextCustom(
                   //   "What You’ll Get",
                   //   size: 16,
@@ -132,20 +153,53 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                   // const HeightFull(
                   //   multiplier: 2,
                   // ),
-                  Consumer<TrainingProvider>(
-                    builder: (context, value, child) => Row(
-                      children: [
-                        Expanded(
-                          child: ButtonPrimary(
-                              label:
-                                  "Enroll Course - ${training.feeAmount.toString().money()}/-",
-                              isLoading: value.isLoading,
-                              onPressed: enRoll),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const HeightFull(),
+
+                  //button
+                  // Consumer<TrainingProvider>(
+                  //   builder: (context, value, child) => Row(
+                  //     children: [
+                  //       Expanded(
+                  //         child: ButtonPrimary(
+                  //             label:
+                  //                 "Enroll Course - ${training.feeAmount.toString().money()}/-",
+                  //             isLoading: value.isLoading,
+                  //             onPressed: enRoll),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+
+
+                  //reviews 
+                  //  Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //      const TextCustom("Reviews",size: 16,fontWeight: FontWeight.w700,color: Palette.dark,),
+                  //      InkWell(
+                  //       highlightColor: Colors.transparent,
+                  //       splashColor: Colors.transparent,
+                  //       onTap: () => context.push(Routes.reviewScreen),
+                  //        child: const Row(
+                  //         children: [
+                  //           TextCustom("See All",fontWeight: FontWeight.w800,color: Palette.red,),
+                  //           Icon(Icons.arrow_forward_ios,color: Palette.red,size: 16,)
+                  //         ],
+                  //        ),
+                  //      )
+                  //   ],
+                  // ),
+                  // // const HeightFull(),
+                  // HeightHalf(),
+                  // ListView.separated(
+                  //   padding: EdgeInsets.zero,
+                  //   shrinkWrap: true,
+                  //   physics: NeverScrollableScrollPhysics(),
+                  //   itemBuilder: (context,index){
+                  // return ReviewsCard();
+                  // }, separatorBuilder: (context,index){
+                  //   return HeightFull();
+                  // }, itemCount: 2),
+                  // const HeightFull(),
                 ],
               ),
             ),
@@ -170,3 +224,5 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
     context.pop();
   }
 }
+
+

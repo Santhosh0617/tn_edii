@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/buttons.dart';
@@ -8,6 +9,9 @@ import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/common/widgets/text_fields.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/providers/auth_provider.dart';
+import 'package:tn_edii/providers/feedback_provider.dart';
+import 'package:tn_edii/providers/providers.dart';
+import 'package:tn_edii/repositories/feedback_repository.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/message.dart';
 
@@ -79,9 +83,13 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
             CustomValidator('The review field is required', isShow: hasError),
             const HeightFull(),
             const HeightFull(multiplier: 2),
-            ButtonPrimary(
-              onPressed: hitAPI,
-              label: "Submit",
+            Consumer<FeedbackProvider>(
+              builder: ( context,  value,  child) =>
+               ButtonPrimary(
+                onPressed: hitAPI,
+                label: "Submit",
+                isLoading: value.isLoading,
+              ),
             )
           ],
         ),
@@ -90,16 +98,28 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
   }
 
   bool hasError = false;
-  hitAPI() {
-    if (feedbackController.text.isEmpty) {
-      // return showMessage("Kindly Enter Review");
-      hasError = true;
-      setState(() {});
-      return;
-    }
-    Navigator.of(context)
-      ..pop()
-      ..pop();
-    showMessage("Review Submitted Successfully");
+  // hitAPI() {
+  //   if (feedbackController.text.isEmpty) {
+  //     // return showMessage("Kindly Enter Review");
+  //     hasError = true;
+  //     setState(() {});
+  //     return;
+  //   }
+  //   Navigator.of(context)
+  //     ..pop()
+  //     ..pop();
+  //   showMessage("Review Submitted Successfully");
+  // }
+  void hitAPI() async {
+    Map<String, dynamic> params = {
+      'rating': selectedIndex + 1,
+      'description': feedbackController.text,
+      'userId': authProvider.user?.id,
+    };
+
+    bool isFeedbackAdded =
+        await FeedbackRepository().addFeedback(context, params);
+    if (!isFeedbackAdded) return;
+    context.pop();
   }
 }

@@ -19,7 +19,7 @@ class BottomBarItem extends StatelessWidget {
       child: AnimatedContainer(
         padding: EdgeInsets.symmetric(
             vertical: SizeUnit.sm * .5,
-            horizontal: isSelected ? SizeUnit.sm : SizeUnit.sm / 2),
+            horizontal: isSelected ? SizeUnit.sm : SizeUnit.sm / 1.5),
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(100)),
         clipBehavior: Clip.antiAliasWithSaveLayer,
         duration: const Duration(milliseconds: 400),

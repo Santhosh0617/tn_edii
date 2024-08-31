@@ -25,6 +25,7 @@ import 'package:tn_edii/view/resources/screens/mentor_detail_screen.dart';
 import 'package:tn_edii/view/resources/screens/resource_detail_screen.dart';
 import 'package:tn_edii/view/resources/screens/resources_screen.dart';
 import 'package:tn_edii/view/resources/widgets/pdf_view.dart';
+import 'package:tn_edii/view/reviews/screen/reviews_screen.dart';
 import 'package:tn_edii/view/training/view/search_screen.dart';
 import 'package:tn_edii/view/training/view/training_screen.dart';
 import 'routes.dart';
@@ -86,6 +87,8 @@ final GoRouter router = GoRouter(
         child: const CompletedCourseDetails()),
     customRoute(
         path: Routes.onGoingCourseDetails, child: const OnGoingCourseDetails()),
+    customRoute(
+        path: Routes.reviewScreen, child: const ReviewsScreen()),
   ],
   redirect: (context, state) {
     String path = state.uri.path;

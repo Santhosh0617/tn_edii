@@ -1,5 +1,6 @@
 import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/providers/auth_provider.dart';
+import 'package:tn_edii/providers/feedback_provider.dart';
 import 'package:tn_edii/providers/user_provider.dart';
 import 'package:tn_edii/providers/training_provider.dart';
 import 'package:tn_edii/providers/info_provider.dart';
@@ -18,6 +19,7 @@ List<SingleChildWidget> providers = [
   ChangeNotifierProvider<ResourceProvider>(
       create: (context) => ResourceProvider()),
   ChangeNotifierProvider<UserProvider>(create: (context) => UserProvider()),
+  ChangeNotifierProvider<FeedbackProvider>(create: (context) => FeedbackProvider()),
 ];
 
 var themeManager =
@@ -32,3 +34,5 @@ var resourceProvider =
     Provider.of<ResourceProvider>(mainKey.currentContext!, listen: false);
 var userProvider =
     Provider.of<UserProvider>(mainKey.currentContext!, listen: false);
+var feedbackProvider =
+    Provider.of<FeedbackProvider>(mainKey.currentContext!, listen: false);

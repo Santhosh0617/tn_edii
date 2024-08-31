@@ -39,7 +39,7 @@ class _PdfViewState extends State<PdfView> {
     String fileName = "${item.path}";
     // String fileName = "dd12-13_0.pdf";
     // String fileUrl = "https://morth.nic.in/sites/default/files/dd12-13_0.pdf";
-    String fileUrl = item.path!.toPdfUrl("api/v1/users/uploads/training_images/");
+    String fileUrl = item.path?.toPdfUrl("api/v1/users/uploads/")??'';
     logger.w(fileUrl);
     return CustomScaffold(
       isStackedAppBar: false,

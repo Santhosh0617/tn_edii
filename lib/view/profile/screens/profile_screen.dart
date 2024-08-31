@@ -76,21 +76,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
       isStackedAppBar: false,
       appBar:
           const AppBarCommon(automaticLeadingImplies: false, title: "Profile"),
-      body: Column(
+      body: ListView(
         children: [
           const HeightFull(),
           Stack(
-            alignment: const Alignment(0, -1.1),
+            alignment: const Alignment(0, -1.2),
             children: [
               Container(
                 padding: const EdgeInsets.all(SizeUnit.lg),
                 margin: const EdgeInsets.all(SizeUnit.lg),
                 decoration: ThemeGuide.cardDecoration(),
                 child: Column(children: [
-                  const HeightFull(multiplier: 3),
+                  const HeightFull(multiplier: 5),
                   ListView.builder(
                       itemCount: data.length,
                       shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         Map profileDetails = data[index];
                         return ProfileListText(

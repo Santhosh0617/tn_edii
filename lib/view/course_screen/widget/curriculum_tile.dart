@@ -16,12 +16,27 @@ class CurriculumListTile extends StatelessWidget {
         width: 55,
         decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.all(color: Palette.wavyBlueBorder,width: 2),
+            border: Border.all(color: Palette.wavyBlueBorder, width: 2),
             color: Palette.wavyBlue),
-            child: const Center(child: TextCustom("1",size: 14,fontWeight: FontWeight.w800,)),
+        child: const Center(
+            child: TextCustom(
+          "1",
+          size: 14,
+          fontWeight: FontWeight.w800,
+        )),
       ),
-      title: const TextCustom("Why Using Graphic De huoiefwugeufgeur ugfiurg iu",size: 16,fontWeight: FontWeight.w600,maxLines: 1,),
-      subtitle: const TextCustom("15 Mins",size: 12,fontWeight: FontWeight.w600,color: Palette.grey,),
+      title: const TextCustom(
+        "Why Using Graphic De huoiefwugeufgeur ugfiurg iu",
+        size: 16,
+        fontWeight: FontWeight.w600,
+        maxLines: 1,
+      ),
+      subtitle: const TextCustom(
+        "15 Mins",
+        size: 12,
+        fontWeight: FontWeight.w600,
+        color: Palette.grey,
+      ),
       trailing: Container(
         height: 25,
         width: 25,
@@ -34,7 +49,7 @@ class CurriculumListTile extends StatelessWidget {
           color: Colors.white,
           size: 20,
         ),
-      ) ,
+      ),
     );
   }
 }

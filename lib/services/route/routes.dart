@@ -29,4 +29,8 @@ class Routes {
   static const String onGoingCourseDetails = '/ongoing-course-details';
   static const String courseVedio = '/course-vedio';
   static const String pdfView = '/pdf';
+
+  ///reviews
+  static const String reviewScreen = '/reviews';
+  
 }
