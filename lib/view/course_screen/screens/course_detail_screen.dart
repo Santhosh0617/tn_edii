@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:tn_edii/common/widgets/buttons.dart';
@@ -22,7 +21,6 @@ import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
 import 'package:tn_edii/view/course_screen/widget/course_details_container.dart';
 import 'dart:math' as math;
 
-import 'package:tn_edii/view/reviews/widget/reviews_card_widget.dart';
 
 class CourseDetailScreen extends StatefulWidget {
   const CourseDetailScreen({super.key});

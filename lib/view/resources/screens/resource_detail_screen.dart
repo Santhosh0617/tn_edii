@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
 import 'package:tn_edii/common/widgets/text.dart';
-import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/models/articles_model.dart';
@@ -12,7 +11,6 @@ import 'package:tn_edii/models/resource_type.dart';
 import 'package:tn_edii/providers/resource_provider.dart';
 import 'package:tn_edii/repositories/resource_repository.dart';
 import 'package:tn_edii/theme/palette.dart';
-import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
 import 'package:tn_edii/view/resources/widgets/resource_card.dart';
 
 class ResourceDetailScreen extends StatefulWidget {

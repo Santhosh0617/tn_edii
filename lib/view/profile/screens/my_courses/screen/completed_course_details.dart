@@ -7,7 +7,6 @@ import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/theme/palette.dart';
-import 'package:tn_edii/view/profile/screens/my_courses/screen/ongoing_course_details.dart';
 
 class CompletedCourseDetails extends StatefulWidget {
   const CompletedCourseDetails({super.key});

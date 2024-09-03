@@ -34,8 +34,8 @@ class TrainingRepository {
   Future<bool> registerTraining(
       BuildContext context, int id, Map<String, dynamic> params) async {
     trainingsProvider.isLoading = true;
-    ResponseData responseData = await _api.post(context, 'register-event/:$id',
-        body: params, params: {"trainingId": id});
+    ResponseData responseData =
+        await _api.post(context, 'register-event/$id', body: params);
     trainingsProvider.isLoading = false;
     if (responseData.hasError) return false;
     showMessage('Training was registered successfully');

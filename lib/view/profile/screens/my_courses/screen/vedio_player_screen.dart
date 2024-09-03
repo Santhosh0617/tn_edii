@@ -3,7 +3,6 @@ import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
-import 'dart:math' as math;
 
 class VedioPlayerScreen extends StatefulWidget {
   const VedioPlayerScreen({super.key});
