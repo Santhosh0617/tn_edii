@@ -8,6 +8,7 @@ import 'package:tn_edii/common/widgets/custom_scaffold.dart';
 import 'package:tn_edii/common/widgets/text_fields.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
+import 'package:tn_edii/providers/providers.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/custom_date_time.dart';
 import 'package:tn_edii/utilities/extensions/form_extension.dart';
@@ -102,6 +103,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     {"id": 2, "title": "PG"},
     {"id": 3, "title": "UG(final year)"},
   ];
+  @override
+  void initState() {
+    nameController.text = authProvider.user?.name ?? " ";
+    mobileController.text = authProvider.user?.phonenumber ?? " ";
+    emailController.text = authProvider.user?.email ?? " ";
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(

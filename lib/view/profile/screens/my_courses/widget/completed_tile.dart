@@ -37,7 +37,7 @@ class _CompletedTileState extends State<CompletedTile> {
                   height: SizeUnit.sm,
                 );
               },
-              itemCount: 10),
+              itemCount: 1),
         )
       ],
     );
@@ -95,7 +95,7 @@ class CourseCompletedContainer extends StatelessWidget {
                       ),
                       const HeightHalf(),
                       const TextCustom(
-                        "JavaScript Advacned Ebook vdsfh",
+                        " Gold Appraiser Training",
                         size: 14,
                         fontWeight: FontWeight.w800,
                         maxLines: 1,
@@ -178,7 +178,7 @@ class CourseCompletedDialog extends StatelessWidget {
           color: Palette.grey,
           fontWeight: FontWeight.w500),
       const HeightFull(),
-      Image.asset("assets/images/Star1.png", height: 24),
+      // Image.asset("assets/images/Star1.png", height: 24),
       const HeightFull(multiplier: 2),
       InkWell(
         onTap: () {
@@ -225,6 +225,8 @@ class ReviewBottomSheet extends StatefulWidget {
 
 class _ReviewBottomSheetState extends State<ReviewBottomSheet> {
   TextEditingController feedbackController = TextEditingController();
+  int selectedIndex = -1;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -245,6 +247,29 @@ class _ReviewBottomSheetState extends State<ReviewBottomSheet> {
           ),
         ),
         const HeightFull(),
+         Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(5, (index) {
+                return InkWell(
+                  onTap: () {
+                    setState(() {
+                      // Toggle the selected star
+                      if (selectedIndex == index) {
+                        selectedIndex = -1;
+                      } else {
+                        selectedIndex = index;
+                      }
+                    });
+                  },
+                  child: Icon(
+                    selectedIndex >= index ? Icons.star : Icons.star_outline,
+                    size: 34,
+                    color: selectedIndex >= index ? Colors.amber : Colors.grey,
+                  ),
+                );
+              }),
+            ),
+        HeightFull(),
         FeedbackTextfield(
           controller: feedbackController,
           hint: "Please write your honest review",

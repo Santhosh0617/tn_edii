@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/buttons.dart';
@@ -15,7 +16,6 @@ import 'package:tn_edii/providers/providers.dart';
 import 'package:tn_edii/providers/user_provider.dart';
 import 'package:tn_edii/repositories/user_repository.dart';
 import 'package:tn_edii/theme/palette.dart';
-import 'package:tn_edii/utilities/custom_date_time.dart';
 import 'package:tn_edii/utilities/extensions/form_extension.dart';
 import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
 
@@ -48,34 +48,79 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
 
   bool get isRegistration => (GoRouterState.of(context).extra ?? false) as bool;
   File? img;
-  datePick() async {
-    FocusScope.of(context).unfocus();
-    DateTime date = dateController.text.strToDate ?? CustomDateTime().now;
-    DateTime? pickedDate = await showDatePicker(
-        builder: (BuildContext context, Widget? child) {
-          return Theme(
-            data: ThemeData.light().copyWith(
-              primaryColor: Palette.primary,
-              hintColor: Colors.red,
-              colorScheme: const ColorScheme.light(primary: Palette.primary),
-              buttonTheme: const ButtonThemeData(
-                textTheme: ButtonTextTheme.primary,
-              ),
-            ),
-            child: child!,
-          );
-        },
-        context: context,
-        initialDate: date,
-        firstDate: DateTime(1990),
-        lastDate: DateTime(2025));
-    if (pickedDate != null) {
-      String formattedDate = pickedDate.toString().ddMMYYYY;
-      setState(() {
-        dateController.text = formattedDate;
-      });
-    } else {}
+  // datePick() async {
+  //   FocusScope.of(context).unfocus();
+    
+  //   DateTime date = dateController.text.strToDate ?? CustomDateTime().now;
+  //   DateTime? pickedDate = await showDatePicker(
+  //       builder: (BuildContext context, Widget? child) {
+  //         return Theme(
+  //           data: ThemeData.light().copyWith(
+  //             primaryColor: Palette.primary,
+  //             hintColor: Colors.red,
+  //             colorScheme: const ColorScheme.light(primary: Palette.primary),
+  //             buttonTheme: const ButtonThemeData(
+  //               textTheme: ButtonTextTheme.primary,
+  //             ),
+  //           ),
+  //           child: child!,
+  //         );
+  //       },
+  //       context: context,
+  //       initialDate: date,
+  //       firstDate: DateTime(1940),
+  //       lastDate: DateTime(2025));
+  //   if (pickedDate != null) {
+  //     String formattedDate = pickedDate.toString().ddMMYYYY;
+  //     setState(() {
+  //       dateController.text = formattedDate;
+  //     });
+  //   } else {}
+  // }
+
+
+  Future<void> datePick({String dateFormatString = 'dd/MM/yyyy'}) async {
+  FocusScope.of(context).unfocus();
+
+  // Define your date format based on the input parameter
+  final DateFormat dateFormat = DateFormat(dateFormatString);
+
+  // Parse the manually entered date using the dateFormat
+  DateTime date;
+  try {
+    date = dateFormat.parseLoose(dateController.text);
+  } catch (e) {
+    date = DateTime.now(); // Fallback to current date if parsing fails
   }
+
+  DateTime? pickedDate = await showDatePicker(
+    builder: (BuildContext context, Widget? child) {
+      return Theme(
+        data: ThemeData.light().copyWith(
+          primaryColor: Palette.primary,
+          hintColor: Colors.red,
+          colorScheme: const ColorScheme.light(primary: Palette.primary),
+          buttonTheme: const ButtonThemeData(
+            textTheme: ButtonTextTheme.primary,
+          ),
+        ),
+        child: child!,
+      );
+    },
+    context: context,
+    initialDate: date,
+    firstDate: DateTime(1940),
+    lastDate: DateTime(2025),
+  );
+
+  if (pickedDate != null) {
+    // Format the picked date using the dateFormat
+    String formattedDate =pickedDate.toString().ddMMYYYY;
+    setState(() {
+      dateController.text = formattedDate;
+    });
+  }
+}
 
   Map? seletedGender;
   List gender = [
@@ -214,14 +259,14 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
                   const HeightFull(),
                   Row(
                     children: [
-                      Expanded(
-                        child: TextFormFieldCustom(
-                            label: 'Age',
-                            keyboardType: TextInputType.number,
-                            controller: ageController,
-                            hint: 'Enter your Age'),
-                      ),
-                      const WidthFull(),
+                      // Expanded(
+                      //   child: TextFormFieldCustom(
+                      //       label: 'Age',
+                      //       keyboardType: TextInputType.number,
+                      //       controller: ageController,
+                      //       hint: 'Enter your Age'),
+                      // ),
+                      // const WidthFull(),
                       Expanded(
                         child: TextFormFieldCustom(
                             label: 'District',
@@ -417,7 +462,7 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
         phonenumber: mobileController.text,
         email: emailController.text,
         dateOfBirth: dateController.text.strToDate.toString(),
-        age: ageController.text,
+        // age: ageController.text,
         location: districtController.text,
         nameOfUniversity: universityController.text,
         nameOfDegree: degreeController.text,

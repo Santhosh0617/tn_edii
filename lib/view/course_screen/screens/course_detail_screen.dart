@@ -215,6 +215,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
       'userId': authProvider.user?.id,
       'is_payment_done': true,
       'payment_id': paymentId
+      
     };
     bool isRegistered = await TrainingRepository()
         .registerTraining(context, training.id!, body);

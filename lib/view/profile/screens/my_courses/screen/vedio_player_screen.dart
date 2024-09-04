@@ -24,7 +24,7 @@ class _VedioPlayerScreenState extends State<VedioPlayerScreen> {
   void initState() {
     super.initState();
     // TO load a video by its unique id
-    _controller.loadVideoById(videoId: "70FDX26pIMY");
+    _controller.loadVideoById(videoId: "n1kzVWu2Uks");
   }
 
   @override
