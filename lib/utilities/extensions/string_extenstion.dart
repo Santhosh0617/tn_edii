@@ -87,6 +87,10 @@ extension StringExtension on String {
     }
   }
 
+  String toImageUrl({String subFolder = ''}) {
+    return StringUtils.toImageUrl(this, subFolder);
+  }
+
   String get capitalizeFirst {
     if (emptyIfNull.isEmpty) return '';
     try {
@@ -111,12 +115,17 @@ extension StringExtension on String {
     return result;
   }
 
+  String get yyyyMMdd {
+    String result = FormatDate.formattedStr(this, 'dd-MM-yyyy');
+    return result;
+  }
+
   String get formattedRailwayTimeStr {
     String result = FormatDate.formattedTimeStr(this, 'HH:mm');
     return result;
   }
 
-  String get eeeeddMMM {
+  String get convertEEEEddMMM {
     String result = FormatDate.formattedStr(this, 'EEEE, dd MMM');
     return result;
   }
@@ -162,10 +171,11 @@ extension StringExtension on String {
     return NumberFormatter().count(this);
   }
 
-   String toPdfUrl(String subFolder) {
+  String toPdfUrl(String subFolder) {
     return StringUtils.toPdfUrl(this, subFolder);
   }
-   bool get isEmptyOrNull {
+
+  bool get isEmptyOrNull {
     return StringUtils.isEmptyOrNull(this);
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
+import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
@@ -25,6 +27,11 @@ class _VedioPlayerScreenState extends State<VedioPlayerScreen> {
     super.initState();
     // TO load a video by its unique id
     _controller.loadVideoById(videoId: "n1kzVWu2Uks");
+    WidgetsBinding.instance.addPostFrameCallback((t) {
+      String url = (GoRouterState.of(context).extra ?? '') as String;
+      _controller.loadVideoById(videoId: url.split('/').last);
+      // _controller.loadVideo(url);
+    });
   }
 
   @override

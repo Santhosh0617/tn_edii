@@ -37,25 +37,24 @@ class _PdfViewState extends State<PdfView> {
   Widget build(BuildContext context) {
     logger.w(item.toJson());
     String fileName = "${item.path}";
-    // String fileName = "dd12-13_0.pdf";
-    // String fileUrl = "https://morth.nic.in/sites/default/files/dd12-13_0.pdf";
-    String fileUrl = item.path?.toPdfUrl("api/v1/users/uploads/")??'';
+    String fileUrl = item.path?.toImageUrl() ?? '';
     logger.w(fileUrl);
     return CustomScaffold(
-      isStackedAppBar: false,
-
+        isStackedAppBar: false,
         color: Palette.bg,
-        appBar:  AppBarCommon(
+        appBar: AppBarCommon(
           automaticLeadingImplies: true,
           isText: false,
-
           title: "Resources",
           actions: [
             InkWell(
-              onTap: () {
-                 downloadPDF(fileUrl,fileName);
-              },
-              child: Icon(Icons.download,color: Palette.dark,))
+                onTap: () {
+                  downloadPDF(fileUrl, fileName);
+                },
+                child: Icon(
+                  Icons.download,
+                  color: Palette.dark,
+                ))
           ],
         ),
         body: SfPdfViewer.network(fileUrl));

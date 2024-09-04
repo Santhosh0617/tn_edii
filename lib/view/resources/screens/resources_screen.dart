@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -34,58 +33,61 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
       body: Consumer<TrainingProvider>(
         builder: (context, train, child) {
           return ListView(
-            shrinkWrap: true,
-            padding: const EdgeInsets.all(0),
-            children: [
-              const ResourceTypesTile(),
-              const HeightFull(),
-              const Heading('Connect With Experts'),
-              const HeightFull(),
-              GridView.builder(
-                  itemCount: resourceProvider.expenseTypes.length,
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisSpacing: 12,
-                      crossAxisSpacing: 12,
-                      childAspectRatio: 1.28,
-                      crossAxisCount: 2),
-                  itemBuilder: (context, i) {
-                    ExpenseType expenseType = resourceProvider.expenseTypes[i];
-                    // Resourses resourceData = resourceProvider.resourseData[i];
-                    return InkWell(
-                      onTap: () {
-                        context.push(Routes.mentorDetail,extra: expenseType);
-                      },
-                      child: Container(
-                        clipBehavior: Clip.antiAlias,
-                        padding:
-                            const EdgeInsets.only(top: 12, right: 12, left: 12),
-                        decoration: ThemeGuide.cardDecoration(),
-                        child: Column(
-                          children: [
-                            Container(
-                              clipBehavior: Clip.antiAlias,
-                              decoration: ThemeGuide.cardDecoration(),
-                              child: Image.asset(
-                                expenseType.image,
-                                height: 90,
-                                width: context.widthFull(),
-                                fit: BoxFit.cover,
+              shrinkWrap: true,
+              padding: const EdgeInsets.all(0),
+              children: [
+                const ResourceTypesTile(),
+                const HeightFull(),
+                const Heading('Connect With Experts'),
+                const HeightFull(),
+                GridView.builder(
+                    itemCount: resourceProvider.expenseTypes.length,
+                    shrinkWrap: true,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            mainAxisSpacing: 12,
+                            crossAxisSpacing: 12,
+                            childAspectRatio: 1.28,
+                            crossAxisCount: 2),
+                    itemBuilder: (context, i) {
+                      ExpenseType expenseType =
+                          resourceProvider.expenseTypes[i];
+                      // Resourses resourceData = resourceProvider.resourseData[i];
+                      return InkWell(
+                        onTap: () {
+                          context.push(Routes.mentorDetail, extra: expenseType);
+                        },
+                        child: Container(
+                          clipBehavior: Clip.antiAlias,
+                          padding: const EdgeInsets.only(
+                              top: 12, right: 12, left: 12),
+                          decoration: ThemeGuide.cardDecoration(),
+                          child: Column(
+                            children: [
+                              Container(
+                                clipBehavior: Clip.antiAlias,
+                                decoration: ThemeGuide.cardDecoration(),
+                                child: Image.asset(
+                                  expenseType.image,
+                                  height: 90,
+                                  width: context.widthFull(),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                            ),
-                            const HeightHalf(),
-                            Center(
-                                child: TextCustom(expenseType.expense,
-                                    fontWeight: FontWeight.bold))
-                          ],
+                              const HeightHalf(),
+                              Center(
+                                  child: TextCustom(expenseType.expense,
+                                      fontWeight: FontWeight.bold))
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  }),
-              const HeightFull(),
-            ]);
+                      );
+                    }),
+                const HeightFull(),
+              ]);
         },
       ),
     );

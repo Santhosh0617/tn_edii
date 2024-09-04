@@ -1,18 +1,24 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:tn_edii/common/widgets/buttons.dart';
 import 'package:tn_edii/common/widgets/custom_validator.dart';
 import 'package:tn_edii/common/widgets/network_image_cus.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/common/widgets/text_fields.dart';
 import 'package:tn_edii/constants/app_strings.dart';
+import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
+import 'package:tn_edii/models/my_course.dart';
+import 'package:tn_edii/providers/course_provider.dart';
 import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/extensions/context_extention.dart';
+import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
 import 'package:tn_edii/utilities/message.dart';
+import 'package:tn_edii/view/course_screen/widget/course_details_container.dart';
 
 class CompletedTile extends StatefulWidget {
   const CompletedTile({super.key});
@@ -24,22 +30,24 @@ class CompletedTile extends StatefulWidget {
 class _CompletedTileState extends State<CompletedTile> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: ListView.separated(
-              padding: EdgeInsets.only(top: 5),
-              itemBuilder: (context, index) {
-                return const CourseCompletedContainer();
-              },
-              separatorBuilder: (context, index) {
-                return const SizedBox(
-                  height: SizeUnit.sm,
-                );
-              },
-              itemCount: 1),
-        )
-      ],
+    return Consumer<CourseProvider>(
+      builder: (context, value, child) {
+        List completedCourses =
+            value.myCourses.where((e) => e.isCourseCompleted == true).toList();
+        return Column(
+          children: [
+            Expanded(
+              child: ListView.separated(
+                  padding: EdgeInsets.only(top: 5),
+                  itemBuilder: (context, index) =>
+                      CourseCompletedContainer(course: completedCourses[index]),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: SizeUnit.sm),
+                  itemCount: completedCourses.length),
+            )
+          ],
+        );
+      },
     );
   }
 }
@@ -47,8 +55,9 @@ class _CompletedTileState extends State<CompletedTile> {
 class CourseCompletedContainer extends StatelessWidget {
   const CourseCompletedContainer({
     super.key,
+    required this.course,
   });
-
+  final MyCourse course;
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
@@ -76,8 +85,7 @@ class CourseCompletedContainer extends StatelessWidget {
                         bottomLeft: Radius.circular(22)),
                     color: Palette.dark),
                 child: NetworkImageCustom(
-                    logo:
-                        "${AppStrings.apiUrl}users/uploads/training_images/1.jpeg"),
+                    logo: "1.jpeg".toImageUrl(subFolder: 'training_images')),
                 // child: Image.asset(LocalImages.js, fit: BoxFit.cover)
               ),
               Expanded(
@@ -247,28 +255,28 @@ class _ReviewBottomSheetState extends State<ReviewBottomSheet> {
           ),
         ),
         const HeightFull(),
-         Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List.generate(5, (index) {
-                return InkWell(
-                  onTap: () {
-                    setState(() {
-                      // Toggle the selected star
-                      if (selectedIndex == index) {
-                        selectedIndex = -1;
-                      } else {
-                        selectedIndex = index;
-                      }
-                    });
-                  },
-                  child: Icon(
-                    selectedIndex >= index ? Icons.star : Icons.star_outline,
-                    size: 34,
-                    color: selectedIndex >= index ? Colors.amber : Colors.grey,
-                  ),
-                );
-              }),
-            ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: List.generate(5, (index) {
+            return InkWell(
+              onTap: () {
+                setState(() {
+                  // Toggle the selected star
+                  if (selectedIndex == index) {
+                    selectedIndex = -1;
+                  } else {
+                    selectedIndex = index;
+                  }
+                });
+              },
+              child: Icon(
+                selectedIndex >= index ? Icons.star : Icons.star_outline,
+                size: 34,
+                color: selectedIndex >= index ? Colors.amber : Colors.grey,
+              ),
+            );
+          }),
+        ),
         HeightFull(),
         FeedbackTextfield(
           controller: feedbackController,

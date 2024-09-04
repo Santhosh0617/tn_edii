@@ -5,7 +5,9 @@ import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
+import 'package:tn_edii/providers/course_provider.dart';
 import 'package:tn_edii/providers/training_provider.dart';
+import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/theme/theme_guide.dart';
 import 'package:tn_edii/view/training/widget/calender.dart';
 
@@ -22,25 +24,27 @@ class EventScreen extends StatefulWidget {
 class _EventScreenState extends State<EventScreen> {
   @override
   Widget build(BuildContext context) {
-    return CalendarControllerProvider(
-      controller: EventController()..addAll([]),
-      child: CustomScaffold(
-        appBar:
-            const AppBarCommon(automaticLeadingImplies: false, title: "Events"),
-        body: Consumer<TrainingProvider>(
-          builder: (context, train, child) => ListView(
-              padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
-              children: [
-                const Calender(),
-                Container(
-                  decoration: ThemeGuide.cardDecoration(),
-                ),
-                const HeightFull(),
-                if (train.selectedTrainings.isNotEmpty)
-                  TrainingCard(trainingDetails: train.selectedTrainings[0]),
-                const HeightFull(),
-              ]),
-        ),
+    return CustomScaffold(
+      appBar:
+          const AppBarCommon(automaticLeadingImplies: false, title: "Events"),
+      body: Consumer<CourseProvider>(
+        builder: (context, value, child) => ListView(
+            padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
+            children: [
+              const Calender(),
+              Container(
+                decoration: ThemeGuide.cardDecoration(),
+              ),
+              const HeightFull(),
+              ListView.separated(
+                  shrinkWrap: true,
+                  itemBuilder: (_, index) => TrainingCard(
+                      route: Routes.onGoingCourseDetails,
+                      trainingDetails:
+                          value.selectedMonthCourses[index].training),
+                  separatorBuilder: (_, i) => HeightFull(),
+                  itemCount: value.selectedMonthCourses.length)
+            ]),
       ),
     );
   }

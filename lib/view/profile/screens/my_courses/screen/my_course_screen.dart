@@ -31,19 +31,16 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
     return CustomScaffold(
       color: Palette.bg,
       appBar: const AppBarCommon(
-        automaticLeadingImplies: true,
-        title: "My Courses",
-        isText: false,
-      ),
+          automaticLeadingImplies: true, title: "My Courses", isText: false),
       body: Padding(
         padding: const EdgeInsets.all(SizeUnit.lg),
         child: Column(
           children: [
-            TextFormFieldCustom(
-              controller: searchCont,
-              hint: "Search",
-            ),
-            HeightFull(),
+            // TextFormFieldCustom(
+            //   controller: searchCont,
+            //   hint: "Search",
+            // ),
+            // HeightFull(),
             Row(
                 children: List.generate(
                     titles.length,

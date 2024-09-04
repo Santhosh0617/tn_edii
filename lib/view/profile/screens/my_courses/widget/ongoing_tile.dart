@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:tn_edii/common/widgets/network_image_cus.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/constants/app_strings.dart';
+import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
+import 'package:tn_edii/models/my_course.dart';
+import 'package:tn_edii/providers/course_provider.dart';
 import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/extensions/context_extention.dart';
 import 'package:linear_progress_bar/linear_progress_bar.dart';
+import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
 
 class OngoingTile extends StatefulWidget {
   const OngoingTile({super.key});
@@ -20,37 +25,42 @@ class OngoingTile extends StatefulWidget {
 class _OngoingTileState extends State<OngoingTile> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: ListView.separated(
-              padding: const EdgeInsets.only(top: 5),
-              itemBuilder: (context, index) {
-                return const OngoingContainer();
-              },
-              separatorBuilder: (context, index) {
-                return const SizedBox(
-                  height: SizeUnit.sm,
-                );
-              },
-              itemCount: 1),
-        )
-      ],
-    );
+    return Consumer<CourseProvider>(builder: (context, value, child) {
+      List onGoingCourse =
+          value.myCourses.where((e) => e.isCourseCompleted == false).toList();
+      return Column(
+        children: [
+          Expanded(
+            child: ListView.separated(
+                padding: const EdgeInsets.only(top: 5),
+                itemBuilder: (context, index) =>
+                    OngoingContainer(course: onGoingCourse[index]),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: SizeUnit.sm),
+                itemCount: onGoingCourse.length),
+          )
+        ],
+      );
+    });
   }
 }
 
 class OngoingContainer extends StatelessWidget {
   const OngoingContainer({
     super.key,
+    required this.course,
   });
+
+  final MyCourse course;
 
   @override
   Widget build(BuildContext context) {
+    String price = course.training?.feeAmount.toString() ?? '';
+    price = price == '0' ? 'Free' : price.money();
     return InkWell(
       highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
-      onTap: () => context.push(Routes.onGoingCourseDetails),
+      onTap: () => context.push(Routes.onGoingCourseDetails, extra: course),
       child: Container(
         margin: const EdgeInsets.only(top: SizeUnit.md),
         clipBehavior: Clip.hardEdge,
@@ -70,8 +80,8 @@ class OngoingContainer extends StatelessWidget {
                       bottomLeft: Radius.circular(22)),
                   color: Palette.dark),
               child: NetworkImageCustom(
-                    logo:
-                        "${AppStrings.apiUrl}users/uploads/training_images/1.jpeg"),
+                  logo: "${course.trainingId}.jpeg"
+                      .toImageUrl(subFolder: 'training_images')),
               // child: Image.asset(LocalImages.js, fit: BoxFit.cover)
             ),
             Expanded(
@@ -80,67 +90,28 @@ class OngoingContainer extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const TextCustom(
-                      "Graphic Design",
-                      size: 14,
-                      fontWeight: FontWeight.w600,
-                      maxLines: 1,
-                      color: Palette.orange,
-                    ),
-                    const HeightHalf(),
-                    const TextCustom(
-                      " Gold Appraiser Training",
+                    TextCustom(
+                      course.training?.title ?? '',
                       size: 14,
                       fontWeight: FontWeight.w800,
                       maxLines: 1,
                       color: Palette.dark,
                     ),
                     const HeightHalf(),
-                    const Row(
-                      children: [
-                        Icon(Icons.star, color: Palette.yellow),
-                        TextCustom("4.2",
-                            size: 14,
-                            color: Palette.dark,
-                            fontWeight: FontWeight.w700),
-                        WidthHalf(),
-                        TextCustom(
-                          "|",
-                          size: 14,
-                          color: Palette.dark,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        WidthHalf(),
-                        TextCustom("2 Hrs 36 Mins",
-                            size: 14,
-                            color: Palette.dark,
-                            fontWeight: FontWeight.w700),
-                      ],
+                    TextCustom(
+                      course.training?.description ?? '',
+                      size: 13,
+                      fontWeight: FontWeight.w500,
+                      color: Palette.grey,
+                      maxLines: 2,
                     ),
-                    const HeightFull(),
-                    const HeightHalf(),
-                    Row(
-                      children: [
-                        SizedBox(
-                          height: 6,
-                          width: 150,
-                          child: LinearProgressBar(
-                            borderRadius: BorderRadius.circular(22),
-                            maxSteps: 100,
-                            progressType: LinearProgressBar.progressTypeLinear,
-                            currentStep: 45,
-                            progressColor: Palette.yellow,
-                            backgroundColor: Palette.bg,
-                          ),
-                        ),
-                        const WidthHalf(),
-                        const TextCustom(
-                          "45/100",
-                          size: 14,
-                          fontWeight: FontWeight.w800,
-                          color: Palette.dark,
-                        )
-                      ],
+                    // const HeightFull(),
+                    const Spacer(),
+                    TextCustom(
+                      price,
+                      size: 16,
+                      fontWeight: FontWeight.w800,
+                      color: Palette.primary,
                     )
                   ],
                 ),

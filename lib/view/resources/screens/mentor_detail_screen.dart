@@ -50,10 +50,9 @@ class _MentorDetailScreenState extends State<MentorDetailScreen> {
       isStackedAppBar: false,
       color: Palette.bg,
       appBar: AppBarCommon(
-        automaticLeadingImplies: true,
-        title: expenseType.role.capitalize,
-        isText: false,
-      ),
+          automaticLeadingImplies: true,
+          title: expenseType.role.capitalize,
+          isText: false),
       body: Consumer<ResourceProvider>(
         builder: (context, value, child) {
           // List<User> users = List.from(value.users);
@@ -91,7 +90,7 @@ class _MentorDetailScreenState extends State<MentorDetailScreen> {
                             maxRadius: 37,
                             backgroundColor: Palette.accent,
                             child: NetworkImageCustom(
-                                logo: '',
+                                logo: resourseReport.profilePicture ?? '',
                                 placeholderImage:
                                     LocalImages.profilePlaceholder),
                           ),

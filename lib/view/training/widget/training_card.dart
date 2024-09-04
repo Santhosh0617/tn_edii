@@ -3,11 +3,13 @@ import 'package:go_router/go_router.dart';
 import 'package:tn_edii/common/widgets/network_image_cus.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/constants/app_strings.dart';
+import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/models/training.dart';
 import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/theme/palette.dart';
+import 'package:tn_edii/theme/theme_guide.dart';
 import 'package:tn_edii/utilities/extensions/context_extention.dart';
 import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
 
@@ -15,23 +17,27 @@ class TrainingCard extends StatelessWidget {
   const TrainingCard({
     super.key,
     required this.trainingDetails,
+    this.route = Routes.courseDetail,
   });
-  final Training trainingDetails;
-
+  final Training? trainingDetails;
+  final String route;
   @override
   Widget build(BuildContext context) {
-    String title = trainingDetails.title ?? '';
-    String description = trainingDetails.description ?? "";
-    String price = trainingDetails.feeAmount.toString();
+    String title = trainingDetails?.title ?? '';
+    String description = trainingDetails?.description ?? "";
+    String price = (trainingDetails?.feeAmount ?? '').toString();
     price = price == '0' ? 'Free' : price.money();
     return InkWell(
-      onTap: () => context.push(Routes.courseDetail, extra: trainingDetails),
+      onTap: trainingDetails == null
+          ? null
+          : () => context.push(Routes.courseDetail, extra: trainingDetails),
       child: Container(
         clipBehavior: Clip.hardEdge,
         height: 128,
         width: context.widthFull(),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(22), color: Palette.pureWhite),
+        decoration: ThemeGuide.cardDecoration(),
+        // decoration: BoxDecoration(
+        //     borderRadius: BorderRadius.circular(22), color: Palette.pureWhite),
         child: Row(
           children: [
             Container(
@@ -43,8 +49,8 @@ class TrainingCard extends StatelessWidget {
                       bottomLeft: Radius.circular(22)),
                   color: Palette.dark),
               child: NetworkImageCustom(
-                logo:
-                    '${AppStrings.apiUrl}users/uploads/training_images/${trainingDetails.id}.jpeg',
+                logo: '${trainingDetails?.id}.jpeg'
+                    .toImageUrl(subFolder: 'training_images'),
                 height: 128,
                 width: 136,
               ),

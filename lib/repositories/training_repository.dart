@@ -33,7 +33,7 @@ class TrainingRepository {
 
   Future<bool> registerTraining(
       BuildContext context, int id, Map<String, dynamic> params) async {
-          params['trainingId'] = id;
+    params['trainingId'] = id;
     trainingsProvider.isLoading = true;
     ResponseData responseData =
         await _api.post(context, 'register-event/$id', body: params);
@@ -42,4 +42,5 @@ class TrainingRepository {
     showMessage('Training was registered successfully');
     return true;
   }
+
 }

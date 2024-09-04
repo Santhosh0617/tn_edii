@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
+import 'package:tn_edii/view/course_screen/widget/course_details_container.dart';
+
 class Resourses {
   int? id;
   String? name;
@@ -116,7 +119,7 @@ class Resourses {
         isForgotPassword: json["is_forgot_password"],
         forgotOneTimePassword: json["forgot_one_time_password"],
         isOtpVerified: json["is_otp_verified"],
-        profilePicture: json["profile_picture"],
+        profilePicture: json["profile_picture"].toString().toImageUrl(),
         createdAt: json["createdAt"] == null
             ? null
             : DateTime.parse(json["createdAt"]),

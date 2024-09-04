@@ -13,7 +13,7 @@ abstract class AppStrings {
   static String apiUrl = "${targetUrl}api/v1/";
 
   /// Backend storage url
-  static String imgUrl = targetUrl;
+  static String imgUrl = '${apiUrl}users/uploads/';
 
   /// Playstore application url
   static String playstoreUrl = 'https://Playstore.com';

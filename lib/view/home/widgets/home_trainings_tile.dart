@@ -19,8 +19,6 @@ class HomeTrainingsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     String price = course.feeAmount.toString();
     price = price == '0' ? 'Free' : price.money();
-    // logger.f(
-        // '${AppStrings.apiUrl}users/uploads/training_images/${course.id}.jpeg');
     return Column(
       children: [
         InkWell(
@@ -37,8 +35,8 @@ class HomeTrainingsTile extends StatelessWidget {
                   width: 300,
                   color: const Color(0xffCCCCCC),
                   child: NetworkImageCustom(
-                      logo:
-                          '${AppStrings.apiUrl}users/uploads/training_images/${course.id}.jpeg'),
+                      logo: '${course.id}.jpeg'
+                          .toImageUrl(subFolder: 'training_images')),
                 ),
               ),
               Padding(

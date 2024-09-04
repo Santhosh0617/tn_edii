@@ -47,6 +47,13 @@ class TrainingProvider extends ChangeNotifier {
     _selectedTrainings = selectedTrainings;
     notifyListeners();
   }
+
+  List<Training> _myTrainings = [];
+  List<Training> get myTrainings => _myTrainings;
+  set myTrainings(List<Training> myTrainings) {
+    _myTrainings = myTrainings;
+    notifyListeners();
+  }
 }
 
 List<CourseType> courseTypes = [

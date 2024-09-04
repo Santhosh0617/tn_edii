@@ -13,6 +13,7 @@ import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/models/training.dart';
 import 'package:tn_edii/providers/providers.dart';
 import 'package:tn_edii/providers/training_provider.dart';
+import 'package:tn_edii/repositories/course_repository.dart';
 import 'package:tn_edii/repositories/training_repository.dart';
 import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/theme/palette.dart';
@@ -20,7 +21,6 @@ import 'package:tn_edii/utilities/extensions/context_extention.dart';
 import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
 import 'package:tn_edii/view/course_screen/widget/course_details_container.dart';
 import 'dart:math' as math;
-
 
 class CourseDetailScreen extends StatefulWidget {
   const CourseDetailScreen({super.key});
@@ -38,31 +38,30 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
   }
 
   void init() {
-    // if (training.id == null) return;
+    if (training.id == null) return;
     // TrainingRepository().getTraining(context, training.id!);
+    CourseRepository().getCourseCurriculum(context, training.id!);
   }
 
   @override
   Widget build(BuildContext context) {
-    logger.w(training.toJson());
+    logger.e(training.toJson());
     return CustomScaffold(
       color: Palette.bg,
       bottomBar: Consumer<TrainingProvider>(
         builder: (context, value, child) {
-          return Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(SizeUnit.lg),
-                  child: ButtonPrimary(
-                      label:
-                          "Enroll Course - ${training.feeAmount.toString().money()}/-",
-                      isLoading: value.isLoading,
-                      onPressed: enRoll),
-                ),
+          return Row(children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(SizeUnit.lg),
+                child: ButtonPrimary(
+                    label:
+                        "Enroll Course - ${training.feeAmount.toString().money()}/-",
+                    isLoading: value.isLoading,
+                    onPressed: enRoll),
               ),
-            ],
-          );
+            ),
+          ]);
         },
       ),
       body: SingleChildScrollView(
@@ -74,8 +73,8 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                   width: context.widthFull(),
                   color: Colors.red,
                   child: NetworkImageCustom(
-                      logo:
-                          '${AppStrings.apiUrl}users/uploads/training_images/${training.id}.jpeg')),
+                      logo: '${training.id}.jpeg'
+                          .toImageUrl(subFolder: 'training_images'))),
               SafeArea(
                   child: IconButton(
                       onPressed: () => context.pop(),
@@ -100,8 +99,12 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const TextCustom("Instructor",
-                      size: 16, fontWeight: FontWeight.w700,color: Palette.dark,),
+                  const TextCustom(
+                    "Instructor",
+                    size: 16,
+                    fontWeight: FontWeight.w700,
+                    color: Palette.dark,
+                  ),
                   const HeightFull(),
                   ListTile(
                     splashColor: Colors.transparent,
@@ -109,8 +112,8 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                       context.push(Routes.mentorProfile, extra: training);
                     },
                     contentPadding: EdgeInsets.zero,
-                    leading: const NetworkImageCustom(
-                        logo: '',
+                    leading: NetworkImageCustom(
+                        logo: training.user?.profilePicture ?? '',
                         placeholderImage: LocalImages.profilePlaceholder),
                     title: TextCustom(training.user?.name ?? "-",
                         size: 16, fontWeight: FontWeight.w800),
@@ -167,8 +170,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                   //   ),
                   // ),
 
-
-                  //reviews 
+                  //reviews
                   //  Row(
                   //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   //   children: [
@@ -215,7 +217,6 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
       'userId': authProvider.user?.id,
       'is_payment_done': true,
       'payment_id': paymentId
-      
     };
     bool isRegistered = await TrainingRepository()
         .registerTraining(context, training.id!, body);
@@ -223,5 +224,3 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
     context.pop();
   }
 }
-
-

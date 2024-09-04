@@ -50,7 +50,7 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
   File? img;
   // datePick() async {
   //   FocusScope.of(context).unfocus();
-    
+
   //   DateTime date = dateController.text.strToDate ?? CustomDateTime().now;
   //   DateTime? pickedDate = await showDatePicker(
   //       builder: (BuildContext context, Widget? child) {
@@ -78,49 +78,48 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
   //   } else {}
   // }
 
-
   Future<void> datePick({String dateFormatString = 'dd/MM/yyyy'}) async {
-  FocusScope.of(context).unfocus();
+    FocusScope.of(context).unfocus();
 
-  // Define your date format based on the input parameter
-  final DateFormat dateFormat = DateFormat(dateFormatString);
+    // Define your date format based on the input parameter
+    final DateFormat dateFormat = DateFormat(dateFormatString);
 
-  // Parse the manually entered date using the dateFormat
-  DateTime date;
-  try {
-    date = dateFormat.parseLoose(dateController.text);
-  } catch (e) {
-    date = DateTime.now(); // Fallback to current date if parsing fails
-  }
+    // Parse the manually entered date using the dateFormat
+    DateTime date;
+    try {
+      date = dateFormat.parseLoose(dateController.text);
+    } catch (e) {
+      date = DateTime.now(); // Fallback to current date if parsing fails
+    }
 
-  DateTime? pickedDate = await showDatePicker(
-    builder: (BuildContext context, Widget? child) {
-      return Theme(
-        data: ThemeData.light().copyWith(
-          primaryColor: Palette.primary,
-          hintColor: Colors.red,
-          colorScheme: const ColorScheme.light(primary: Palette.primary),
-          buttonTheme: const ButtonThemeData(
-            textTheme: ButtonTextTheme.primary,
+    DateTime? pickedDate = await showDatePicker(
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            primaryColor: Palette.primary,
+            hintColor: Colors.red,
+            colorScheme: const ColorScheme.light(primary: Palette.primary),
+            buttonTheme: const ButtonThemeData(
+              textTheme: ButtonTextTheme.primary,
+            ),
           ),
-        ),
-        child: child!,
-      );
-    },
-    context: context,
-    initialDate: date,
-    firstDate: DateTime(1940),
-    lastDate: DateTime(2025),
-  );
+          child: child!,
+        );
+      },
+      context: context,
+      initialDate: date,
+      firstDate: DateTime(1700),
+      lastDate: DateTime.now(),
+    );
 
-  if (pickedDate != null) {
-    // Format the picked date using the dateFormat
-    String formattedDate =pickedDate.toString().ddMMYYYY;
-    setState(() {
-      dateController.text = formattedDate;
-    });
+    if (pickedDate != null) {
+      // Format the picked date using the dateFormat
+      String formattedDate = pickedDate.toString().ddMMYYYY;
+      setState(() {
+        dateController.text = formattedDate;
+      });
+    }
   }
-}
 
   Map? seletedGender;
   List gender = [
@@ -478,10 +477,11 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
         qualification: seleteQualification?['title'],
         community: seletedcommunity?['title'],
         gender: seletedGender?['title']);
+    logger.e(user?.toJson());
     bool value =
         await UserRepository().updateUser(context, user?.toJson() ?? {});
-    if (!value) return;
-    context.pop(value);
+    // if (!value) return;
+    // context.pop(value);
 
     // showMessage("Register Successfully...!");
   }
