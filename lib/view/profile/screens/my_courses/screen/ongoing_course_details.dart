@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/buttons.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
+import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/view/profile/screens/my_courses/widget/completed_tile.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -72,7 +74,8 @@ class _OnGoingCourseDetailsState extends State<OnGoingCourseDetails> {
                               children: [
                                 index!=0?Divider(color: Palette.bg,thickness: 1.5,):SizedBox.shrink(),
                                 ListTile(
-                                  onTap: () => openExApp("https://www.youtube.com/watch?v=6LD30ChPsSs&list=RDQ6mcDZui71I&index=13"),
+                                  onTap: () => context.push(Routes.courseVedio),
+                                  // openExApp("https://www.youtube.com/watch?v=6LD30ChPsSs&list=RDQ6mcDZui71I&index=13"),
                                   contentPadding:
                                       EdgeInsets.symmetric(horizontal: 0),
                                   leading: CircleAvatar(

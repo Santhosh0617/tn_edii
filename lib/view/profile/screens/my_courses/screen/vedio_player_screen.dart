@@ -3,7 +3,6 @@ import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
-import 'dart:math' as math;
 
 class VedioPlayerScreen extends StatefulWidget {
   const VedioPlayerScreen({super.key});
@@ -25,7 +24,7 @@ class _VedioPlayerScreenState extends State<VedioPlayerScreen> {
   void initState() {
     super.initState();
     // TO load a video by its unique id
-    _controller.loadVideoById(videoId: "70FDX26pIMY");
+    _controller.loadVideoById(videoId: "n1kzVWu2Uks");
   }
 
   @override

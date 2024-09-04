@@ -13,7 +13,6 @@ import 'package:tn_edii/providers/feedback_provider.dart';
 import 'package:tn_edii/providers/providers.dart';
 import 'package:tn_edii/repositories/feedback_repository.dart';
 import 'package:tn_edii/theme/palette.dart';
-import 'package:tn_edii/utilities/message.dart';
 
 class FeedBackScreen extends StatefulWidget {
   const FeedBackScreen({super.key});

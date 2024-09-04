@@ -33,7 +33,7 @@ class _OngoingTileState extends State<OngoingTile> {
                   height: SizeUnit.sm,
                 );
               },
-              itemCount: 10),
+              itemCount: 1),
         )
       ],
     );
@@ -70,8 +70,8 @@ class OngoingContainer extends StatelessWidget {
                       bottomLeft: Radius.circular(22)),
                   color: Palette.dark),
               child: NetworkImageCustom(
-                  logo:
-                      "${AppStrings.apiUrl}users/uploads/training_images/2.jpeg"),
+                    logo:
+                        "${AppStrings.apiUrl}users/uploads/training_images/1.jpeg"),
               // child: Image.asset(LocalImages.js, fit: BoxFit.cover)
             ),
             Expanded(
@@ -89,7 +89,7 @@ class OngoingContainer extends StatelessWidget {
                     ),
                     const HeightHalf(),
                     const TextCustom(
-                      "JavaScript Advacned Ebook vdsfh",
+                      " Gold Appraiser Training",
                       size: 14,
                       fontWeight: FontWeight.w800,
                       maxLines: 1,

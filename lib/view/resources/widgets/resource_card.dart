@@ -38,12 +38,12 @@ class _ResourceCardTileState extends State<ResourceCardTile> {
                 clipBehavior: Clip.hardEdge,
                 height: 128,
                 width: 136,
-                decoration: const BoxDecoration(
+                decoration:  BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(22),
                         bottomLeft: Radius.circular(22)),
-                    color: Palette.dark),
-                child: Image.asset(LocalImages.js, fit: BoxFit.cover)),
+                    color: Palette.grey.withOpacity(.2)),
+                child: Image.asset(LocalImages.logo, fit: BoxFit.cover)),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(SizeUnit.lg),
