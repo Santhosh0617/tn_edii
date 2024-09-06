@@ -9,7 +9,9 @@ import 'package:tn_edii/providers/course_provider.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/extensions/context_extention.dart';
 import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
+import 'package:tn_edii/view/course_screen/widget/curriculum_list.dart';
 import 'package:tn_edii/view/course_screen/widget/curriculum_tile.dart';
+import 'package:tn_edii/view/profile/screens/my_courses/screen/ongoing_course_details.dart';
 
 class CourseDetailsContainer extends StatefulWidget {
   const CourseDetailsContainer({
@@ -34,7 +36,8 @@ class _CourseDetailsContainerState extends State<CourseDetailsContainer> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(
-          top: SizeUnit.xlg * 14, left: SizeUnit.lg, right: SizeUnit.lg),
+        top: SizeUnit.xlg * 14,
+      ),
       // height: 394,
       width: context.widthFull(),
       decoration: BoxDecoration(
@@ -214,143 +217,133 @@ class _CourseDetailsContainerState extends State<CourseDetailsContainer> {
 
                 //   ],
                 // ),
-              ],
-            ),
-          ),
-          const HeightFull(),
-          Row(
-            children: [
-              Expanded(
-                child: InkWell(
-                  onTap: () {
-                    _onItemTapped(true);
-                  },
-                  child: Container(
-                    margin: EdgeInsets.zero,
-                    height: 50,
-                    width: context.widthHalf(),
-                    color:
-                        isAboutSelected ? Palette.primary : Palette.secondary,
-                    child: Center(
-                      child: TextCustom(
-                        "About",
-                        size: 16,
-                        color:
-                            isAboutSelected ? Palette.pureWhite : Palette.dark,
-                        fontWeight: FontWeight.w800,
+                const HeightFull(),
+                Row(
+                  children: [
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          _onItemTapped(true);
+                        },
+                        child: Container(
+                          margin: EdgeInsets.zero,
+                          height: 50,
+                          width: context.widthHalf(),
+                          color: isAboutSelected
+                              ? Palette.primary
+                              : Palette.secondary,
+                          child: Center(
+                            child: TextCustom(
+                              "About",
+                              size: 16,
+                              color: isAboutSelected
+                                  ? Palette.pureWhite
+                                  : Palette.dark,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: InkWell(
-                  onTap: () {
-                    _onItemTapped(false);
-                  },
-                  child: Container(
-                    margin: EdgeInsets.zero,
-                    height: 50,
-                    width: context.widthHalf(),
-                    color:
-                        !isAboutSelected ? Palette.primary : Palette.secondary,
-                    child: Center(
-                      child: TextCustom(
-                        "Curriculum",
-                        size: 16,
-                        color:
-                            !isAboutSelected ? Palette.pureWhite : Palette.dark,
-                        fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          _onItemTapped(false);
+                        },
+                        child: Container(
+                          margin: EdgeInsets.zero,
+                          height: 50,
+                          width: context.widthHalf(),
+                          color: !isAboutSelected
+                              ? Palette.primary
+                              : Palette.secondary,
+                          child: Center(
+                            child: TextCustom(
+                              "Curriculum",
+                              size: 16,
+                              color: !isAboutSelected
+                                  ? Palette.pureWhite
+                                  : Palette.dark,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-          HeightFull(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (isAboutSelected == true) ...[
-                  const HeightFull(),
-                  const TextCustom(
-                    "Description:",
-                    size: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Palette.dark,
-                  ),
-                  ReadMoreText(
-                    widget.training.description ?? "-",
-                    trimMode: TrimMode.Line,
-                    textAlign: TextAlign.justify,
-                    trimLines: 3,
-                    colorClickableText: Palette.primary,
-                    trimCollapsedText: 'Show More',
-                    trimExpandedText: 'Show Less',
-                    style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        height: 1.5,
-                        color: Palette.grey),
-                    moreStyle: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Palette.primary,
-                        decoration: TextDecoration.underline),
-                    lessStyle: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Palette.primary,
-                        decoration: TextDecoration.underline),
-                  ),
-                ],
-                if (isAboutSelected == false) ...[
-                  const HeightFull(),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                HeightFull(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          TextCustom(
-                            "Section 01 - ",
-                            size: 15,
-                            fontWeight: FontWeight.w800,
-                          ),
-                          TextCustom(
-                            "Introducation",
-                            size: 15,
-                            fontWeight: FontWeight.w800,
-                            color: Palette.primary,
-                          ),
-                        ],
-                      ),
-                      TextCustom(
-                        "25 Mins",
-                        size: 15,
-                        fontWeight: FontWeight.w800,
-                        color: Palette.primary,
-                      )
+                      if (isAboutSelected == true) ...[
+                        const TextCustom(
+                          "Description:",
+                          size: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Palette.dark,
+                        ),
+                        ReadMoreText(
+                          widget.training.description ?? "-",
+                          trimMode: TrimMode.Line,
+                          textAlign: TextAlign.justify,
+                          trimLines: 3,
+                          colorClickableText: Palette.primary,
+                          trimCollapsedText: 'Show More',
+                          trimExpandedText: 'Show Less',
+                          style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              height: 1.5,
+                              color: Palette.grey),
+                          moreStyle: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: Palette.primary,
+                              decoration: TextDecoration.underline),
+                          lessStyle: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: Palette.primary,
+                              decoration: TextDecoration.underline),
+                        ),
+                      ],
                     ],
                   ),
-                  const HeightFull(),
-                  Consumer<CourseProvider>(
-                    builder: (context, value, child) => ListView.separated(
-                        padding: EdgeInsets.zero,
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return CurriculumListTile(
-                              curriculum: value.curriculums[index],
-                              index: index);
-                        },
-                        separatorBuilder: (context, index) {
-                          return const Divider(color: Palette.grey);
-                        },
-                        itemCount: value.curriculums.length),
-                  )
+                ),
+
+                if (isAboutSelected == false) ...[
+                  CurriculumList(),
+
+                  // const Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Row(
+                  //       children: [
+                  //         TextCustom(
+                  //           "Section 01 - ",
+                  //           size: 15,
+                  //           fontWeight: FontWeight.w800,
+                  //         ),
+                  //         TextCustom(
+                  //           "Introducation",
+                  //           size: 15,
+                  //           fontWeight: FontWeight.w800,
+                  //           color: Palette.primary,
+                  //         ),
+                  //       ],
+                  //     ),
+                  //     TextCustom(
+                  //       "25 Mins",
+                  //       size: 15,
+                  //       fontWeight: FontWeight.w800,
+                  //       color: Palette.primary,
+                  //     )
+                  //   ],
+                  // ),
+                  // const HeightFull(),
                 ]
               ],
             ),

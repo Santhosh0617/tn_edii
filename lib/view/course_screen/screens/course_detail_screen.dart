@@ -45,7 +45,6 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    logger.e(training.toJson());
     return CustomScaffold(
       color: Palette.bg,
       bottomBar: Consumer<TrainingProvider>(

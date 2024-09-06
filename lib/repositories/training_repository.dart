@@ -39,8 +39,7 @@ class TrainingRepository {
         await _api.post(context, 'register-event/$id', body: params);
     trainingsProvider.isLoading = false;
     if (responseData.hasError) return false;
-    showMessage('Training was registered successfully');
+    // showMessage('Training was registered successfully');
     return true;
   }
-
 }

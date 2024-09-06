@@ -14,13 +14,9 @@ import 'package:tn_edii/utilities/extensions/context_extention.dart';
 import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
 
 class TrainingCard extends StatelessWidget {
-  const TrainingCard({
-    super.key,
-    required this.trainingDetails,
-    this.route = Routes.courseDetail,
-  });
+  const TrainingCard({super.key, required this.trainingDetails, this.onTap});
   final Training? trainingDetails;
-  final String route;
+  final VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {
     String title = trainingDetails?.title ?? '';
@@ -30,7 +26,8 @@ class TrainingCard extends StatelessWidget {
     return InkWell(
       onTap: trainingDetails == null
           ? null
-          : () => context.push(Routes.courseDetail, extra: trainingDetails),
+          : onTap ??
+              () => context.push(Routes.courseDetail, extra: trainingDetails),
       child: Container(
         clipBehavior: Clip.hardEdge,
         height: 128,

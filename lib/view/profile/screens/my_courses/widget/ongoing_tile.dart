@@ -67,7 +67,9 @@ class OngoingContainer extends StatelessWidget {
         height: 158,
         width: context.widthFull(),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(22), color: Palette.pureWhite),
+            border: Border.all(color: Palette.grey.withOpacity(.2)),
+            borderRadius: BorderRadius.circular(22),
+            color: Palette.pureWhite),
         child: Row(
           children: [
             Container(

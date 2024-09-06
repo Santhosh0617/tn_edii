@@ -17,7 +17,6 @@ class UserRepository {
         await _api.post(context, 'update/${authProvider.user?.id}', body: body);
     userProvider.isLoading = false;
     if (responseData.hasError) return false;
-    logger.e(responseData.data);
     authProvider.user = User.fromJson(body);
     return true;
   }

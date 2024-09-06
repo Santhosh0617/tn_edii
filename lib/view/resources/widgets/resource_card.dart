@@ -24,7 +24,7 @@ class _ResourceCardTileState extends State<ResourceCardTile> {
     logger.i(widget.data.toJson());
     return InkWell(
       onTap: () {
-        context.push(Routes.pdfView, extra: widget.data);
+        context.push(Routes.pdfView, extra: widget.data.path);
       },
       child: Container(
         clipBehavior: Clip.hardEdge,
@@ -38,7 +38,7 @@ class _ResourceCardTileState extends State<ResourceCardTile> {
                 clipBehavior: Clip.hardEdge,
                 height: 128,
                 width: 136,
-                decoration:  BoxDecoration(
+                decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(22),
                         bottomLeft: Radius.circular(22)),

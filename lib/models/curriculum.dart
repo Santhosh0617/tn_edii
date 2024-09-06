@@ -1,6 +1,43 @@
 import 'dart:convert';
 
 class Curriculum {
+  String? section;
+  int? totalMins;
+  List<Video>? videos;
+
+  Curriculum({
+    this.section,
+    this.totalMins,
+    this.videos,
+  });
+
+  factory Curriculum.fromRawJson(String str) =>
+      Curriculum.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Curriculum.fromJson(Map<String, dynamic> json) => Curriculum(
+        section: json["section"],
+        totalMins: json["total_mins"],
+        videos: json["videos"] == null
+            ? []
+            : List<Video>.from(json["videos"]!.map((x) => Video.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "section": section,
+        "total_mins": totalMins,
+        "videos": videos == null
+            ? []
+            : List<dynamic>.from(videos!.map((x) => x.toJson())),
+      };
+
+  List<Curriculum> fromJsonList(List json) {
+    return json.map((e) => Curriculum.fromJson(e)).toList();
+  }
+}
+
+class Video {
   int? id;
   int? trainingId;
   String? section;
@@ -11,7 +48,7 @@ class Curriculum {
   DateTime? createdAt;
   DateTime? updatedAt;
 
-  Curriculum({
+  Video({
     this.id,
     this.trainingId,
     this.section,
@@ -23,12 +60,11 @@ class Curriculum {
     this.updatedAt,
   });
 
-  factory Curriculum.fromRawJson(String str) =>
-      Curriculum.fromJson(json.decode(str));
+  factory Video.fromRawJson(String str) => Video.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Curriculum.fromJson(Map<String, dynamic> json) => Curriculum(
+  factory Video.fromJson(Map<String, dynamic> json) => Video(
         id: json["id"],
         trainingId: json["trainingId"],
         section: json["section"],
@@ -55,7 +91,4 @@ class Curriculum {
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
       };
-  List<Curriculum> fromJsonList(List json) {
-    return json.map((e) => Curriculum.fromJson(e)).toList();
-  }
 }

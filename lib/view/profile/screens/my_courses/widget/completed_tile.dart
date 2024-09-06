@@ -7,18 +7,18 @@ import 'package:tn_edii/common/widgets/custom_validator.dart';
 import 'package:tn_edii/common/widgets/network_image_cus.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/common/widgets/text_fields.dart';
-import 'package:tn_edii/constants/app_strings.dart';
 import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/models/my_course.dart';
+import 'package:tn_edii/models/training.dart';
 import 'package:tn_edii/providers/course_provider.dart';
+import 'package:tn_edii/providers/providers.dart';
+import 'package:tn_edii/repositories/feedback_repository.dart';
 import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/extensions/context_extention.dart';
 import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
-import 'package:tn_edii/utilities/message.dart';
-import 'package:tn_edii/view/course_screen/widget/course_details_container.dart';
 
 class CompletedTile extends StatefulWidget {
   const CompletedTile({super.key});
@@ -33,7 +33,7 @@ class _CompletedTileState extends State<CompletedTile> {
     return Consumer<CourseProvider>(
       builder: (context, value, child) {
         List completedCourses =
-            value.myCourses.where((e) => e.isCourseCompleted == true).toList();
+            value.myCourses.where((e) => e.isCourseCompleted != true).toList();
         return Column(
           children: [
             Expanded(
@@ -53,13 +53,11 @@ class _CompletedTileState extends State<CompletedTile> {
 }
 
 class CourseCompletedContainer extends StatelessWidget {
-  const CourseCompletedContainer({
-    super.key,
-    required this.course,
-  });
+  const CourseCompletedContainer({super.key, required this.course});
   final MyCourse course;
   @override
   Widget build(BuildContext context) {
+    Training? training = course.training;
     return Stack(children: [
       InkWell(
         highlightColor: Colors.transparent,
@@ -71,6 +69,7 @@ class CourseCompletedContainer extends StatelessWidget {
           height: 158,
           width: context.widthFull(),
           decoration: BoxDecoration(
+              border: Border.all(color: Palette.grey.withOpacity(.2)),
               borderRadius: BorderRadius.circular(22),
               color: Palette.pureWhite),
           child: Row(
@@ -85,7 +84,8 @@ class CourseCompletedContainer extends StatelessWidget {
                         bottomLeft: Radius.circular(22)),
                     color: Palette.dark),
                 child: NetworkImageCustom(
-                    logo: "1.jpeg".toImageUrl(subFolder: 'training_images')),
+                    logo: "${course.id}.jpeg"
+                        .toImageUrl(subFolder: 'training_images')),
                 // child: Image.asset(LocalImages.js, fit: BoxFit.cover)
               ),
               Expanded(
@@ -94,59 +94,70 @@ class CourseCompletedContainer extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const TextCustom(
-                        "Graphic Design",
-                        size: 14,
-                        fontWeight: FontWeight.w600,
-                        maxLines: 1,
-                        color: Palette.orange,
-                      ),
-                      const HeightHalf(),
-                      const TextCustom(
-                        " Gold Appraiser Training",
+                      // TextCustom(
+                      //   training?.title ?? '',
+                      //   size: 14,
+                      //   fontWeight: FontWeight.w600,
+                      //   maxLines: 1,
+                      //   color: Palette.orange,
+                      // ),
+                      // const HeightHalf(),
+                      TextCustom(
+                        training?.title ?? '',
                         size: 14,
                         fontWeight: FontWeight.w800,
                         maxLines: 1,
                         color: Palette.dark,
                       ),
                       const HeightHalf(),
-                      const Row(
-                        children: [
-                          Icon(Icons.star, color: Palette.yellow),
-                          TextCustom("4.2",
-                              size: 14,
-                              color: Palette.dark,
-                              fontWeight: FontWeight.w700),
-                          WidthHalf(),
-                          TextCustom(
-                            "|",
-                            size: 14,
-                            color: Palette.dark,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          WidthHalf(),
-                          TextCustom("2 Hrs 36 Mins",
-                              size: 14,
-                              color: Palette.dark,
-                              fontWeight: FontWeight.w700),
-                        ],
+                      TextCustom(
+                        training?.description ?? '',
+                        size: 13,
+                        fontWeight: FontWeight.w500,
+                        color: Palette.grey,
+                        maxLines: 2,
                       ),
+                      // const HeightFull(),
+                      const Spacer(),
+                      // const Row(
+                      //   children: [
+                      //     Icon(Icons.star, color: Palette.yellow),
+                      //     TextCustom("4.2",
+                      //         size: 14,
+                      //         color: Palette.dark,
+                      //         fontWeight: FontWeight.w700),
+                      //     WidthHalf(),
+                      //     TextCustom(
+                      //       "|",
+                      //       size: 14,
+                      //       color: Palette.dark,
+                      //       fontWeight: FontWeight.w700,
+                      //     ),
+                      //     WidthHalf(),
+                      //     TextCustom("2 Hrs 36 Mins",
+                      //         size: 14,
+                      //         color: Palette.dark,
+                      //         fontWeight: FontWeight.w700),
+                      //   ],
+                      // ),
                       const HeightFull(),
                       const HeightHalf(),
                       InkWell(
                         onTap: () {
-                          commonDialog(context, const CourseCompletedDialog());
+                          (course.certificatePath ?? '').toString().isEmpty
+                              ? commonDialog(context,
+                                  CourseCompletedDialog(course: course))
+                              : context.push(Routes.pdfView,
+                                  extra: course.certificatePath);
                         },
                         child: const Align(
                           alignment: AlignmentDirectional.centerEnd,
-                          child: TextCustom(
-                            "View Certificate",
-                            decoration: TextDecoration.underline,
-                            size: 13,
-                            fontWeight: FontWeight.w800,
-                            decorationColor: Palette.greenAccent,
-                            color: Palette.greenAccent,
-                          ),
+                          child: TextCustom("View Certificate",
+                              decoration: TextDecoration.underline,
+                              size: 13,
+                              fontWeight: FontWeight.w800,
+                              decorationColor: Palette.greenAccent,
+                              color: Palette.greenAccent),
                         ),
                       )
                     ],
@@ -164,8 +175,8 @@ class CourseCompletedContainer extends StatelessWidget {
 }
 
 class CourseCompletedDialog extends StatelessWidget {
-  const CourseCompletedDialog({super.key});
-
+  const CourseCompletedDialog({super.key, required this.course});
+  final MyCourse? course;
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -190,7 +201,7 @@ class CourseCompletedDialog extends StatelessWidget {
       const HeightFull(multiplier: 2),
       InkWell(
         onTap: () {
-          commonBottomSheetReport(context, const ReviewBottomSheet());
+          commonBottomSheetReport(context, ReviewBottomSheet(course: course));
         },
         child: Container(
           width: context.widthHalf() + 40,
@@ -225,8 +236,8 @@ class CourseCompletedDialog extends StatelessWidget {
 }
 
 class ReviewBottomSheet extends StatefulWidget {
-  const ReviewBottomSheet({super.key});
-
+  const ReviewBottomSheet({super.key, required this.course});
+  final MyCourse? course;
   @override
   State<ReviewBottomSheet> createState() => _ReviewBottomSheetState();
 }
@@ -241,18 +252,13 @@ class _ReviewBottomSheetState extends State<ReviewBottomSheet> {
       padding: const EdgeInsets.all(12),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Center(
-          child: const TextCustom(
-            "Review",
-            size: 16,
-            fontWeight: FontWeight.bold,
-          ),
+          child:
+              const TextCustom("Review", size: 16, fontWeight: FontWeight.bold),
         ),
         const HeightFull(),
         Center(
-          child: const TextCustom(
-            "How did you think about this training?",
-            fontWeight: FontWeight.normal,
-          ),
+          child: const TextCustom("How did you think about this training?",
+              fontWeight: FontWeight.normal),
         ),
         const HeightFull(),
         Row(
@@ -292,10 +298,7 @@ class _ReviewBottomSheetState extends State<ReviewBottomSheet> {
         Row(
           children: [
             Expanded(
-              child: ButtonPrimary(
-                onPressed: hitAPI,
-                label: "Submit",
-              ),
+              child: ButtonPrimary(onPressed: hitAPI, label: "Submit"),
             ),
           ],
         ),
@@ -305,17 +308,21 @@ class _ReviewBottomSheetState extends State<ReviewBottomSheet> {
   }
 
   bool hasError = false;
-  hitAPI() {
-    if (feedbackController.text.isEmpty) {
-      // return showMessage("Kindly Enter Review");
-      hasError = true;
-      setState(() {});
-      return;
-    }
-    Navigator.of(context)
-      ..pop()
-      ..pop();
-    showMessage("Review Submitted Successfully");
+  hitAPI() async {
+    hasError = feedbackController.text.isEmpty;
+    setState(() {});
+    if (hasError) return;
+    Map<String, dynamic> params = {
+      'rating': selectedIndex + 1,
+      'description': feedbackController.text,
+      'userId': authProvider.user?.id,
+      'courseId': widget.course?.id
+    };
+
+    bool isFeedbackAdded =
+        await FeedbackRepository().addFeedback(context, params);
+    if (!isFeedbackAdded) return;
+    context.pop();
   }
 }
 

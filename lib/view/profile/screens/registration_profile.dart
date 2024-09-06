@@ -18,6 +18,7 @@ import 'package:tn_edii/repositories/user_repository.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/extensions/form_extension.dart';
 import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
+import 'package:tn_edii/utilities/message.dart';
 
 class RegistrationProfile extends StatefulWidget {
   const RegistrationProfile({super.key});
@@ -477,12 +478,9 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
         qualification: seleteQualification?['title'],
         community: seletedcommunity?['title'],
         gender: seletedGender?['title']);
-    logger.e(user?.toJson());
     bool value =
         await UserRepository().updateUser(context, user?.toJson() ?? {});
-    // if (!value) return;
-    // context.pop(value);
-
-    // showMessage("Register Successfully...!");
+    if (!value) return;
+    context.pop(value);
   }
 }

@@ -28,17 +28,15 @@ class PdfView extends StatefulWidget {
 }
 
 class _PdfViewState extends State<PdfView> {
-  ArticlesModel get item => GoRouterState.of(context).extra as ArticlesModel;
+  String get path => (GoRouterState.of(context).extra ?? "") as String;
   // String get documentname => params["documentName"];
   // String get document => params["pdfPath"];
   DateTime? time = CustomDateTime().now;
 
   @override
   Widget build(BuildContext context) {
-    logger.w(item.toJson());
-    String fileName = "${item.path}";
-    String fileUrl = item.path?.toImageUrl() ?? '';
-    logger.w(fileUrl);
+    String fileName = path;
+    String fileUrl = path.toImageUrl();
     return CustomScaffold(
         isStackedAppBar: false,
         color: Palette.bg,
@@ -47,17 +45,18 @@ class _PdfViewState extends State<PdfView> {
           isText: false,
           title: "Resources",
           actions: [
-            InkWell(
-                onTap: () {
-                  downloadPDF(fileUrl, fileName);
-                },
-                child: Icon(
-                  Icons.download,
-                  color: Palette.dark,
-                ))
+            if (fileUrl.isNotEmpty)
+              InkWell(
+                  onTap: () {
+                    downloadPDF(fileUrl, fileName);
+                  },
+                  child: Icon(
+                    Icons.download,
+                    color: Palette.dark,
+                  ))
           ],
         ),
-        body: SfPdfViewer.network(fileUrl));
+        body: fileUrl.isEmpty ? SizedBox() : SfPdfViewer.network(fileUrl));
   }
 
   void downloadPDF(String url, String fileName) async {

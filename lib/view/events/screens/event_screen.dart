@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
@@ -7,6 +8,7 @@ import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/providers/course_provider.dart';
 import 'package:tn_edii/providers/training_provider.dart';
+import 'package:tn_edii/repositories/auth_repository.dart';
 import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/theme/theme_guide.dart';
 import 'package:tn_edii/view/training/widget/calender.dart';
@@ -39,7 +41,8 @@ class _EventScreenState extends State<EventScreen> {
               ListView.separated(
                   shrinkWrap: true,
                   itemBuilder: (_, index) => TrainingCard(
-                      route: Routes.onGoingCourseDetails,
+                      onTap: () => context.push(Routes.onGoingCourseDetails,
+                          extra: value.selectedMonthCourses[index]),
                       trainingDetails:
                           value.selectedMonthCourses[index].training),
                   separatorBuilder: (_, i) => HeightFull(),

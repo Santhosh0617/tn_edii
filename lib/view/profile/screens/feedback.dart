@@ -34,18 +34,12 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
     return CustomScaffold(
       color: Palette.pureWhite,
       appBar: const AppBarCommon(
-        automaticLeadingImplies: true,
-        title: "Feedback",
-        isText: false,
-      ),
+          automaticLeadingImplies: true, title: "Feedback", isText: false),
       body: Consumer<AuthProvider>(
         builder: (context, profile, child) => ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            const TextCustom(
-              "How did we do?",
-              fontWeight: FontWeight.normal,
-            ),
+            const TextCustom("How did we do?", fontWeight: FontWeight.normal),
             const HeightFull(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -73,22 +67,19 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
               multiplier: 2,
             ),
             FeedbackTextfield(
-              controller: feedbackController,
-              onChanged: (p0) => setState(() {
-                hasError = p0.isEmpty;
-              }),
-              hint: "Please write your honest review",
-            ),
+                controller: feedbackController,
+                onChanged: (p0) => setState(() {
+                      hasError = p0.isEmpty;
+                    }),
+                hint: "Please write your honest review"),
             CustomValidator('The review field is required', isShow: hasError),
             const HeightFull(),
             const HeightFull(multiplier: 2),
             Consumer<FeedbackProvider>(
-              builder: ( context,  value,  child) =>
-               ButtonPrimary(
-                onPressed: hitAPI,
-                label: "Submit",
-                isLoading: value.isLoading,
-              ),
+              builder: (context, value, child) => ButtonPrimary(
+                  onPressed: hitAPI,
+                  label: "Submit",
+                  isLoading: value.isLoading),
             )
           ],
         ),
@@ -110,6 +101,9 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
   //   showMessage("Review Submitted Successfully");
   // }
   void hitAPI() async {
+    hasError = feedbackController.text.isEmpty;
+    setState(() {});
+    if (hasError) return;
     Map<String, dynamic> params = {
       'rating': selectedIndex + 1,
       'description': feedbackController.text,

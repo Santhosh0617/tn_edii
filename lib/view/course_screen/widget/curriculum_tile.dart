@@ -8,18 +8,18 @@ import 'package:tn_edii/theme/palette.dart';
 class CurriculumListTile extends StatelessWidget {
   const CurriculumListTile({
     super.key,
-    required this.curriculum,
+    required this.video,
     required this.index,
     this.openVideo = false,
   });
-  final Curriculum curriculum;
+  final Video video;
   final int index;
   final bool openVideo;
   @override
   Widget build(BuildContext context) {
     return ListTile(
       onTap: openVideo
-          ? () => context.push(Routes.courseVedio, extra: curriculum.path ?? '')
+          ? () => context.push(Routes.courseVedio, extra: video.path ?? '')
           : null,
       contentPadding: EdgeInsets.zero,
       leading: Container(
@@ -37,20 +37,20 @@ class CurriculumListTile extends StatelessWidget {
         )),
       ),
       title: TextCustom(
-        curriculum.title ?? '',
+        video.title ?? '',
         // "Why Using Graphic De huoiefwugeufgeur ugfiurg iu",
         size: 16,
         fontWeight: FontWeight.w600,
         maxLines: 1,
       ),
       subtitle: TextCustom(
-        '${curriculum.minutes ?? '0'} Mins',
+        '${video.minutes ?? '0'} Mins',
         // "15 Mins",
         size: 12,
         fontWeight: FontWeight.w600,
         color: Palette.grey,
       ),
-      trailing: (curriculum.path ?? '').isEmpty
+      trailing: (video.path ?? '').isEmpty
           ? SizedBox()
           : Container(
               height: 25,
