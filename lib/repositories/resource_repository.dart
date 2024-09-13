@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/models/articles_model.dart';
-import 'package:tn_edii/models/resource_model.dart';
 import 'package:tn_edii/models/response.dart';
+import 'package:tn_edii/models/user.dart';
 import 'package:tn_edii/providers/providers.dart';
 import 'package:tn_edii/services/api/api_services.dart';
 import 'package:tn_edii/utilities/extensions/response_extension.dart';
@@ -29,7 +29,7 @@ class ResourceRepository {
     resourceProvider.isLoading = false;
     if (responseData.hasError) return false;
     List data = responseData.data['data'] ?? {};
-    List<Resourses> resourseData = Resourses().fromJsonList(data);
+    List<User> resourseData = User().fromJsonList(data);
     resourceProvider.resourseData = resourseData;
     return true;
   }
@@ -44,5 +44,4 @@ class ResourceRepository {
     resourceProvider.articleData = articleData;
     return true;
   }
-
 }

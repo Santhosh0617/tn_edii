@@ -21,10 +21,13 @@ class ResourceCardTile extends StatefulWidget {
 class _ResourceCardTileState extends State<ResourceCardTile> {
   @override
   Widget build(BuildContext context) {
-    logger.i(widget.data.toJson());
     return InkWell(
       onTap: () {
-        context.push(Routes.pdfView, extra: widget.data.path);
+        if (widget.data.path?.contains('http') ?? false) {
+          context.push(Routes.courseVedio, extra: widget.data.path ?? '');
+        } else {
+          context.push(Routes.pdfView, extra: widget.data.path);
+        }
       },
       child: Container(
         clipBehavior: Clip.hardEdge,
@@ -71,11 +74,14 @@ class _ResourceCardTileState extends State<ResourceCardTile> {
                         Icon(Icons.picture_as_pdf,
                             color: Palette.grey, size: 20),
                         WidthHalf(),
-                        TextCustom(
-                          widget.data.path ?? "-",
-                          size: 13,
-                          fontWeight: FontWeight.w500,
-                          color: Palette.grey,
+                        Expanded(
+                          child: TextCustom(
+                            widget.data.path ?? "-",
+                            size: 13,
+                            maxLines: 1,
+                            fontWeight: FontWeight.w500,
+                            color: Palette.grey,
+                          ),
                         ),
                       ],
                     )

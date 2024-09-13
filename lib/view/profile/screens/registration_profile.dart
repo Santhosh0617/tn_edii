@@ -18,7 +18,7 @@ import 'package:tn_edii/repositories/user_repository.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/extensions/form_extension.dart';
 import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
-import 'package:tn_edii/utilities/message.dart';
+import 'package:tn_edii/view/profile/screens/profile_card.dart';
 
 class RegistrationProfile extends StatefulWidget {
   const RegistrationProfile({super.key});
@@ -47,7 +47,6 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
       TextEditingController();
   // DateTime? date;
 
-  bool get isRegistration => (GoRouterState.of(context).extra ?? false) as bool;
   File? img;
   // datePick() async {
   //   FocusScope.of(context).unfocus();
@@ -246,19 +245,6 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
                             controller: emailController,
                             hint: 'Enter your email id'),
                       ),
-                      const WidthFull(),
-                      Expanded(
-                        child: TextFormFieldCustom(
-                            label: 'Date Of Birth',
-                            controller: dateController,
-                            onTap: () => datePick(),
-                            hint: 'Enter your date'),
-                      ),
-                    ],
-                  ),
-                  const HeightFull(),
-                  Row(
-                    children: [
                       // Expanded(
                       //   child: TextFormFieldCustom(
                       //       label: 'Age',
@@ -267,12 +253,32 @@ class _RegistrationProfileState extends State<RegistrationProfile> {
                       //       hint: 'Enter your Age'),
                       // ),
                       // const WidthFull(),
+                      // Expanded(
+                      //   child: TextFormFieldCustom(
+                      //       label: 'District',
+                      //       // keyboardType: TextInputType.number,
+                      //       controller: districtController,
+                      //       hint: 'Enter your district'),
+                      // ),
+                    ],
+                  ),
+                  const HeightFull(),
+                  Row(
+                    children: [
                       Expanded(
                         child: TextFormFieldCustom(
                             label: 'District',
                             // keyboardType: TextInputType.number,
                             controller: districtController,
                             hint: 'Enter your district'),
+                      ),
+                      const WidthFull(),
+                      Expanded(
+                        child: TextFormFieldCustom(
+                            label: 'Date Of Birth',
+                            controller: dateController,
+                            onTap: () => datePick(),
+                            hint: 'Enter your date'),
                       ),
                     ],
                   ),

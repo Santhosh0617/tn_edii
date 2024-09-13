@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -15,7 +14,6 @@ import 'package:tn_edii/utilities/custom_date_time.dart';
 import 'package:tn_edii/utilities/extensions/context_extention.dart';
 import 'package:tn_edii/utilities/extensions/date_time_extension.dart';
 import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
-import 'package:tn_edii/view/course_screen/widget/course_details_container.dart';
 
 class Calender extends StatefulWidget {
   const Calender({super.key});

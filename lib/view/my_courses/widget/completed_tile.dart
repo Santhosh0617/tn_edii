@@ -7,7 +7,6 @@ import 'package:tn_edii/common/widgets/custom_validator.dart';
 import 'package:tn_edii/common/widgets/network_image_cus.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/common/widgets/text_fields.dart';
-import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/models/my_course.dart';
@@ -33,7 +32,7 @@ class _CompletedTileState extends State<CompletedTile> {
     return Consumer<CourseProvider>(
       builder: (context, value, child) {
         List completedCourses =
-            value.myCourses.where((e) => e.isCourseCompleted != true).toList();
+            value.myCourses.where((e) => e.isCourseCompleted == true).toList();
         return Column(
           children: [
             Expanded(

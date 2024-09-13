@@ -4,7 +4,7 @@
 /// ```
 class LocalIcons {
   /// App Icon
-  static const String appIcon = 'assets/icons/app_icon.png';
+  static const String logo = 'assets/icons/logo.png';
 
   /// Notification Icons
   static const String notification = 'assets/icons/home_icons/notification.png';

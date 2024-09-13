@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
+import 'package:tn_edii/common/widgets/shimmer_list.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
@@ -47,21 +48,23 @@ class _ResourceDetailScreenState extends State<ResourceDetailScreen> {
       ),
       body: Consumer<ResourceProvider>(
         builder: (BuildContext context, value, child) {
-          return value.articleData.isEmpty
-              ? Center(
-                  child: TextCustom(
-                    "No ${resourceType.resource} available",
-                    color: Palette.dark,
-                  ),
-                )
-              : ListView.separated(
-                  padding: const EdgeInsets.all(SizeUnit.lg),
-                  itemBuilder: (context, index) {
-                    ArticlesModel articleData = value.articleData[index];
-                    return ResourceCardTile(data: articleData);
-                  },
-                  separatorBuilder: (context, index) => const HeightFull(),
-                  itemCount: value.articleData.length);
+          return value.isLoading
+              ? ShimmerList(height: 140)
+              : value.articleData.isEmpty
+                  ? Center(
+                      child: TextCustom(
+                        "No ${resourceType.resource} available",
+                        color: Palette.dark,
+                      ),
+                    )
+                  : ListView.separated(
+                      padding: const EdgeInsets.all(SizeUnit.lg),
+                      itemBuilder: (context, index) {
+                        ArticlesModel articleData = value.articleData[index];
+                        return ResourceCardTile(data: articleData);
+                      },
+                      separatorBuilder: (context, index) => const HeightFull(),
+                      itemCount: value.articleData.length);
         },
       ),
     );

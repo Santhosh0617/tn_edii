@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/models/training.dart';
-import 'package:tn_edii/providers/course_provider.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/extensions/context_extention.dart';
 import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
 import 'package:tn_edii/view/course_screen/widget/curriculum_list.dart';
-import 'package:tn_edii/view/course_screen/widget/curriculum_tile.dart';
-import 'package:tn_edii/view/profile/screens/my_courses/screen/ongoing_course_details.dart';
 
 class CourseDetailsContainer extends StatefulWidget {
   const CourseDetailsContainer({

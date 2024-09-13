@@ -8,7 +8,7 @@ import 'package:readmore/readmore.dart';
 class TextCustom extends StatelessWidget {
   final String value;
   final double? size;
-  final Color? color,decorationColor;
+  final Color? color, decorationColor;
   final FontWeight? fontWeight;
   final int? maxLines;
   final TextAlign? align;
@@ -25,7 +25,8 @@ class TextCustom extends StatelessWidget {
     this.align,
     this.decoration,
     this.height,
-    this.overflow, this.decorationColor,
+    this.overflow,
+    this.decorationColor,
   });
   @override
   Widget build(BuildContext context) {
@@ -111,12 +112,14 @@ class TextColumn extends StatelessWidget {
                 ? CrossAxisAlignment.start
                 : CrossAxisAlignment.center,
         children: [
-          TextCustom(head, size: 11, color: Palette.grey),
+          TextCustom(head,
+              size: 11,
+              color: Palette.grey,
+              maxLines: 1,
+              fontWeight: FontWeight.bold),
           const SizedBox(height: SizeUnit.sm / 4),
           TextCustom(value,
-              fontWeight: FontWeight.w500,
-              size: 15,
-              color: color ?? Palette.grey)
+              size: 15, maxLines: 2, color: color, fontWeight: FontWeight.bold)
         ]);
   }
 }

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tn_edii/constants/assets/local_images.dart';
 import 'package:tn_edii/models/articles_model.dart';
 import 'package:tn_edii/models/expense_type.dart';
-import 'package:tn_edii/models/resource_model.dart';
 import 'package:tn_edii/models/resource_type.dart';
+import 'package:tn_edii/models/user.dart';
 
 class ResourceProvider extends ChangeNotifier {
   bool _isLoading = false;
@@ -30,9 +30,9 @@ class ResourceProvider extends ChangeNotifier {
 
  
 
-  List<Resourses> _resourseData = [];
-  List<Resourses> get resourseData => _resourseData;
-  set resourseData(List<Resourses> data) {
+  List<User> _resourseData = [];
+  List<User> get resourseData => _resourseData;
+  set resourseData(List<User> data) {
     _resourseData = data;
     notifyListeners();
   }

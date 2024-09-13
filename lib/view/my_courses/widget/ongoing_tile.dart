@@ -3,8 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:tn_edii/common/widgets/network_image_cus.dart';
 import 'package:tn_edii/common/widgets/text.dart';
-import 'package:tn_edii/constants/app_strings.dart';
-import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/models/my_course.dart';
@@ -12,7 +10,6 @@ import 'package:tn_edii/providers/course_provider.dart';
 import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/extensions/context_extention.dart';
-import 'package:linear_progress_bar/linear_progress_bar.dart';
 import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
 
 class OngoingTile extends StatefulWidget {

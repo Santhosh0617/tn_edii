@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tn_edii/common/widgets/text.dart';
+import 'package:tn_edii/constants/assets/local_icons.dart';
+import 'package:tn_edii/constants/assets/local_images.dart';
 import 'package:tn_edii/constants/size_unit.dart';
+import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/providers/auth_provider.dart';
 import 'package:tn_edii/theme/palette.dart';
 
@@ -15,6 +18,11 @@ class AppBarMain extends StatelessWidget {
         padding: const EdgeInsets.all(SizeUnit.lg),
         child: Row(
           children: [
+            Image.asset(
+              LocalIcons.logo,
+              width: 50,
+            ),
+            const WidthFull(),
             Expanded(
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

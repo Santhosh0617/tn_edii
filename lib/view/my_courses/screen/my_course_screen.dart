@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
-import 'package:tn_edii/common/widgets/text_fields.dart';
 import 'package:tn_edii/constants/size_unit.dart';
-import 'package:tn_edii/constants/space.dart';
+import 'package:tn_edii/repositories/course_repository.dart';
 import 'package:tn_edii/theme/palette.dart';
-import 'package:tn_edii/view/profile/screens/my_courses/widget/completed_tile.dart';
-import 'package:tn_edii/view/profile/screens/my_courses/widget/ongoing_tile.dart';
-import 'package:tn_edii/view/profile/screens/my_courses/widget/tab_bar_tile_widget.dart';
+import 'package:tn_edii/view/my_courses/widget/completed_tile.dart';
+import 'package:tn_edii/view/my_courses/widget/ongoing_tile.dart';
+import 'package:tn_edii/view/my_courses/widget/tab_bar_tile_widget.dart';
 
 class MyCourseScreen extends StatefulWidget {
   const MyCourseScreen({super.key});
@@ -64,10 +63,14 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
                   },
                   itemCount: titles.length,
                   itemBuilder: (context, index) {
-                    return switch (selectedIndex) {
-                      0 => const CompletedTile(),
-                      _ => const OngoingTile(),
-                    };
+                    return RefreshIndicator(
+                      onRefresh: () async =>
+                          CourseRepository().getRegisteresCourses(context),
+                      child: switch (selectedIndex) {
+                        0 => const CompletedTile(),
+                        _ => const OngoingTile(),
+                      },
+                    );
                   }),
             )
           ],

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:tn_edii/models/training.dart';
 import 'package:tn_edii/models/response.dart';
 import 'package:tn_edii/providers/providers.dart';
+import 'package:tn_edii/repositories/course_repository.dart';
 import 'package:tn_edii/services/api/api_services.dart';
 import 'package:tn_edii/utilities/extensions/response_extension.dart';
-import 'package:tn_edii/utilities/message.dart';
 
 class TrainingRepository {
   String prefix = 'training';
@@ -39,6 +39,7 @@ class TrainingRepository {
         await _api.post(context, 'register-event/$id', body: params);
     trainingsProvider.isLoading = false;
     if (responseData.hasError) return false;
+    CourseRepository().getRegisteresCourses(context);
     // showMessage('Training was registered successfully');
     return true;
   }

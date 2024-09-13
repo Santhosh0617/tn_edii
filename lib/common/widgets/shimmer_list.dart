@@ -15,7 +15,7 @@ class ShimmerList extends StatelessWidget {
               SizeUnit.lg, SizeUnit.lg, SizeUnit.lg, SizeUnit.lg * 6),
           itemBuilder: (_, i) => LayoutBuilder(builder: (context, constraints) {
                 return Container(
-                    decoration: ThemeGuide.cardDecoration(), height: 100);
+                    decoration: ThemeGuide.cardDecoration(), height: height);
               }),
           separatorBuilder: (_, i) => const HeightFull(),
           itemCount: 10),

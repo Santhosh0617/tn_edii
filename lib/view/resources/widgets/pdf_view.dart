@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
 import 'package:tn_edii/constants/keys.dart';
-import 'package:tn_edii/models/articles_model.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/custom_date_time.dart';
 import 'package:tn_edii/utilities/extensions/string_extenstion.dart';

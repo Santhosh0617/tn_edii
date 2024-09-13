@@ -4,15 +4,17 @@ import 'package:provider/provider.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
 import 'package:tn_edii/common/widgets/network_image_cus.dart';
+import 'package:tn_edii/common/widgets/shimmer_list.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/constants/assets/local_images.dart';
 import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/models/expense_type.dart';
-import 'package:tn_edii/models/resource_model.dart';
+import 'package:tn_edii/models/user.dart';
 import 'package:tn_edii/providers/resource_provider.dart';
 import 'package:tn_edii/repositories/resource_repository.dart';
+import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/extensions/string_extenstion.dart';
 
@@ -65,85 +67,96 @@ class _MentorDetailScreenState extends State<MentorDetailScreen> {
               //           child: TextCustom("${expenseType.role} not available"),
               //         ),
               //       ):
-              ListView(
-                  padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
-                  shrinkWrap: true,
-                  children: [
-                ListView.separated(
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: value.resourseData.length,
-                  itemBuilder: (context, index) {
-                    // User user = users[index];
-                    Resourses resourseReport = value.resourseData[index];
-                    logger.w(resourseReport.toJson());
-                    return Container(
-                      height: 76,
-                      padding: const EdgeInsets.all(SizeUnit.md),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          color: Palette.pureWhite),
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                            maxRadius: 37,
-                            backgroundColor: Palette.accent,
-                            child: NetworkImageCustom(
-                                logo: resourseReport.profilePicture ?? '',
-                                placeholderImage:
-                                    LocalImages.profilePlaceholder),
+              value.isLoading
+                  ? ShimmerList(height: 70)
+                  : ListView(
+                      // padding: const EdgeInsets.symmetric(horizontal: SizeUnit.lg),
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      children: [
+                          ListView.separated(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: value.resourseData.length,
+                            itemBuilder: (context, index) {
+                              // User user = users[index];
+                              User resourseReport = value.resourseData[index];
+                              logger.w(resourseReport.toJson());
+                              return InkWell(
+                                onTap: () => context.push(Routes.mentorProfile,
+                                    extra: resourseReport),
+                                child: Container(
+                                  height: 76,
+                                  padding: const EdgeInsets.all(SizeUnit.md),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16),
+                                      color: Palette.pureWhite),
+                                  child: Row(
+                                    children: [
+                                      CircleAvatar(
+                                        maxRadius: 37,
+                                        backgroundColor: Palette.accent,
+                                        child: NetworkImageCustom(
+                                            logo:
+                                                resourseReport.profilePicture ??
+                                                    '',
+                                            placeholderImage:
+                                                LocalImages.profilePlaceholder),
+                                      ),
+                                      WidthHalf(),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          TextCustom(
+                                            resourseReport.name ?? '',
+                                            size: 16,
+                                            fontWeight: FontWeight.w800,
+                                          ),
+                                          TextCustom(
+                                            resourseReport.email ?? '',
+                                            size: 14,
+                                            fontWeight: FontWeight.w700,
+                                            color: Palette.grey,
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              );
+                              // ListTile(
+                              //   // tileColor: Palette.pureWhite,
+                              //   contentPadding: EdgeInsets.zero,
+                              //   leading: const CircleAvatar(
+                              //     maxRadius: 35,
+                              //     backgroundColor: Palette.accent,
+                              //     child: NetworkImageCustom(
+                              //         logo: '',
+                              //         placeholderImage: LocalImages.profilePlaceholder),
+                              //   ),
+                              //   title: TextCustom(
+                              //     resourseReport.name ?? '',
+                              //     size: 16,
+                              //     fontWeight: FontWeight.w800,
+                              //   ),
+                              //   subtitle: TextCustom(
+                              //     resourseReport.email ?? '',
+                              //     size: 14,
+                              //     fontWeight: FontWeight.w700,
+                              //     color: Palette.grey,
+                              //   ),
+                              // );
+                            },
+                            separatorBuilder: (context, index) {
+                              return const HeightFull();
+                            },
                           ),
-                          WidthHalf(),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextCustom(
-                                resourseReport.name ?? '',
-                                size: 16,
-                                fontWeight: FontWeight.w800,
-                              ),
-                              TextCustom(
-                                resourseReport.email ?? '',
-                                size: 14,
-                                fontWeight: FontWeight.w700,
-                                color: Palette.grey,
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    );
-                    // ListTile(
-                    //   // tileColor: Palette.pureWhite,
-                    //   contentPadding: EdgeInsets.zero,
-                    //   leading: const CircleAvatar(
-                    //     maxRadius: 35,
-                    //     backgroundColor: Palette.accent,
-                    //     child: NetworkImageCustom(
-                    //         logo: '',
-                    //         placeholderImage: LocalImages.profilePlaceholder),
-                    //   ),
-                    //   title: TextCustom(
-                    //     resourseReport.name ?? '',
-                    //     size: 16,
-                    //     fontWeight: FontWeight.w800,
-                    //   ),
-                    //   subtitle: TextCustom(
-                    //     resourseReport.email ?? '',
-                    //     size: 14,
-                    //     fontWeight: FontWeight.w700,
-                    //     color: Palette.grey,
-                    //   ),
-                    // );
-                  },
-                  separatorBuilder: (context, index) {
-                    return const HeightFull();
-                  },
-                ),
-                const HeightFull(),
-              ]);
+                          const HeightFull(),
+                        ]);
         },
       ),
     );

@@ -7,14 +7,11 @@ import 'package:tn_edii/common/widgets/custom_scaffold.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/providers/course_provider.dart';
-import 'package:tn_edii/providers/training_provider.dart';
-import 'package:tn_edii/repositories/auth_repository.dart';
 import 'package:tn_edii/services/route/routes.dart';
 import 'package:tn_edii/theme/theme_guide.dart';
 import 'package:tn_edii/view/training/widget/calender.dart';
 
 import 'package:tn_edii/view/training/widget/training_card.dart';
-import 'package:calendar_view/calendar_view.dart';
 
 class EventScreen extends StatefulWidget {
   const EventScreen({super.key});

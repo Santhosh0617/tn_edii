@@ -5,7 +5,7 @@ import 'package:tn_edii/common/widgets/custom_scaffold.dart';
 import 'package:tn_edii/common/widgets/text.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
-import 'package:tn_edii/models/training.dart';
+import 'package:tn_edii/models/user.dart';
 import 'package:tn_edii/theme/palette.dart';
 import 'package:tn_edii/utilities/extensions/context_extention.dart';
 import 'package:tn_edii/view/profile/widget/profile_circle_container.dart';
@@ -18,7 +18,7 @@ class MentorProfileScreen extends StatefulWidget {
 }
 
 class _MentorProfileScreenState extends State<MentorProfileScreen> {
-  Training get training => GoRouterState.of(context).extra as Training;
+  User get user => GoRouterState.of(context).extra as User;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +66,7 @@ class _MentorProfileScreenState extends State<MentorProfileScreen> {
                     const HeightFull(),
                     Center(
                       child: TextCustom(
-                        training.user?.name ?? "-",
+                        user.name ?? "-",
                         color: Palette.dark,
                         fontWeight: FontWeight.w700,
                         size: 16,
@@ -74,14 +74,14 @@ class _MentorProfileScreenState extends State<MentorProfileScreen> {
                     ),
                     const HeightHalf(),
                     Center(
-                      child: TextCustom(training.user?.email ?? "-",
+                      child: TextCustom(user.email ?? "-",
                           color: Palette.grey,
                           fontWeight: FontWeight.w400,
                           size: 12),
                     ),
                     const HeightHalf(),
                     Center(
-                      child: TextCustom(training.user?.phonenumber ?? "-",
+                      child: TextCustom(user.phonenumber ?? "-",
                           fontWeight: FontWeight.w400,
                           size: 12,
                           color: Palette.grey),
@@ -95,7 +95,9 @@ class _MentorProfileScreenState extends State<MentorProfileScreen> {
                     //   size: 16,
                     //   fontWeight: FontWeight.w800,
                     // )),
-                    Divider(color: Palette.grey.withOpacity(.2),),
+                    Divider(
+                      color: Palette.grey.withOpacity(.2),
+                    ),
 
                     const HeightFull(),
                     Row(
@@ -105,7 +107,7 @@ class _MentorProfileScreenState extends State<MentorProfileScreen> {
                           child: NameCard(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             title: "Role",
-                            subtitle: training.user?.role ?? "-",
+                            subtitle: user.role ?? "-",
                             titleSize: 16,
                             subtitleSize: 14,
                             titlecolor: Palette.dark,
@@ -116,7 +118,7 @@ class _MentorProfileScreenState extends State<MentorProfileScreen> {
                           child: NameCard(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             title: "Location",
-                            subtitle: training.user?.location ?? "-",
+                            subtitle: user.location ?? "-",
                             titleSize: 16,
                             subtitleSize: 14,
                             titlecolor: Palette.dark,
@@ -125,7 +127,9 @@ class _MentorProfileScreenState extends State<MentorProfileScreen> {
                         ),
                       ],
                     ),
-                    Divider(color: Palette.grey.withOpacity(.2),),
+                    Divider(
+                      color: Palette.grey.withOpacity(.2),
+                    ),
                     // const HeightFull(),
                     // const Center(
                     //     child: TextCustom(
@@ -141,7 +145,7 @@ class _MentorProfileScreenState extends State<MentorProfileScreen> {
                           child: NameCard(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             title: "Degree",
-                            subtitle: training.user?.qualification ?? "-",
+                            subtitle: user.qualification ?? "-",
                             titleSize: 16,
                             subtitleSize: 14,
                             titlecolor: Palette.dark,
@@ -152,7 +156,7 @@ class _MentorProfileScreenState extends State<MentorProfileScreen> {
                           child: NameCard(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             title: "University",
-                            subtitle: training.user?.nameOfUniversity ?? "-",
+                            subtitle: user.nameOfUniversity ?? "-",
                             titleSize: 16,
                             subtitleSize: 14,
                             titlecolor: Palette.dark,
@@ -163,7 +167,7 @@ class _MentorProfileScreenState extends State<MentorProfileScreen> {
                           child: NameCard(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             title: "Year",
-                            subtitle: training.user?.yearOfCompletion ?? "-",
+                            subtitle: user.yearOfCompletion ?? "-",
                             titleSize: 16,
                             subtitleSize: 14,
                             titlecolor: Palette.dark,
@@ -172,7 +176,9 @@ class _MentorProfileScreenState extends State<MentorProfileScreen> {
                         ),
                       ],
                     ),
-                    Divider(color: Palette.grey.withOpacity(.2),)
+                    Divider(
+                      color: Palette.grey.withOpacity(.2),
+                    )
                   ],
                 ),
               ),
@@ -185,8 +191,8 @@ class _MentorProfileScreenState extends State<MentorProfileScreen> {
       // Column(
       //   crossAxisAlignment: CrossAxisAlignment.start,
       //   children: [
-      //     TextCustom("Name: ${training.user?.name ?? '-'}"),
-      //     TextCustom("Role: ${training.user?.role ?? '-'}"),
+      //     TextCustom("Name: ${user.name ?? '-'}"),
+      //     TextCustom("Role: ${user.role ?? '-'}"),
       //     TextCustom("Fee: ${training.feeAmount.toString()}"),
       //   ],
       // ),
