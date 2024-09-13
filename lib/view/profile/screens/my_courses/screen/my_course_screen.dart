@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:tn_edii/common/widgets/app_bars/app_bar_common.dart';
 import 'package:tn_edii/common/widgets/custom_scaffold.dart';
 import 'package:tn_edii/common/widgets/text_fields.dart';
-import 'package:tn_edii/constants/assets/local_icons.dart';
 import 'package:tn_edii/constants/size_unit.dart';
 import 'package:tn_edii/constants/space.dart';
 import 'package:tn_edii/theme/palette.dart';
@@ -41,7 +40,7 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
         child: Column(
           children: [
             TextFormFieldCustom(controller: searchCont, hint: "Search",),
-            HeightFull(),
+            const HeightFull(),
             Row(
                 children: List.generate(
                     titles.length,
@@ -54,7 +53,7 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
                               isFirst: index == 0),
                         ))),
                         // HeightHalf(),
-                        SizedBox(height: SizeUnit.sm,),
+                        const SizedBox(height: SizeUnit.sm,),
             Expanded(
               child: PageView.builder(
                   controller: _pageController,

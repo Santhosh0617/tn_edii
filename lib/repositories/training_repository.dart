@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tn_edii/constants/keys.dart';
 import 'package:tn_edii/models/training.dart';
 import 'package:tn_edii/models/response.dart';
 import 'package:tn_edii/providers/providers.dart';
